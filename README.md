@@ -4,14 +4,14 @@
 
 按住－放下后 不会出现闪动
 
-AIP
-stopLoop();
-startLoop();
+API
+    stopLoop();
+    startLoop();
 
 
 
 ### 效果图  
-![Image of 示例](https://github.com/why168/CollapseView/blob/master/CollapseView/MUntitled.gif?raw=true)
+![Image of 示例](https://github.com/why168/LoopViewPager/blob/master/LoopViewPager/loop.gif?raw=true)
 
 
 
