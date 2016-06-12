@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:edwin="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.edwin.loopviewpager.MainActivity">
 
     <RelativeLayout
-        android:id="@+id/rootView"
+        android:id="@+id/rl_main_rootView"
         android:layout_width="match_parent"
         android:layout_height="150dp">
 
         <com.edwin.loopviewpager.lib.LoopViewPager
-            android:id="@+id/LoopViewPager"
+            android:id="@+id/edwin_LoopViewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            edwin:loop_duration="1000"
+            edwin:loop_ms="4000" />
 
         <LinearLayout
-            android:id="@+id/indicatorLayout"
+            android:id="@+id/ll_main_indicatorLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -28,13 +31,11 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:gravity="center"
-        android:onClick="button"
-        android:text="无限轮播,默认4秒一次\n持续更新..."
+        android:text="无限轮播,默认4秒一次\n持续更新...\n有意见请提出了\nedwin_wu05@126.com"
         android:textSize="15sp" />
 
 </FrameLayout>

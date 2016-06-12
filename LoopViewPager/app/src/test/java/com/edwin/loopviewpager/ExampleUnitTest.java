@@ -18,7 +18,7 @@ public class ExampleUnitTest {
         int getCurrentItem = 0;
         for (getCurrentItem = 0; getCurrentItem < 100; getCurrentItem++) {
             int i = (getCurrentItem + 1) % 4;
-            System.out.println("getCurrentItem = " + getCurrentItem + " i = " + i + "  0 % 4 =" + (0 % 4));
+            System.out.println("getCurrentItem = " + getCurrentItem + " i = " + i + "  50%4 =" + 50%4);
         }
 
     }

@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 主界面
+ *
  * @USER Edwin
  * @DATE 16/6/12 上午00:30
  */
@@ -40,18 +42,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initView();
         initData();
-
-
     }
 
     private void initView() {
-
-        mLoopViewPager = (LoopViewPager) findViewById(R.id.LoopViewPager);
-        indicatorLayout = (LinearLayout) findViewById(R.id.indicatorLayout);
-        rootView = (RelativeLayout) findViewById(R.id.rootView);
+        mLoopViewPager = (LoopViewPager) findViewById(R.id.edwin_LoopViewPager);
+        indicatorLayout = (LinearLayout) findViewById(R.id.ll_main_indicatorLayout);
+        rootView = (RelativeLayout) findViewById(R.id.rl_main_rootView);
 
     }
 
@@ -59,14 +57,12 @@ public class MainActivity extends AppCompatActivity {
         //TODO   small point
         final Drawable indicatorNormal = getResources().getDrawable(R.drawable.indicator_normal_background);
         final Drawable indicatorSelected = getResources().getDrawable(R.drawable.indicator_selected_background);
-        int size = 8;
+        int size = 15;//设置点的大小
         final TextView[] indicators = new TextView[ids.length];
         for (int i = 0; i < indicators.length; i++) {
-
             indicators[i] = new TextView(this);
             indicators[i].setGravity(Gravity.CENTER);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
-
             if (i != indicators.length - 1) {
                 params.setMargins(0, 0, size, 0);
             } else {
@@ -78,21 +74,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        //TODO
-        for (int i = 0; i < 4; i++) {
-            Bitmap bitmap = mLoopViewPager.decodeSampledBitmapFromResource(getResources(), ids[i], 300, 300);
-            ImageView imageView = new ImageView(this);
-            imageView.setImageBitmap(bitmap);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageViews.add(imageView);
-        }
-
-        myAdapter = new LoopPagerAdapterWrapper(imageViews);
-        mLoopViewPager.setAdapter(myAdapter);
-
-        mLoopViewPager.addOnPageChangeListener(pageChangeListener);
-
-        //TODO
+        //TODO 红点
         animIndicator = new TextView(this);
         animIndicator.setLayoutParams(new LinearLayout.LayoutParams(size, size));
         animIndicator.setBackgroundDrawable(indicatorSelected);
@@ -125,8 +107,21 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        mLoopViewPager.setCurrentItem(Integer.MAX_VALUE/2 - (Integer.MAX_VALUE /2)%imageViews .size());
-        //TODO 开始轮播
+
+        //TODO 循环插入4张图片
+        for (int i = 0; i < 4; i++) {
+            Bitmap bitmap = mLoopViewPager.decodeSampledBitmapFromResource(getResources(), ids[i], 300, 300);
+            ImageView imageView = new ImageView(this);
+            imageView.setImageBitmap(bitmap);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageViews.add(imageView);
+        }
+
+        myAdapter = new LoopPagerAdapterWrapper(imageViews);
+        mLoopViewPager.setAdapter(myAdapter);
+        mLoopViewPager.addOnPageChangeListener(pageChangeListener);
+        int index = Integer.MAX_VALUE / 2 - (Integer.MAX_VALUE / 2) % imageViews.size();
+        mLoopViewPager.setCurrentItem(index);
         mLoopViewPager.startLoop();
     }
 
@@ -144,11 +139,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                /**
-                 * @see ViewPager#SCROLL_STATE_IDLE     滚动状态前
-                 * @see ViewPager#SCROLL_STATE_DRAGGING 滚动状态中
-                 * @see ViewPager#SCROLL_STATE_SETTLING 滚动状态后
-                 */
                 @Override
                 public void onPageScrollStateChanged(int state) {
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LoopViewPager">
+        <attr name="loop_ms" format="integer" />
+        <attr name="loop_duration" format="integer" />
+    </declare-styleable>
+</resources>
