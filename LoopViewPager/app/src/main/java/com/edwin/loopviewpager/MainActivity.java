@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @USER Edwin
  * @DATE 16/6/12 上午00:30
  */
@@ -34,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout indicatorLayout;
     private TextView animIndicator;
     private RelativeLayout rootView;
-    private int totalDistance;//小黑点要移动的全部距离
-    private int startX;//小黑点开始位置
+    private int totalDistance;//小红点要移动的全部距离
+    private int startX;//小红点开始位置
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         //TODO
-        myAdapter = new LoopPagerAdapterWrapper(imageViews);
-        mLoopViewPager.setAdapter(myAdapter);
         for (int i = 0; i < 4; i++) {
             Bitmap bitmap = mLoopViewPager.decodeSampledBitmapFromResource(getResources(), ids[i], 300, 300);
             ImageView imageView = new ImageView(this);
@@ -128,11 +125,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
+        mLoopViewPager.setCurrentItem(Integer.MAX_VALUE/2 - (Integer.MAX_VALUE /2)%imageViews .size());
         //TODO 开始轮播
         mLoopViewPager.startLoop();
-
-
     }
 
     private ViewPager.OnPageChangeListener pageChangeListener =
@@ -140,8 +135,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     if (myAdapter.getCount() > 0) {
-                        float length = (position + positionOffset) / (myAdapter.getCount() - 1);
-                        //Log.e("Edwin", "totalDistance = " + totalDistance + " length = " + length);
+                        float length = ((position % 4) + positionOffset) / (imageViews.size() - 1);
+                        //TODO 防止最后一张图片小红点滑出去了.
+                        if (length >= 1)
+                            length = 1;
                         float path = length * totalDistance;
                         ViewCompat.setTranslationX(animIndicator, startX + path);
                     }

@@ -14,7 +14,7 @@ import android.view.View;
 import com.edwin.loopviewpager.L;
 
 /**
- * ViewPager
+ * ViewPager无限轮播
  *
  * @USER Edwin
  * @DATE 16/6/11 下午5:56
@@ -38,11 +38,6 @@ public class LoopViewPager extends ViewPager implements View.OnTouchListener {
     private void init(Context context) {
         this.context = context;
         setOnTouchListener(this);
-    }
-
-    @Override
-    public void addOnPageChangeListener(OnPageChangeListener listener) {
-        super.addOnPageChangeListener(listener);
     }
 
     /**
@@ -124,23 +119,24 @@ public class LoopViewPager extends ViewPager implements View.OnTouchListener {
         return false;
     }
 
-
     private Handler handler = new Handler() {
         @Override
         public void dispatchMessage(Message msg) {
             super.dispatchMessage(msg);
             if (msg.what == MESSAGE_LOOP) {
-                setCurrentItem((getCurrentItem() + 1) % 4);
-                sendEmptyMessageDelayed(MESSAGE_LOOP, 4000);
+                setCurrentItem(getCurrentItem() + 1);
+                sendEmptyMessageDelayed(MESSAGE_LOOP, 2000);
             }
         }
     };
 
     public void stopLoop() {
         handler.removeMessages(MESSAGE_LOOP);
+        L.e("stopLoop");
     }
 
     public void startLoop() {
-        handler.sendEmptyMessageDelayed(MESSAGE_LOOP, 4000);
+        handler.sendEmptyMessageDelayed(MESSAGE_LOOP, 2000);
+        L.e("startLoop");
     }
 }
