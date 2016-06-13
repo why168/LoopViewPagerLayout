@@ -1,4 +1,4 @@
-package com.edwin.loopviewpager;
+package com.edwin.loopviewpager.until;
 
 import android.util.Log;
 

@@ -13,8 +13,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
-import com.edwin.loopviewpager.L;
 import com.edwin.loopviewpager.R;
+import com.edwin.loopviewpager.lib.animation.DepthPageTransformer;
+import com.edwin.loopviewpager.lib.animation.ZoomOutPageTransformer;
+import com.edwin.loopviewpager.until.L;
 
 import java.lang.reflect.Field;
 
@@ -27,7 +29,7 @@ import java.lang.reflect.Field;
 public class LoopViewPager extends ViewPager implements View.OnTouchListener {
     private static final int MESSAGE_LOOP = 5;
     private Context context;
-    private int loop_ms = 4000;//轮播的时间(毫秒)
+    private static int loop_ms = 4000;//轮播的时间(毫秒)
 
     public int getLoop_ms() {
         //太快也受不了,慢慢来
@@ -52,6 +54,7 @@ public class LoopViewPager extends ViewPager implements View.OnTouchListener {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.LoopViewPager);
         int loop_ms = typedArray.getInteger(R.styleable.LoopViewPager_loop_ms, 4000);
         int loop_duration = typedArray.getInteger(R.styleable.LoopViewPager_loop_duration, 2000);
+        int loop_style = typedArray.getInteger(R.styleable.LoopViewPager_loop_style, -1);
         setLoop_ms(loop_ms);
 
         //TODO 防止花屏
@@ -68,10 +71,17 @@ public class LoopViewPager extends ViewPager implements View.OnTouchListener {
             //可以用setDuration的方式调整速率
             mScroller.setmDuration(loop_duration);
             mField.set(this, mScroller);
-            typedArray.recycle();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        // TODO 设置样式
+        if (loop_style == 1) {
+            setPageTransformer(true, new DepthPageTransformer());
+        } else if (loop_style == 2) {
+            setPageTransformer(true, new ZoomOutPageTransformer());
+        }
+        typedArray.recycle();
     }
 
     @Override

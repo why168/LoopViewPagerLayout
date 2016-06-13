@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.edwin.loopviewpager.lib.LoopPagerAdapterWrapper;
 import com.edwin.loopviewpager.lib.LoopViewPager;
+import com.edwin.loopviewpager.until.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         //TODO   small point
         final Drawable indicatorNormal = getResources().getDrawable(R.drawable.indicator_normal_background);
         final Drawable indicatorSelected = getResources().getDrawable(R.drawable.indicator_selected_background);
-        int size = 15;//设置点的大小
+        int size = Tools.dip2px(this,6);//设置点的大小
         final TextView[] indicators = new TextView[ids.length];
         for (int i = 0; i < indicators.length; i++) {
             indicators[i] = new TextView(this);

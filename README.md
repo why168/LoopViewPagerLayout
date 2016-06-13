@@ -6,10 +6,11 @@
 
 ## API
 
-* stopLoop() 开始轮播;
-* startLoop() 停止轮播,务必在onDestory中调用;
+* startLoop() 开始轮播
+* stopLoop() 停止轮播,务必在onDestory中调用
 * loop_ms 轮播的速度(毫秒)
 * loop_duration 滑动的速率(毫秒)
+* loop_style 轮播的样式(枚举值: 默认empty 深度depth 缩小zoom)
 
 
 
@@ -21,6 +22,11 @@
     <declare-styleable name="LoopViewPager">
         <attr name="loop_ms" format="integer" />
         <attr name="loop_duration" format="integer" />
+        <attr name="loop_style" format="enum">
+            <enum name="empty" value="-1"/>
+            <enum name="depth" value="1"/>
+            <enum name="zoom" value="2"/>
+        </attr>
     </declare-styleable>
 </resources>
 ```
@@ -36,7 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             edwin:loop_duration="1000"
-            edwin:loop_ms="4000" />
+            edwin:loop_ms="4000" 
+            edwin:loop_style="zoom"/>
 
         <LinearLayout
             android:id="@+id/ll_main_indicatorLayout"
@@ -53,7 +60,7 @@
 
 
 ### 效果图  
-![Image of 示例](https://github.com/why168/LoopViewPager/blob/master/LoopViewPager/loop2.gif?raw=true)
+![Image of 示例](https://github.com/why168/LoopViewPager/blob/master/LoopViewPager/loop3.gif?raw=true)
 
 
 

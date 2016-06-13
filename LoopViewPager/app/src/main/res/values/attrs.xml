@@ -3,5 +3,10 @@
     <declare-styleable name="LoopViewPager">
         <attr name="loop_ms" format="integer" />
         <attr name="loop_duration" format="integer" />
+        <attr name="loop_style" format="enum">
+            <enum name="empty" value="-1"/>
+            <enum name="depth" value="1"/>
+            <enum name="zoom" value="2"/>
+        </attr>
     </declare-styleable>
 </resources>
