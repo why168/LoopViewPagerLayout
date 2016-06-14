@@ -36,9 +36,9 @@
 </resources>
 ```
 
+## 2.0版本布局 view_loop_viewpager
 
-
-```xml 2.0版本布局 view_loop_viewpager
+```xml 
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:edwin="http://schemas.android.com/apk/res-auto">
@@ -63,17 +63,18 @@
 
 </merge>
 ```
+## 2.0版本布局 直接使用
 
-```xml 2.0版本布局 直接使用
+```xml 
     <com.edwin.loopviewpager.lib.LoopViewPagerLayout
         android:id="@+id/ll_LoopViewPager2"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 ```
 
+## 1.0版本布局
 
-
-```xml 1.0版本布局
+```xml 
 <RelativeLayout
         android:id="@+id/rl_main_rootView"
         android:layout_width="match_parent"
@@ -101,11 +102,11 @@
 ```
 
 ### 效果图  depth(深度动画)
-![Image of 示例](https://github.com/why168/LoopViewPager/blob/master/LoopViewPager/gif2_depth?raw=true)
+![Image of 示例](https://github.com/why168/LoopViewPager/blob/master/LoopViewPager/gif2_depth.gif?raw=true)
 ### 效果图  empty(默认动画)
-![Image of 示例](https://github.com/why168/LoopViewPager/blob/master/LoopViewPager/gif2_empty?raw=true)
+![Image of 示例](https://github.com/why168/LoopViewPager/blob/master/LoopViewPager/gif2_empty.gif?raw=true)
 ### 效果图  zoom(缩小动画)
-![Image of 示例](https://github.com/why168/LoopViewPager/blob/master/LoopViewPager/gif2_zoom?raw=true)
+![Image of 示例](https://github.com/why168/LoopViewPager/blob/master/LoopViewPager/gif2_zoom.gif?raw=true)
 
 
 
