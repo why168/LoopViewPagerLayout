@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         //TODO   small point
         final Drawable indicatorNormal = getResources().getDrawable(R.drawable.indicator_normal_background);
         final Drawable indicatorSelected = getResources().getDrawable(R.drawable.indicator_selected_background);
-        int size = Tools.dip2px(this,6);//设置点的大小
+        int size = Tools.dip2px(this, 6);//设置点的大小
         final TextView[] indicators = new TextView[ids.length];
         for (int i = 0; i < indicators.length; i++) {
             indicators[i] = new TextView(this);
@@ -121,8 +121,10 @@ public class MainActivity extends AppCompatActivity {
         myAdapter = new LoopPagerAdapterWrapper(imageViews);
         mLoopViewPager.setAdapter(myAdapter);
         mLoopViewPager.addOnPageChangeListener(pageChangeListener);
-        int index = Integer.MAX_VALUE / 2 - (Integer.MAX_VALUE / 2) % imageViews.size();
-        mLoopViewPager.setCurrentItem(index);
+
+        //TODO 这个这个值有bug
+        //int index = Integer.MAX_VALUE / 2 - (Integer.MAX_VALUE / 2) % imageViews.size();
+        mLoopViewPager.setCurrentItem(10000 * imageViews.size());
         mLoopViewPager.startLoop();
     }
 
@@ -137,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
                             length = 1;
                         float path = length * totalDistance;
                         ViewCompat.setTranslationX(animIndicator, startX + path);
+
+
                     }
                 }
 
@@ -150,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             };
-
 
     @Override
     protected void onDestroy() {

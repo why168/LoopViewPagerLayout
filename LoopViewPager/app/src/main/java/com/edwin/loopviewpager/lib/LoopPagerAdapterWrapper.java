@@ -39,7 +39,7 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        ImageView child = imageViews.get(position % 4);
+        ImageView child = imageViews.get(position % imageViews.size());
         container.addView(child);
         return child;
     }

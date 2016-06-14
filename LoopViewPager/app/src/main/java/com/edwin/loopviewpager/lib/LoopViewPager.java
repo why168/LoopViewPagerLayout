@@ -88,23 +88,20 @@ public class LoopViewPager extends ViewPager implements View.OnTouchListener {
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                L.e("Edwin", "按下");
                 stopLoop();
                 break;
             case MotionEvent.ACTION_MOVE:
-                L.e("Edwin", "移动");
                 stopLoop();
                 break;
             case MotionEvent.ACTION_UP:
-                L.e("Edwin", "抬起");
                 startLoop();
                 break;
             default:
                 break;
         }
-
         return false;
     }
+
 
     private Handler handler = new Handler() {
         @Override
@@ -112,6 +109,7 @@ public class LoopViewPager extends ViewPager implements View.OnTouchListener {
             super.dispatchMessage(msg);
             if (msg.what == MESSAGE_LOOP) {
                 setCurrentItem(getCurrentItem() + 1);
+                removeCallbacksAndMessages(MESSAGE_LOOP);
                 sendEmptyMessageDelayed(MESSAGE_LOOP, getLoop_ms());
             }
         }
@@ -123,7 +121,7 @@ public class LoopViewPager extends ViewPager implements View.OnTouchListener {
      */
     public void startLoop() {
         handler.sendEmptyMessageDelayed(MESSAGE_LOOP, getLoop_ms());
-        L.e("startLoop");
+        L.e("开始循环 startLoop");
     }
 
     /**
@@ -132,7 +130,7 @@ public class LoopViewPager extends ViewPager implements View.OnTouchListener {
      */
     public void stopLoop() {
         handler.removeMessages(MESSAGE_LOOP);
-        L.e("stopLoop");
+        L.e("停止循环 stopLoop");
     }
 
 
