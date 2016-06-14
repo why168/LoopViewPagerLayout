@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:edwin="http://schemas.android.com/apk/res-auto">
+
+    <com.edwin.loopviewpager.lib.view.LoopViewPager
+        android:id="@+id/edwin_LoopViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        edwin:loop_duration="1000"
+        edwin:loop_ms="4000"
+        edwin:loop_style="zoom" />
+
+    <LinearLayout
+        android:id="@+id/ll_main_indicatorLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:orientation="horizontal" />
+
+</merge>

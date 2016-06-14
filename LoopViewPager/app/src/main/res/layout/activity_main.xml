@@ -1,43 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:edwin="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.edwin.loopviewpager.MainActivity">
 
-    <RelativeLayout
-        android:id="@+id/rl_main_rootView"
+    <com.edwin.loopviewpager.lib.LoopViewPagerLayout
+        android:id="@+id/view_main_loopViewPager1"
         android:layout_width="match_parent"
-        android:layout_height="180dp">
-
-        <com.edwin.loopviewpager.lib.LoopViewPager
-            android:id="@+id/edwin_LoopViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            edwin:loop_duration="1000"
-            edwin:loop_ms="4000"
-            edwin:loop_style="depth" />
-
-        <LinearLayout
-            android:id="@+id/ll_main_indicatorLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:orientation="horizontal" />
-
-    </RelativeLayout>
+        android:layout_weight="1"
+        android:layout_height="0dp" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:textColor="#4b4b4b"
+        android:layout_weight="1"
+        android:layout_height="0dp"
         android:gravity="center"
         android:text="@string/describe"
+        android:textColor="#4b4b4b"
         android:textSize="18sp" />
 
-</FrameLayout>
+    <com.edwin.loopviewpager.lib.LoopViewPagerLayout
+        android:id="@+id/view_main_loopViewPager2"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"/>
+
+</LinearLayout>
