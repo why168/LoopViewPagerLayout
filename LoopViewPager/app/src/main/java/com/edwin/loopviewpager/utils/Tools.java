@@ -43,8 +43,8 @@ public class Tools {
      * @param reqHeight 0表示获取ViewPager的高
      * @return
      */
-    public Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
-                                                  int reqWidth, int reqHeight) {
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                         int reqWidth, int reqHeight) {
         // 第一次解码inJustDecodeBounds = true检查尺寸
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
@@ -69,7 +69,7 @@ public class Tools {
      * @param reqHeight
      * @return 压缩比例
      */
-    public int calculateInSampleSize(
+    public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // 原始图像的高度和宽度
         final int height = options.outHeight;

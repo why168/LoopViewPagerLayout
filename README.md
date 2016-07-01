@@ -119,6 +119,9 @@
 1.增加LoopViewPager布局，把LoopViewPager和LinearLayout一起结合起来了，方便直接地通过view_loop_viewpager修改一些参数，低耦合高类聚的原则；
 2.修复bug 滑倒第二图再次按住滑动，松开手之后会连续滑动2张图。
 
+* 2016/7/1 2.1版本更新！
+1.因初始化多次,清空图片和小红点。感谢solochen提出的问题。(已经修复)
+
 * 玩命加载中...
 
 

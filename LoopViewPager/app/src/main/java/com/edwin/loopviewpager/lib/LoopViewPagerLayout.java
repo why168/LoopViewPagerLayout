@@ -59,7 +59,11 @@ public class LoopViewPagerLayout extends RelativeLayout implements ViewPager.OnP
     public void setLoopData(ArrayList<BannerInfo> bannerInfos, OnBannerItemClickListener onBannerItemClickListener) {
         this.bannerInfos = bannerInfos;
         this.onBannerItemClickListener = onBannerItemClickListener;
-
+        //TODO 初始化多次,清空图片和小红点
+        if (indicatorLayout.getChildCount() > 0) {
+            indicatorLayout.removeAllViews();
+            removeView(animIndicator);
+        }
         indicators = new TextView[bannerInfos.size()];
         for (int i = 0; i < indicators.length; i++) {
             indicators[i] = new TextView(getContext());

@@ -1,7 +1,10 @@
 package com.edwin.loopviewpager;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
+import android.view.View;
 import android.widget.Toast;
 
 import com.edwin.loopviewpager.lib.LoopViewPagerLayout;
@@ -28,6 +31,16 @@ public class MainActivity extends AppCompatActivity implements LoopViewPagerLayo
 
     }
 
+    @Override
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+        return super.onCreateView(parent, name, context, attrs);
+    }
+
+    @Override
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
+        return super.onCreateView(name, context, attrs);
+    }
+
     private void initView() {
         mLoopViewPager1 = (LoopViewPagerLayout) findViewById(R.id.view_main_loopViewPager1);
         mLoopViewPager2 = (LoopViewPagerLayout) findViewById(R.id.view_main_loopViewPager2);
@@ -42,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements LoopViewPagerLayo
         mLoopViewPager1.setLoopData(bannerInfos, this);
         mLoopViewPager2.setLoopData(bannerInfos, this);
     }
-
 
     @Override
     protected void onStart() {

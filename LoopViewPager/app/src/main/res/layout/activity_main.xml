@@ -9,14 +9,16 @@
     <com.edwin.loopviewpager.lib.LoopViewPagerLayout
         android:id="@+id/view_main_loopViewPager1"
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <TextView
+        android:id="@+id/tv_main_info"
         android:layout_width="match_parent"
-        android:layout_weight="1"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center"
+        android:onClick="mainInfo"
         android:text="@string/describe"
         android:textColor="#4b4b4b"
         android:textSize="18sp" />
@@ -24,7 +26,7 @@
     <com.edwin.loopviewpager.lib.LoopViewPagerLayout
         android:id="@+id/view_main_loopViewPager2"
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
 </LinearLayout>
