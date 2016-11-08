@@ -42,6 +42,7 @@ public class LoopViewPagerFragment extends BaseFragment implements LoopViewPager
 
     @Override
     protected void initData() {
+        //TODO 初始化View
         mLoopViewPagerLayout.initializeView();
         //TODO 设置LoopViewPager参数
         mLoopViewPagerLayout.setLoop_ms(2000);//轮播的速度(毫秒)

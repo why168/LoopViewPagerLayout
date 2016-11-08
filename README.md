@@ -1,112 +1,83 @@
-# LoopViewPager
+## LoopViewPager
 
-无限轮播。。。持续更新
+LoopViewPager无限轮播：
+1.支持三种动画；
+2.支持修改轮播的速度；
+3.支持修改滑动速率；
+4.小红点动态移动；
+5.防闪屏花屏。
 
 
-按住－放下后 不会出现闪动
-
-## API
-
-* startLoop() 开始轮播
-* stopLoop() 停止轮播,务必在onDestory中调用
-* loop_ms 轮播的速度(毫秒)
-* loop_duration 滑动的速率(毫秒)
-* loop_style 轮播的样式(枚举值: 默认empty 深度depth 缩小zoom)
-
-2.0新增加AIP
-* setLoopData(ArrayList<BannerInfo> bannerInfos, OnBannerItemClickListener onBannerItemClickListener) 可点击每张图片回调BannerInfo参数，图片通过BannerInfo中的resId参数传入 如：点击banner跳转网页url等...
+### 效果图 
+![Image of 示例](https://raw.githubusercontent.com/why168/LoopViewPager/master/LoopViewPager/art/sample.gif)
 
 
 
+Gradle
+------------
+Step 1. Add the JitPack repository to your build file
 
-## 定义自定义属性
+```groovy
+dependencies {
+    allprojects {
+		repositories {
+			maven { url "https://jitpack.io" }
+		}
+	}
+}
+```
+Step 2. Add the dependency
 
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <declare-styleable name="LoopViewPager">
-        <attr name="loop_ms" format="integer" />
-        <attr name="loop_duration" format="integer" />
-        <attr name="loop_style" format="enum">
-            <enum name="empty" value="-1"/>
-            <enum name="depth" value="1"/>
-            <enum name="zoom" value="2"/>
-        </attr>
-    </declare-styleable>
-</resources>
+```groovy
+dependencies {
+    compile 'compile 'com.github.why168:LoopViewPager:1.0.0'
+}
 ```
 
-## 2.0版本布局 view_loop_viewpager
+## API调用顺序
+
+* initializeView()：初始化View
+* setLoop_ms：轮播的速度(毫秒)
+* setLoop_duration：滑动的速率(毫秒)
+* setLoop_style：轮播的样式(枚举值: -1默认empty，1深度1depth，2缩小zoom)
+* initializeData(Content)：初始化数据
+* setLoopData(ArrayList<BannerInfo>, OnBannerItemClickListener)：数据，回调监听
+* startLoop()：开始轮播
+* stopLoop()：停止轮播,务必在onDestory中调用
+
+
+
+## 布局 LoopViewPagerLayout
 
 ```xml 
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:edwin="http://schemas.android.com/apk/res-auto">
+<com.github.why168.LoopViewPagerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mLoopViewPagerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="200dp" />
 
-    <com.edwin.loopviewpager.lib.view.LoopViewPager
-        android:id="@+id/edwin_LoopViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        edwin:loop_duration="1000"
-        edwin:loop_ms="4000"
-        edwin:loop_style="depth" />
-
-    <LinearLayout
-        android:id="@+id/ll_main_indicatorLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:orientation="horizontal" />
-
-</merge>
-```
-## 2.0版本布局 直接使用
-
-```xml 
-    <com.edwin.loopviewpager.lib.LoopViewPagerLayout
-        android:id="@+id/ll_LoopViewPager2"
-        android:layout_width="match_parent"
-        android:layout_height="200dp" />
 ```
 
-## 1.0版本布局
 
-```xml 
-<RelativeLayout
-        android:id="@+id/rl_main_rootView"
-        android:layout_width="match_parent"
-        android:layout_height="150dp">
 
-        <com.edwin.loopviewpager.lib.LoopViewPager
-            android:id="@+id/edwin_LoopViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            edwin:loop_duration="1000"
-            edwin:loop_ms="4000" 
-            edwin:loop_style="zoom"/>
+## 更优雅地使用
+```java 
+ private LoopViewPagerLayout mLoopViewPagerLayout;
+ mLoopViewPagerLayout = (LoopViewPagerLayout)findViewById(R.id.mLoopViewPagerLayout);
+ mLoopViewPagerLayout.initializeView();//初始化View
+ mLoopViewPagerLayout.setLoop_ms(2000);//轮播的速度(毫秒)
+ mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
+ mLoopViewPagerLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty
+ mLoopViewPagerLayout.initializeData(mActivity);//初始化数据
+ ArrayList<LoopViewPagerLayout.BannerInfo> data = new ArrayList<>(4);
+ data.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.a, "第一张图片"));
+ data.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.c, "第二张图片"));
+ data.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.d, "第三张图片"));
+ data.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.b, "第四张图片"));
+ mLoopViewPagerLayout.setLoopData(data, this);
 
-        <LinearLayout
-            android:id="@+id/ll_main_indicatorLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:orientation="horizontal" />
-
-    </RelativeLayout>
 ```
-
-### 效果图  depth(深度动画)
-![Image of 示例](https://github.com/why168/LoopViewPager/blob/master/LoopViewPager/gif2_depth.gif?raw=true)
-### 效果图  empty(默认动画)
-![Image of 示例](https://github.com/why168/LoopViewPager/blob/master/LoopViewPager/gif2_empty.gif?raw=true)
-### 效果图  zoom(缩小动画)
-![Image of 示例](https://github.com/why168/LoopViewPager/blob/master/LoopViewPager/gif2_zoom.gif?raw=true)
 
 
 
@@ -116,13 +87,14 @@
 1.省略
 
 * 2016/6/15 2.0版本再次进行封装,大更新！
-1.增加LoopViewPager布局，把LoopViewPager和LinearLayout一起结合起来了，方便直接地通过view_loop_viewpager修改一些参数，低耦合高类聚的原则；
-2.修复bug 滑倒第二图再次按住滑动，松开手之后会连续滑动2张图。
+	* 1.增加LoopViewPager布局，把LoopViewPager和LinearLayout一起结合起来了，方便直接地通过view_loop_viewpager修改一些参数，低耦合高类聚的原则；
+	* 2.修复bug 滑倒第二图再次按住滑动，松开手之后会连续滑动2张图。
 
 * 2016/7/1 2.1版本更新！
-1.因初始化多次,清空图片和小红点。感谢solochen提出的问题。(已经修复)
+	* 1.因初始化多次,清空图片和小红点。感谢solochen提出的问题。(已经修复)
 
-* 玩命加载中...
+* 2016/11/8 00:25重构项目，1.0正式被发布，支持Gradle！
+	* 使用更方便
 
 
 
