@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LoopViewPager</string>
+    <string name="app_name">LoopViewPagerLayout</string>
     <string name="describe">
             edwin:loop_style=\"empty\"\nVersion 2.0 upgrade!!!\nInfinite shuffling, default 4 seconds at a time\nContinuously updated...\nPlease give us your precious opinions!\nedwin_wu05@126.com
     </string>
