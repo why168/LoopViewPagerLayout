@@ -1,11 +1,10 @@
-## LoopViewPager
+## LoopViewPager无限轮播
 
-LoopViewPager无限轮播：
-1.支持三种动画；
-2.支持修改轮播的速度；
-3.支持修改滑动速率；
-4.小红点动态移动；
-5.防闪屏花屏。
+* 支持三种动画；
+* 支持修改轮播的速度；
+* 支持修改滑动速率；
+* 小红点动态移动；
+* 防闪屏花屏。
 
 
 ### 效果图 
@@ -63,7 +62,6 @@ dependencies {
 
 ## 更优雅地使用
 ```java 
- private LoopViewPagerLayout mLoopViewPagerLayout;
  mLoopViewPagerLayout = (LoopViewPagerLayout)findViewById(R.id.mLoopViewPagerLayout);
  mLoopViewPagerLayout.initializeView();//初始化View
  mLoopViewPagerLayout.setLoop_ms(2000);//轮播的速度(毫秒)
