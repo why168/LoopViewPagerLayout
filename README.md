@@ -29,7 +29,7 @@ Step 2. Add the dependency
 
 ```groovy
 dependencies {
-    compile 'compile 'com.github.why168:LoopViewPager:1.0.0'
+    compile 'com.github.why168:LoopViewPagerLayout:1.0.5'
 }
 ```
 
@@ -93,6 +93,8 @@ dependencies {
 
 * 2016/11/8 00:25重构项目，1.0正式被发布，支持Gradle！
 	* 使用更方便
+	
+* 2016/11/8 11:12 更改名字 LoopViewPagerLayout
 
 
 
