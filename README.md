@@ -1,4 +1,4 @@
-## LoopViewPager无限轮播
+## LoopViewPagerLayout无限轮播
 
 * 支持三种动画；
 * 支持修改轮播的速度；

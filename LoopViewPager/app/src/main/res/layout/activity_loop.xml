@@ -6,7 +6,6 @@
     android:orientation="vertical"
     tools:context="com.edwin.loopviewpager.activity.LoopActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,4 +64,5 @@
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
         android:textStyle="bold" />
+
 </LinearLayout>
