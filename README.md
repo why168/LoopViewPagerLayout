@@ -1,5 +1,7 @@
 ## LoopViewPagerLayout无限轮播
 
+[![](https://jitpack.io/v/why168/LoopViewPagerLayout.svg)](https://jitpack.io/#why168/LoopViewPagerLayout)
+
 * 支持三种动画；
 * 支持修改轮播的速度；
 * 支持修改滑动速率；
@@ -29,7 +31,7 @@ Step 2. Add the dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.why168:LoopViewPagerLayout:1.0.5'
+    compile 'com.github.why168:LoopViewPagerLayout:1.0.6'
 }
 ```
 
@@ -94,9 +96,9 @@ dependencies {
 * 2016/11/8 00:25重构项目，1.0正式被发布，支持Gradle！
 	* 使用更方便
 	
-* 2016/11/8 11:12 更改名字 LoopViewPagerLayout
+* 2016/11/8 11:12 更改名字 LoopViewPagerLayout,1.0.5正式被发布
 
-* 2016/11/28 19:20 修复LoopViewPagerLayout的(layout_height)高度自适应，小红点显示错误bug.
+* 2016/11/28 19:20 修复LoopViewPagerLayout的(layout_height)高度自适应，小红点显示错误bug,1.0.6正式被发布
 
 
 #### 技术交流大本营
