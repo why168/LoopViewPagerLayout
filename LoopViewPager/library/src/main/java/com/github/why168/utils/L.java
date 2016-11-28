@@ -3,13 +3,18 @@ package com.github.why168.utils;
 import android.util.Log;
 
 /**
- * Print Log
- *
  * @USER Edwin
- * @DATE 16/6/12 上午1:02
+ * @DATE 1
+ */
+
+/**
+ * Print Log
+ * @author Edwin.Wu
+ * @version 2016/6/12 上午1:02
+ * @since JDK1.8
  */
 public class L {
-    private static final boolean mDug = false;
+    private static final boolean mDug = true;
     private static final String TAG = "Edwin";
 
     public static void e(String msg) {

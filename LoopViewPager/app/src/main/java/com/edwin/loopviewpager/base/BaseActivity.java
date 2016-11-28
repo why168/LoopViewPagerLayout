@@ -5,8 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * @USER Edwin
- * @DATE 2016/11/7 17:16
+ * @author Edwin.Wu
+ * @version 2016/11/7 17:16
+ * @since JDK1.8
  */
 public abstract class BaseActivity extends AppCompatActivity {
     protected Context mContext;

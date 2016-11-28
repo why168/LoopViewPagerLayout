@@ -30,14 +30,14 @@ import com.github.why168.utils.Tools;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-
 /**
  * LoopViewPagerLayout
  *
- * @USER Edwin
- * @DATE 16/6/14 下午11:58
+ * @author Edwin.Wu
+ * @version 2016/11/14 23:58
+ * @since JDK1.8
  */
-public class LoopViewPagerLayout extends RelativeLayout implements ViewPager.OnPageChangeListener, View.OnTouchListener {
+public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchListener {
     private ViewPager loopViewPager;
     private LinearLayout indicatorLayout;
     private OnBannerItemClickListener onBannerItemClickListener = null;
@@ -82,7 +82,6 @@ public class LoopViewPagerLayout extends RelativeLayout implements ViewPager.OnP
 
     public void setLoopData(ArrayList<BannerInfo> bannerInfos, OnBannerItemClickListener onBannerItemClickListener) {
         L.e("LoopViewPager 1---> setLoopData");
-
         this.bannerInfos = bannerInfos;
         this.onBannerItemClickListener = onBannerItemClickListener;
         //TODO Initialize multiple times, clear images and little red dot
@@ -90,6 +89,22 @@ public class LoopViewPagerLayout extends RelativeLayout implements ViewPager.OnP
             indicatorLayout.removeAllViews();
             removeView(animIndicator);
         }
+
+        InitIndicator();
+
+        InitLittleRed();
+
+        indicatorLayout.getViewTreeObserver().addOnPreDrawListener(new MyOnPreDrawListener());
+
+        loopPagerAdapterWrapper = new LoopPagerAdapterWrapper();
+        loopViewPager.setAdapter(loopPagerAdapterWrapper);
+        loopViewPager.addOnPageChangeListener(new MyPageChangeListener());
+
+        int index = Short.MAX_VALUE / 2 - (Short.MAX_VALUE / 2) % bannerInfos.size();
+        loopViewPager.setCurrentItem(index);
+    }
+
+    private void InitIndicator() {
         indicators = new TextView[bannerInfos.size()];
         for (int i = 0; i < indicators.length; i++) {
             indicators[i] = new TextView(getContext());
@@ -104,46 +119,14 @@ public class LoopViewPagerLayout extends RelativeLayout implements ViewPager.OnP
             indicators[i].setBackgroundResource(R.drawable.indicator_normal_background);//设置默认的背景颜色
             indicatorLayout.addView(indicators[i]);
         }
+    }
 
-        //TODO little dots
+    private void InitLittleRed() {
         animIndicator = new TextView(getContext());
         animIndicator.setLayoutParams(new LinearLayout.LayoutParams(size, size));
-//        animIndicator.setGravity(Gravity.CENTER);
         animIndicator.setBackgroundResource(R.drawable.indicator_selected_background);//设置选中的背景颜色
+
         addView(animIndicator);
-
-        indicatorLayout.getViewTreeObserver().addOnPreDrawListener(new MyOnPreDrawListener());
-
-        loopPagerAdapterWrapper = new LoopPagerAdapterWrapper();
-        loopViewPager.setAdapter(loopPagerAdapterWrapper);
-        loopViewPager.addOnPageChangeListener(this);
-
-        int index = Short.MAX_VALUE / 2 - (Short.MAX_VALUE / 2) % bannerInfos.size();
-        loopViewPager.setCurrentItem(index);
-    }
-
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (loopPagerAdapterWrapper.getCount() > 0) {
-            float length = ((position % 4) + positionOffset) / (bannerInfos.size() - 1);
-            //TODO To prevent the last picture the little red dot slip out.
-            if (length >= 1)
-                length = 1;
-            float path = length * totalDistance;
-            ViewCompat.setTranslationX(animIndicator, startX + path);
-
-        }
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
     }
 
 
@@ -166,6 +149,7 @@ public class LoopViewPagerLayout extends RelativeLayout implements ViewPager.OnP
 
             ViewCompat.setTranslationX(animIndicator, firstRect.left);
             ViewCompat.setTranslationY(animIndicator, firstRect.top);
+
             indicatorLayout.getViewTreeObserver().removeOnPreDrawListener(this);
             return false;
         }
@@ -294,12 +278,9 @@ public class LoopViewPagerLayout extends RelativeLayout implements ViewPager.OnP
         addView(loopViewPager, loop_params);
 
         indicatorLayout = new LinearLayout(getContext());
-        LayoutParams ind_params = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        ind_params.leftMargin = (int) (10 * density);
-        ind_params.topMargin = (int) (10 * density);
-        ind_params.rightMargin = (int) (10 * density);
-        ind_params.bottomMargin = (int) (10 * density);
-        ind_params.addRule(RelativeLayout.CENTER_IN_PARENT);//android:layout_centerInParent="true"
+        LayoutParams ind_params = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ((int) (20 * density)));
+
+        ind_params.addRule(RelativeLayout.CENTER_HORIZONTAL);//android:layout_centerHorizontal="true"
         ind_params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);//android:layout_alignParentBottom="true"
 
         indicatorLayout.setGravity(Gravity.CENTER);
@@ -370,5 +351,30 @@ public class LoopViewPagerLayout extends RelativeLayout implements ViewPager.OnP
                 break;
         }
         return false;
+    }
+
+    private class MyPageChangeListener implements ViewPager.OnPageChangeListener {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            if (loopPagerAdapterWrapper.getCount() > 0) {
+                float length = ((position % 4) + positionOffset) / (bannerInfos.size() - 1);
+                //TODO To prevent the last picture the little red dot slip out.
+                if (length >= 1)
+                    length = 1;
+                float path = length * totalDistance;
+                ViewCompat.setTranslationX(animIndicator, startX + path);
+
+            }
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
     }
 }

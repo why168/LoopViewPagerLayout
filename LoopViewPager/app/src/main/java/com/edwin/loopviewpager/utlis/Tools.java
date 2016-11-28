@@ -7,8 +7,9 @@ import android.graphics.BitmapFactory;
 /**
  * 工具类
  *
- * @USER Edwin
- * @DATE 2016/11/2 00:15
+ * @author Edwin.Wu
+ * @version 2016/11/2 00:15
+ * @since JDK1.8
  */
 public class Tools {
     /**

@@ -9,14 +9,16 @@ import android.widget.Toast;
 
 import com.edwin.loopviewpager.R;
 import com.edwin.loopviewpager.base.BaseActivity;
+import com.edwin.loopviewpager.fragment.ListHeadViewFragment;
 import com.edwin.loopviewpager.fragment.LoopViewPagerFragment;
 import com.github.why168.entity.LoopStyle;
 
 /**
  * LoopActivity
  *
- * @USER Edwin
- * @DATE 2016/11/8 00:15
+ * @author Edwin.Wu
+ * @version 2016/11/8 00:15
+ * @since JDK1.8
  */
 public class LoopActivity extends BaseActivity implements View.OnClickListener {
     private TextView text_loop_info;
@@ -31,6 +33,7 @@ public class LoopActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.button_onclick_empty).setOnClickListener(this);
         findViewById(R.id.button_onclick_depth).setOnClickListener(this);
         findViewById(R.id.button_onclick_zoom).setOnClickListener(this);
+        findViewById(R.id.button_onclick_list).setOnClickListener(this);
         text_loop_info = (TextView) findViewById(R.id.text_loop_info);
     }
 
@@ -69,6 +72,16 @@ public class LoopActivity extends BaseActivity implements View.OnClickListener {
         text_loop_info.setText("This is Zoom style");
     }
 
+    private void LoopViewPagerToListView() {
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+        ListHeadViewFragment listHeadViewFragment = new ListHeadViewFragment();
+        fragmentTransaction.replace(R.id.fragment_content, listHeadViewFragment);
+        fragmentTransaction.commit();
+        Toast.makeText(mContext, "replace ListView add HeadView", Toast.LENGTH_SHORT).show();
+        text_loop_info.setText("replace ListView add HeadView");
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -80,6 +93,9 @@ public class LoopActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.button_onclick_zoom:
                 LoopViewPagerToZoom();
+                break;
+            case R.id.button_onclick_list:
+                LoopViewPagerToListView();
                 break;
         }
     }

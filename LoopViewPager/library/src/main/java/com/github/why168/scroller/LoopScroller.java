@@ -8,8 +8,9 @@ import android.widget.Scroller;
  * Scroller
  * 更好的用户体验
  *
- * @USER Edwin
- * @DATE 16/6/12 下午9:27
+ * @author Edwin.Wu
+ * @version 2016/6/12 下午9:27
+ * @since JDK1.8
  */
 public class LoopScroller extends Scroller {
     private int mDuration = 1000;//速率必须小于延迟时间loop_ms

@@ -7,8 +7,9 @@ import android.view.View;
  * DepthPageTransformer
  * loop_style:1
  *
- * @USER Edwin
- * @DATE 16/6/13 下午9:43
+ * @author Edwin.Wu
+ * @version 16/6/13 下午9:43
+ * @since JDK1.8
  */
 public class DepthPageTransformer implements ViewPager.PageTransformer {
     private static final float MIN_SCALE = 0.75f;

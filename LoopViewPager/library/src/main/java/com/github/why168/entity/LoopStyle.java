@@ -4,8 +4,9 @@ package com.github.why168.entity;
  * Loop style
  * 默认empty 深度depth 缩小zoo
  *
- * @USER Edwin
- * @DATE 2016/11/2 00:41
+ * @author Edwin.Wu
+ * @version 2016/11/2 00:41
+ * @since JDK1.8
  */
 public enum LoopStyle {
     Empty(-1),
