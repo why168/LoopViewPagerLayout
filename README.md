@@ -96,6 +96,8 @@ dependencies {
 	
 * 2016/11/8 11:12 更改名字 LoopViewPagerLayout
 
+* 2016/11/28 19:20 修复LoopViewPagerLayout的(layout_height)高度自适应，小红点显示错误bug.
+
 
 #### 技术交流大本营
 >欢迎加入Android技术交流大群，群号码：554610222
