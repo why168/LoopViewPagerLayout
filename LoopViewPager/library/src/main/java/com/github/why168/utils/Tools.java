@@ -8,15 +8,16 @@ import android.graphics.BitmapFactory;
 /**
  * 工具类
  *
- * @USER Edwin
- * @DATE 16/6/13 下午10:14
+ * @author Edwin.Wu
+ * @version 2016/06/13 下午10:14
+ * @since JDK1.8
  */
 public class Tools {
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      *
-     * @param dip
-     * @return
+     * @param dip dip
+     * @return int
      */
     public static int dip2px(Context context, float dip) {
         float density = context.getResources().getDisplayMetrics().density;
@@ -27,7 +28,7 @@ public class Tools {
      * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
      *
      * @param px 像素
-     * @return
+     * @return float
      */
     public static float px2dip(Context context, int px) {
         float density = context.getResources().getDisplayMetrics().density;
@@ -41,7 +42,7 @@ public class Tools {
      * @param resId     图片ID
      * @param reqWidth  0表示获取ViewPager的宽
      * @param reqHeight 0表示获取ViewPager的高
-     * @return
+     * @return Bitmap
      */
     public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
                                                          int reqWidth, int reqHeight) {
@@ -64,12 +65,12 @@ public class Tools {
      * 图片实际宽高1000*1000，除以2以后变成500*500
      * 发现比要求的还是大，就再除以2.。直到达到要求
      *
-     * @param options
-     * @param reqWidth
-     * @param reqHeight
+     * @param options options
+     * @param reqWidth reqWidth
+     * @param reqHeight reqHeight
      * @return 压缩比例
      */
-    public static int calculateInSampleSize(
+    private static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // 原始图像的高度和宽度
         final int height = options.outHeight;

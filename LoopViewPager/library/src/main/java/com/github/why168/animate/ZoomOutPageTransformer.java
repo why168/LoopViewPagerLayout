@@ -2,17 +2,16 @@ package com.github.why168.animate;
 
 import android.annotation.SuppressLint;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 
 /**
  * ZoomOutPageTransformer
  * loop_style:2
  *
- * @USER Edwin
- * @DATE 16/6/13 下午9:44
+ * @author Edwin.Wu
+ * @version 2016/06/13 下午9:44
+ * @since JDK1.8
  */
-
 public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
     private static final float MIN_SCALE = 0.85f;
     private static final float MIN_ALPHA = 0.5f;
@@ -43,7 +42,7 @@ public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
             view.setScaleY(scaleFactor);
 
             // Fade the page relative to its size.
-            view.setAlpha(MIN_ALPHA + (scaleFactor - MIN_SCALE)/ (1 - MIN_SCALE) * (1 - MIN_ALPHA));
+            view.setAlpha(MIN_ALPHA + (scaleFactor - MIN_SCALE) / (1 - MIN_SCALE) * (1 - MIN_ALPHA));
 
         } else { // (1,+Infinity]
             // This page is way off-screen to the right.

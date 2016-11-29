@@ -125,7 +125,6 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         animIndicator = new TextView(getContext());
         animIndicator.setLayoutParams(new LinearLayout.LayoutParams(size, size));
         animIndicator.setBackgroundResource(R.drawable.indicator_selected_background);//设置选中的背景颜色
-
         addView(animIndicator);
     }
 
@@ -146,6 +145,7 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
 
             totalDistance = lastRect.left - indicatorLayout.getLeft();
             startX = firstRect.left;
+
 
             ViewCompat.setTranslationX(animIndicator, firstRect.left);
             ViewCompat.setTranslationY(animIndicator, firstRect.top);

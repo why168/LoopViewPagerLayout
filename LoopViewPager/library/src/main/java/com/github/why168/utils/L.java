@@ -2,19 +2,17 @@ package com.github.why168.utils;
 
 import android.util.Log;
 
-/**
- * @USER Edwin
- * @DATE 1
- */
+import com.github.why168.BuildConfig;
 
 /**
  * Print Log
+ *
  * @author Edwin.Wu
  * @version 2016/6/12 上午1:02
  * @since JDK1.8
  */
 public class L {
-    private static final boolean mDug = true;
+    private static final boolean mDug = BuildConfig.DEBUG;
     private static final String TAG = "Edwin";
 
     public static void e(String msg) {

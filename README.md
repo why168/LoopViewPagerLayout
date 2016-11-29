@@ -35,6 +35,14 @@ dependencies {
 }
 ```
 
+代码混淆
+------------
+```java
+#LoopViewPagerLayout
+-dontwarn com.github.why168
+-keep class com.github.why168
+```
+
 ## API调用顺序
 
 * initializeView()：初始化View
