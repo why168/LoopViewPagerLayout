@@ -8,15 +8,17 @@ android {
         applicationId "com.edwin.loopviewpager"
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 4
+        versionName "2.0.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     allprojects {
         repositories {
             jcenter()

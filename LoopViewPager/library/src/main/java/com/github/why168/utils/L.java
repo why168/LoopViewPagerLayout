@@ -2,8 +2,6 @@ package com.github.why168.utils;
 
 import android.util.Log;
 
-import com.github.why168.BuildConfig;
-
 /**
  * Print Log
  *
@@ -12,26 +10,26 @@ import com.github.why168.BuildConfig;
  * @since JDK1.8
  */
 public class L {
-    private static final boolean mDug = BuildConfig.DEBUG;
-    private static final String TAG = "Edwin";
+    public static boolean deBug = true;
+    public static String TAG = "Edwin";
 
     public static void e(String msg) {
-        if (mDug)
+        if (deBug)
             Log.e(TAG, msg);
     }
 
     public static void e(String TAG, String msg) {
-        if (mDug)
+        if (deBug)
             Log.e(TAG, msg);
     }
 
     public static void e(String TAG, Throwable tr) {
-        if (mDug)
+        if (deBug)
             Log.e(TAG, "Error——", tr);
     }
 
     public static void e(String TAG, String msg, Throwable tr) {
-        if (mDug)
+        if (deBug)
             Log.e(TAG, msg, tr);
     }
 }

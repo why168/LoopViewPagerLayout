@@ -9,19 +9,13 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 3
-        versionName "1.0.6"
+        versionCode 4
+        versionName "2.0.0"
     }
 
     buildTypes {
-        debug {
-            debuggable true
-            buildConfigField "boolean", "LOG_DEBUG", "true"
-        }
         release {
             debuggable false
-            buildConfigField "boolean", "LOG_DEBUG", "false"
-            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

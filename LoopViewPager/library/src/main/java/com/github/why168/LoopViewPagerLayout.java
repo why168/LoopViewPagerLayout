@@ -1,7 +1,6 @@
 package com.github.why168;
 
 import android.content.Context;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -38,12 +38,13 @@ import java.util.ArrayList;
  * @since JDK1.8
  */
 public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchListener {
+    private FrameLayout frameLayout;
     private ViewPager loopViewPager;
     private LinearLayout indicatorLayout;
+    private LinearLayout animIndicatorLayout;
     private OnBannerItemClickListener onBannerItemClickListener = null;
     private LoopPagerAdapterWrapper loopPagerAdapterWrapper;
     private int totalDistance;//Little red dot all the distance to move
-    private int startX;//The little red point position
     private int size = Tools.dip2px(getContext(), 8);//The size of the set point;
     private ArrayList<BannerInfo> bannerInfos;//banner data
     private TextView animIndicator;//Little red dot on the move
@@ -82,7 +83,11 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
 
     public void setLoopData(ArrayList<BannerInfo> bannerInfos, OnBannerItemClickListener onBannerItemClickListener) {
         L.e("LoopViewPager 1---> setLoopData");
-        this.bannerInfos = bannerInfos;
+        if (bannerInfos != null && bannerInfos.size() > 0) {
+            this.bannerInfos = bannerInfos;
+        } else {
+            throw new NullPointerException("LoopViewPagerLayout bannerInfos is null or bannerInfos.size() isEmpty");
+        }
         this.onBannerItemClickListener = onBannerItemClickListener;
         //TODO Initialize multiple times, clear images and little red dot
         if (indicatorLayout.getChildCount() > 0) {
@@ -119,40 +124,15 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
             indicators[i].setBackgroundResource(R.drawable.indicator_normal_background);//设置默认的背景颜色
             indicatorLayout.addView(indicators[i]);
         }
+
     }
 
     private void InitLittleRed() {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
         animIndicator = new TextView(getContext());
-        animIndicator.setLayoutParams(new LinearLayout.LayoutParams(size, size));
+        animIndicator.setGravity(Gravity.CENTER);
         animIndicator.setBackgroundResource(R.drawable.indicator_selected_background);//设置选中的背景颜色
-        addView(animIndicator);
-    }
-
-
-    class MyOnPreDrawListener implements ViewTreeObserver.OnPreDrawListener {
-        @Override
-        public boolean onPreDraw() {
-            Rect rootRect = new Rect();
-            Point globalOffset = new Point();
-            getGlobalVisibleRect(rootRect, globalOffset);
-
-            Rect firstRect = new Rect();
-            indicatorLayout.getChildAt(0).getGlobalVisibleRect(firstRect);
-            firstRect.offset(-globalOffset.x, -globalOffset.y);
-
-            Rect lastRect = new Rect();
-            indicatorLayout.getChildAt(indicators.length - 1).getGlobalVisibleRect(lastRect);
-
-            totalDistance = lastRect.left - indicatorLayout.getLeft();
-            startX = firstRect.left;
-
-
-            ViewCompat.setTranslationX(animIndicator, firstRect.left);
-            ViewCompat.setTranslationY(animIndicator, firstRect.top);
-
-            indicatorLayout.getViewTreeObserver().removeOnPreDrawListener(this);
-            return false;
-        }
+        animIndicatorLayout.addView(animIndicator, params);
     }
 
 
@@ -277,16 +257,27 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         LayoutParams loop_params = new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         addView(loopViewPager, loop_params);
 
+        //TODO FrameLayout
+        frameLayout = new FrameLayout(getContext());
+        LayoutParams f_params = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ((int) (20 * density)));
+        f_params.addRule(RelativeLayout.CENTER_HORIZONTAL);//android:layout_centerHorizontal="true"
+        f_params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);//android:layout_alignParentBottom="true"
+        addView(frameLayout, f_params);
+
+
+        //TODO indicatorLayout
         indicatorLayout = new LinearLayout(getContext());
-        LayoutParams ind_params = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ((int) (20 * density)));
-
-        ind_params.addRule(RelativeLayout.CENTER_HORIZONTAL);//android:layout_centerHorizontal="true"
-        ind_params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);//android:layout_alignParentBottom="true"
-
+        FrameLayout.LayoutParams ind_params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
         indicatorLayout.setGravity(Gravity.CENTER);
-
         indicatorLayout.setOrientation(LinearLayout.HORIZONTAL);
-        addView(indicatorLayout, ind_params);
+        frameLayout.addView(indicatorLayout, ind_params);
+
+        //TODO indicatorLayout2
+        animIndicatorLayout = new LinearLayout(getContext());
+        FrameLayout.LayoutParams ind_params2 = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        animIndicatorLayout.setGravity(Gravity.CENTER | Gravity.LEFT);
+        animIndicatorLayout.setOrientation(LinearLayout.HORIZONTAL);
+        frameLayout.addView(animIndicatorLayout, ind_params2);
     }
 
     /**
@@ -305,6 +296,15 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
             Field mField = ViewPager.class.getDeclaredField("mScroller");
             mField.setAccessible(true);
             LoopScroller mScroller = new LoopScroller(context, new AccelerateInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new AnticipateInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new PathInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new BounceInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new OvershootInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new AnticipateOvershootInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new LinearInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new AccelerateInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new DecelerateInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new CycleInterpolator(20));
             //可以用setDuration的方式调整速率
             mScroller.setmDuration(loop_duration);
             mField.set(loopViewPager, mScroller);
@@ -357,13 +357,13 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             if (loopPagerAdapterWrapper.getCount() > 0) {
-                float length = ((position % 4) + positionOffset) / (bannerInfos.size() - 1);
-                //TODO To prevent the last picture the little red dot slip out.
-                if (length >= 1)
-                    length = 1;
+                float length = ((position % bannerInfos.size()) + positionOffset) / (bannerInfos.size() - 1);
+//                //TODO To prevent the last picture the little red dot slip out.
+//                if (length >= 1)
+//                    length = 1;
                 float path = length * totalDistance;
-                ViewCompat.setTranslationX(animIndicator, startX + path);
-
+//                L.e("path " + path + " = length * " + length + " totalDistance " + totalDistance);
+                ViewCompat.setTranslationX(animIndicator, path);
             }
         }
 
@@ -375,6 +375,27 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         @Override
         public void onPageScrollStateChanged(int state) {
 
+        }
+    }
+
+    private class MyOnPreDrawListener implements ViewTreeObserver.OnPreDrawListener {
+        @Override
+        public boolean onPreDraw() {
+            Rect firstRect = new Rect();
+            indicatorLayout.getChildAt(0).getGlobalVisibleRect(firstRect);
+
+            L.e("firstRect = " + firstRect.toShortString());
+            Rect lastRect = new Rect();
+            indicatorLayout.getChildAt(indicators.length - 1).getGlobalVisibleRect(lastRect);
+
+            L.e("lastRect = " + lastRect.toShortString());
+
+            totalDistance = lastRect.left - firstRect.left;
+            L.e("totalDistance = " + totalDistance);
+
+            indicatorLayout.getViewTreeObserver().removeOnPreDrawListener(this);
+
+            return false;
         }
     }
 }

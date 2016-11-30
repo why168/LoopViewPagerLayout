@@ -65,7 +65,7 @@ public class LoopViewPagerFragment extends BaseFragment implements LoopViewPager
         L.e("LoopViewPager 参数设置完毕");
         mLoopViewPagerLayout.initializeData(mActivity);
         //TODO 准备数据
-        ArrayList<LoopViewPagerLayout.BannerInfo> bannerInfos = new ArrayList<>(4);
+        ArrayList<LoopViewPagerLayout.BannerInfo> bannerInfos = new ArrayList<>();
         bannerInfos.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.a, "第一张图片"));
         bannerInfos.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.c, "第二张图片"));
         bannerInfos.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.d, "第三张图片"));

@@ -1,5 +1,6 @@
 package com.edwin.loopviewpager.activity;
 
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.ViewTreeObserver;
@@ -35,18 +36,16 @@ public class PracticeActivity extends BaseActivity {
             @Override
             public boolean onPreDraw() {
                 Rect rect = new Rect();
-                boolean globalVisibleRect = mButton.getGlobalVisibleRect(rect);
+                Point point = new Point();
+                boolean globalVisibleRect = mButton.getGlobalVisibleRect(rect, point);
                 L.e("globalVisibleRect = " + globalVisibleRect);
-                int left = rect.left;
-                int right = rect.right;
-                int top = rect.top;
-                int bottom = rect.bottom;
-                L.e("left = " + left + " right = " + right + " top = " + top + " bottom = " + bottom);
+                L.e("Rect -> " + rect.toShortString());
+                L.e("Point -> " + point.toString());
+
+                rect.offset(50,50);
                 mButton.getViewTreeObserver().removeOnPreDrawListener(this);
                 return false;
             }
         });
-
-
     }
 }
