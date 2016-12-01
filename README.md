@@ -34,7 +34,7 @@ Step 2. Add the dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.why168:LoopViewPagerLayout:1.0.6'
+    compile 'com.github.why168:LoopViewPagerLayout:2.0.0'
 }
 ```
 
@@ -53,7 +53,7 @@ dependencies {
 * setLoop_duration：滑动的速率(毫秒)
 * setLoop_style：轮播的样式(枚举值: -1默认empty，1深度1depth，2缩小zoom)
 * initializeData(Content)：初始化数据
-* setLoopData(ArrayList<BannerInfo>, OnBannerItemClickListener)：数据，回调监听
+* setLoopData(ArrayList<BannerInfo>, OnBannerItemClickListener, OnLoadImageViewListener)：数据，数据回调监听，自定义图片加载监听
 * startLoop()：开始轮播
 * stopLoop()：停止轮播,务必在onDestory中调用
 
@@ -81,7 +81,7 @@ dependencies {
  mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
  mLoopViewPagerLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty
  mLoopViewPagerLayout.initializeData(mActivity);//初始化数据
- ArrayList<LoopViewPagerLayout.BannerInfo> data = new ArrayList<>(4);
+ ArrayList<LoopViewPagerLayout.BannerInfo> data = new ArrayList<>();
  data.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.a, "第一张图片"));
  data.add(new LoopViewPagerLayout.BannerInfo<String>("url", "第二张图片"));
  data.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.b, "第三张图片"));
@@ -148,9 +148,11 @@ public interface OnLoadImageViewListener {
 	3. 优化代码；
 
 * 2016/12/01 13:18
-	1. 设计了一个回调方法，让用户自己定义图片加载。url参数支持泛型，回调回来的是Object根据实际情况强转
+	1. 设计了一个回调方法，让用户自己定义图片加载OnLoadImageViewListener。url参数支持泛型，回调回来的是Object根据实际情况强转
 	2. 图片加载框架推荐：Glide，Picasso，Fresco
+	3. 2.0.0正式被发布
 			
+<br>
 
 #### 技术交流大本营
 >欢迎加入Android技术交流大群，群号码：554610222
