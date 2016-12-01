@@ -3,8 +3,11 @@ package com.edwin.loopviewpager.fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.edwin.loopviewpager.R;
 import com.edwin.loopviewpager.adapter.ListHeadViewAdapter;
 import com.edwin.loopviewpager.base.BaseFragment;
@@ -20,7 +23,7 @@ import java.util.ArrayList;
  * @version 2016/11/8 16:46
  * @since JDK1.8
  */
-public class ListHeadViewFragment extends BaseFragment {
+public class ListHeadViewFragment extends BaseFragment implements LoopViewPagerLayout.OnBannerItemClickListener, LoopViewPagerLayout.OnLoadImageViewListener {
     private ListView mListView;
     private LoopViewPagerLayout mLoopViewPagerLayout;
 
@@ -54,7 +57,8 @@ public class ListHeadViewFragment extends BaseFragment {
         bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.c, "第二张图片"));
         bannerInfos.add(new LoopViewPagerLayout.BannerInfo<String>("https://avatars2.githubusercontent.com/u/13330076?v=3&u=33de3c989c70716d321d79a99b8d176c7b88349e&s=400", "第三张图片"));
         bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.b, "第四张图片"));
-        mLoopViewPagerLayout.setLoopData(bannerInfos, null);
+        mLoopViewPagerLayout.setLoopData(bannerInfos, this,this);
+
 
         mListView.addHeaderView(mLoopViewPagerLayout);
     }
@@ -71,5 +75,21 @@ public class ListHeadViewFragment extends BaseFragment {
         //TODO 停止循环
         mLoopViewPagerLayout.stopLoop();
         super.onStop();
+    }
+
+    @Override
+    public void onBannerClick(int index, ArrayList<LoopViewPagerLayout.BannerInfo> banner) {
+        Toast.makeText(mActivity, "index = " + index + " title = " + banner.get(index).title, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLoadImageView(ImageView view, Object object) {
+        Glide
+                .with(view.getContext())
+                .load(object)
+                .centerCrop()
+//                    .placeholder()
+                .crossFade()
+                .into(view);
     }
 }

@@ -2,8 +2,10 @@ package com.edwin.loopviewpager.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.edwin.loopviewpager.R;
 import com.edwin.loopviewpager.base.BaseFragment;
 import com.github.why168.LoopViewPagerLayout;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
  * @version 2016/11/7 17:27
  * @since JDK1.8
  */
-public class LoopViewPagerFragment extends BaseFragment implements LoopViewPagerLayout.OnBannerItemClickListener {
+public class LoopViewPagerFragment extends BaseFragment implements LoopViewPagerLayout.OnBannerItemClickListener, LoopViewPagerLayout.OnLoadImageViewListener {
     private static final String LOOP_TYPE = "loop_type";
     private LoopViewPagerLayout mLoopViewPagerLayout;
 
@@ -66,11 +68,11 @@ public class LoopViewPagerFragment extends BaseFragment implements LoopViewPager
         mLoopViewPagerLayout.initializeData(mActivity);
         //TODO 准备数据
         ArrayList<LoopViewPagerLayout.BannerInfo> bannerInfos = new ArrayList<>();
-        bannerInfos.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.a, "第一张图片"));
-        bannerInfos.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.c, "第二张图片"));
-        bannerInfos.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.d, "第三张图片"));
-        bannerInfos.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.b, "第四张图片"));
-        mLoopViewPagerLayout.setLoopData(bannerInfos, this);
+        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.a, "第一张图片"));
+        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.c, "第二张图片"));
+        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.d, "第三张图片"));
+        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.b, "第四张图片"));
+        mLoopViewPagerLayout.setLoopData(bannerInfos, this, this);
     }
 
     @Override
@@ -78,6 +80,16 @@ public class LoopViewPagerFragment extends BaseFragment implements LoopViewPager
         Toast.makeText(mActivity, "index = " + index + " title = " + banner.get(index).title, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onLoadImageView(ImageView view, Object object) {
+        Glide
+                .with(view.getContext())
+                .load(object)
+                .centerCrop()
+//                    .placeholder()
+                .crossFade()
+                .into(view);
+    }
 
     @Override
     public void onStart() {

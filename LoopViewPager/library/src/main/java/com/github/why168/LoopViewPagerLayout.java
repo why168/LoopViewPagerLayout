@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.github.why168.animate.DepthPageTransformer;
 import com.github.why168.animate.ZoomOutPageTransformer;
 import com.github.why168.entity.LoopStyle;
@@ -44,6 +43,7 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
     private LinearLayout indicatorLayout;
     private LinearLayout animIndicatorLayout;
     private OnBannerItemClickListener onBannerItemClickListener = null;
+    private OnLoadImageViewListener onLoadImageViewListener = null;
     private LoopPagerAdapterWrapper loopPagerAdapterWrapper;
     private int totalDistance;//Little red dot all the distance to move
     private int size = Tools.dip2px(getContext(), 8);//The size of the set point;
@@ -84,6 +84,10 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
 
     public interface OnBannerItemClickListener {
         void onBannerClick(int index, ArrayList<BannerInfo> banner);
+    }
+
+    public interface OnLoadImageViewListener {
+        void onLoadImageView(ImageView view, Object object);
     }
 
     /**
@@ -170,7 +174,7 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
      * @param bannerInfos               BannerInfo
      * @param onBannerItemClickListener ItemClick
      */
-    public void setLoopData(ArrayList<BannerInfo> bannerInfos, OnBannerItemClickListener onBannerItemClickListener) {
+    public void setLoopData(ArrayList<BannerInfo> bannerInfos, OnBannerItemClickListener onBannerItemClickListener, OnLoadImageViewListener onLoadImageViewListener) {
         L.e("LoopViewPager 1---> setLoopData");
         if (bannerInfos != null && bannerInfos.size() > 0) {
             this.bannerInfos = bannerInfos;
@@ -178,6 +182,7 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
             throw new NullPointerException("LoopViewPagerLayout bannerInfos is null or bannerInfos.size() isEmpty");
         }
         this.onBannerItemClickListener = onBannerItemClickListener;
+        this.onLoadImageViewListener = onLoadImageViewListener;
         //TODO Initialize multiple times, clear images and little red dot
         if (indicatorLayout.getChildCount() > 0) {
             indicatorLayout.removeAllViews();
@@ -380,13 +385,17 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
                 }
             });
 
-            Glide
-                    .with(child.getContext())
-                    .load(bannerInfo.url)
-                    .centerCrop()
-//                    .placeholder()
-                    .crossFade()
-                    .into(child);
+            if (onLoadImageViewListener != null) {
+                onLoadImageViewListener.onLoadImageView(child, bannerInfo.url);
+            }
+
+//            Glide
+//                    .with(child.getContext())
+//                    .load(bannerInfo.url)
+//                    .centerCrop()
+////                    .placeholder()
+//                    .crossFade()
+//                    .into(child);
 
             child.setScaleType(ImageView.ScaleType.CENTER_CROP);
             container.addView(child);
@@ -395,7 +404,12 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
     }
 
     /**
-     * BannerInfo
+     * @param <T> String    可以为一个文件路径、uri或者url
+     *            Uri   uri类型
+     *            File  文件
+     *            Integer   资源Id,R.drawable.xxx或者R.mipmap.xxx
+     *            byte[]    类型
+     *            T 自定义类型
      */
     public static class BannerInfo<T> {
         public T url;
