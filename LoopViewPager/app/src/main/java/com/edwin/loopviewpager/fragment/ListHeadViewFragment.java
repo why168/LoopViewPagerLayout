@@ -52,11 +52,12 @@ public class ListHeadViewFragment extends BaseFragment implements LoopViewPagerL
 
         mLoopViewPagerLayout.initializeData(mActivity);
         //TODO 准备数据
-        ArrayList<LoopViewPagerLayout.BannerInfo> bannerInfos = new ArrayList<>(4);
+        ArrayList<LoopViewPagerLayout.BannerInfo> bannerInfos = new ArrayList<>();
         bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.a, "第一张图片"));
-        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.c, "第二张图片"));
-        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<String>("https://avatars2.githubusercontent.com/u/13330076?v=3&u=33de3c989c70716d321d79a99b8d176c7b88349e&s=400", "第三张图片"));
-        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.b, "第四张图片"));
+        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<String>("https://avatars2.githubusercontent.com/u/13330076?v=3&u=33de3c989c70716d321d79a99b8d176c7b88349e&s=400", "第二张图片"));
+        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.b, "第三张图片"));
+        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.c, "第四张图片"));
+        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.d, "第五张图片"));
         mLoopViewPagerLayout.setLoopData(bannerInfos, this, this);
         mListView.addHeaderView(mLoopViewPagerLayout);
     }
@@ -83,9 +84,14 @@ public class ListHeadViewFragment extends BaseFragment implements LoopViewPagerL
     @Override
     public void onLoadImageView(ImageView view, Object object) {
         /**
-         * Picasso: Square出品，必属精品。和OkHttp搭配起来更配呦！
-         * Fresco：Facebook出的，天生骄傲！不是一般的强大。
-         * Glide：Google推荐的图片加载库，专注于流畅的滚动。
+         * Glide load 图片加载框架，支持以下几种类型
+         *
+         *        String    可以为一个文件路径、uri或者url
+         *        Uri   uri类型
+         *        File  文件
+         *        Integer   资源Id,R.drawable.xxx或者R.mipmap.xxx
+         *        byte[]    类型
+         *        T 自定义类型
          */
         Glide
                 .with(view.getContext())

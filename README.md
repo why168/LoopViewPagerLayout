@@ -5,7 +5,10 @@
 * 支持三种动画；
 * 支持修改轮播的速度；
 * 支持修改滑动速率；
-* 小红点动态移动；
+* 支持点击事件回调监听；
+* 支持自定义图片加载；
+* 支持addHeaderView方式；
+* 指示器小红点动态移动；
 * 防闪屏花屏。
 
 
@@ -70,7 +73,7 @@ dependencies {
 
 
 
-## 更优雅地使用
+## 更优雅地使用API-调用顺序不能乱
 ```java 
  mLoopViewPagerLayout = (LoopViewPagerLayout)findViewById(R.id.mLoopViewPagerLayout);
  mLoopViewPagerLayout.initializeView();//初始化View
@@ -79,35 +82,75 @@ dependencies {
  mLoopViewPagerLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty
  mLoopViewPagerLayout.initializeData(mActivity);//初始化数据
  ArrayList<LoopViewPagerLayout.BannerInfo> data = new ArrayList<>(4);
- data.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.a, "第一张图片"));
- data.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.c, "第二张图片"));
- data.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.d, "第三张图片"));
- data.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.b, "第四张图片"));
- mLoopViewPagerLayout.setLoopData(data, this);
-
+ data.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.a, "第一张图片"));
+ data.add(new LoopViewPagerLayout.BannerInfo<String>("url", "第二张图片"));
+ data.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.b, "第三张图片"));
+ data.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.c, "第四张图片"));
+ data.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.d, "第五张图片"));
+ mLoopViewPagerLayout.setLoopData(data,this,this);
 ```
+
+###回调函数
+ 
+```java
+public interface OnBannerItemClickListener {
+    /**
+     * banner click
+     *
+     * @param index  subscript
+     * @param banner bean
+     */
+    void onBannerClick(int index, ArrayList<BannerInfo> banner);
+}
+
+public interface OnLoadImageViewListener {
+    /**
+     * image load
+     *
+     * @param view   ImageView
+     * @param object parameter
+     */
+    void onLoadImageView(ImageView view, Object object);
+}
+```
+
+
 
 
 
 ## 更新说明
 
-* 2016/6/12
-1.省略
+* 2016/06/12 
+	1. 省略
 
-* 2016/6/15 2.0版本再次进行封装,大更新！
-	* 1.增加LoopViewPager布局，把LoopViewPager和LinearLayout一起结合起来了，方便直接地通过view_loop_viewpager修改一些参数，低耦合高类聚的原则；
-	* 2.修复bug 滑倒第二图再次按住滑动，松开手之后会连续滑动2张图。
+* 2016/06/15 
+	1. 2.0版本再次进行封装,大更新！
+	2. 增加LoopViewPager布局，把LoopViewPager和LinearLayout一起结合起来了，方便直接地通过view_loop_viewpager修改一些参数，低耦合高类聚的原则；
+	3. 修复bug 滑倒第二图再次按住滑动，松开手之后会连续滑动2张图。
 
-* 2016/7/1 2.1版本更新！
-	* 1.因初始化多次,清空图片和小红点。感谢solochen提出的问题。(已经修复)
+* 2016/07/01 
+	1. 2.1版本更新！
+	2. 因初始化多次,清空图片和小红点。感谢solochen提出的问题。(已经修复)
 
-* 2016/11/8 00:25重构项目，1.0正式被发布，支持Gradle！
-	* 使用更方便
+* 2016/11/08 00:25
+	1. 重构项目，1.0正式被发布，支持Gradle！
+	2. 使用更方便
 	
-* 2016/11/8 11:12 更改名字 LoopViewPagerLayout,1.0.5正式被发布
+* 2016/11/08 11:12 
+	1. 更改名字 LoopViewPagerLayout,1.0.5正式被发布
 
-* 2016/11/28 19:20 修复LoopViewPagerLayout的(layout_height)高度自适应，小红点显示错误bug,1.0.6正式被发布
+* 2016/11/28 19:20 
+	1. 修复LoopViewPagerLayout的(layout_height)高度自适应，小红点显示错误bug,1.0.6正式被发布
 
+* 2016/12/01 00:08
+	1. 父布局，子布局里面设置padding或者margin，宽高设置match_parent或者wrap_content小红点错位
+	2. 解决默认数4个修改成动态值。 
+	3. 优化代码；
+
+* 2016/12/01 13:18
+	1. 设计了一个回调方法，让用户自己定义图片加载。url参数支持泛型，回调回来的是Object根据实际情况强转
+	2. 图片加载框架推荐：Glide，Picasso，Fresco
+			
 
 #### 技术交流大本营
 >欢迎加入Android技术交流大群，群号码：554610222
