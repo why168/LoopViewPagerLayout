@@ -4,14 +4,12 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.FrameLayout;
@@ -20,8 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.why168.adapter.LoopPagerAdapterWrapper;
 import com.github.why168.animate.DepthPageTransformer;
 import com.github.why168.animate.ZoomOutPageTransformer;
+import com.github.why168.entity.IndicatorLocation;
 import com.github.why168.entity.LoopStyle;
 import com.github.why168.scroller.LoopScroller;
 import com.github.why168.utils.L;
@@ -53,6 +53,7 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
     private static final int MESSAGE_LOOP = 5;
     private int loop_ms = 4000;//loop speed(ms)
     private int loop_style = -1; //loop style(enum values[-1:empty,1:depth 2:zoom])
+    private int indicator_location = 0; //Indicator Location(enum values[1:left,0:depth 2:right])
     private int loop_duration = 2000;//loop rate(ms)
     private Handler handler = new Handler() {
         @Override
@@ -118,6 +119,19 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         LayoutParams f_params = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ((int) (20 * density)));
         f_params.addRule(RelativeLayout.CENTER_HORIZONTAL);//android:layout_centerHorizontal="true"
         f_params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);//android:layout_alignParentBottom="true"
+
+        switch (indicator_location) {
+            case 1:
+                f_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);// android:layout_alignParentLeft="true"
+                break;
+            case 2:
+                f_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);//android:layout_alignParentRight="true"
+                break;
+            default:
+                break;
+        }
+
+        f_params.setMargins(((int) (10 * density)), 0, ((int) (10 * density)), 0);
         addView(indicatorFrameLayout, f_params);
 
 
@@ -134,6 +148,8 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         animIndicatorLayout.setGravity(Gravity.CENTER | Gravity.START);
         animIndicatorLayout.setOrientation(LinearLayout.HORIZONTAL);
         indicatorFrameLayout.addView(animIndicatorLayout, ind_params2);
+
+
     }
 
     /**
@@ -209,11 +225,11 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
 
         InitLittleRed();
 
-        indicatorLayout.getViewTreeObserver().addOnPreDrawListener(new MyOnPreDrawListener());
+        indicatorLayout.getViewTreeObserver().addOnPreDrawListener(new IndicatorPreDrawListener());
 
-        loopPagerAdapterWrapper = new LoopPagerAdapterWrapper();
+        loopPagerAdapterWrapper = new LoopPagerAdapterWrapper(getContext(), this.bannerInfos, this.onBannerItemClickListener, this.onLoadImageViewListener);
         loopViewPager.setAdapter(loopPagerAdapterWrapper);
-        loopViewPager.addOnPageChangeListener(new MyPageChangeListener());
+        loopViewPager.addOnPageChangeListener(new ViewPageChangeListener());
 
         int index = Short.MAX_VALUE / 2 - (Short.MAX_VALUE / 2) % bannerInfos.size();
         loopViewPager.setCurrentItem(index);
@@ -279,6 +295,15 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
     }
 
     /**
+     * indicator_location
+     *
+     * @param indicator_location (enum values[1:left,0:depth 2:right])
+     */
+    public void setIndicator_location(IndicatorLocation indicator_location) {
+        this.indicator_location = indicator_location.getValue();
+    }
+
+    /**
      * startLoop
      */
     public void startLoop() {
@@ -295,7 +320,6 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         handler.removeMessages(MESSAGE_LOOP);
         L.e("LoopViewPager ---> stopLoop");
     }
-
 
     /**
      * ViewPager-onTouch
@@ -325,7 +349,7 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         return false;
     }
 
-    private class MyPageChangeListener implements ViewPager.OnPageChangeListener {
+    private class ViewPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             if (loopPagerAdapterWrapper.getCount() > 0) {
@@ -350,7 +374,7 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         }
     }
 
-    private class MyOnPreDrawListener implements ViewTreeObserver.OnPreDrawListener {
+    private class IndicatorPreDrawListener implements ViewTreeObserver.OnPreDrawListener {
         @Override
         public boolean onPreDraw() {
             Rect firstRect = new Rect();
@@ -368,44 +392,6 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
             indicatorLayout.getViewTreeObserver().removeOnPreDrawListener(this);
 
             return false;
-        }
-    }
-
-    private class LoopPagerAdapterWrapper extends PagerAdapter {
-
-        @Override
-        public int getCount() {
-            return Short.MAX_VALUE;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            final int index = position % bannerInfos.size();
-            final BannerInfo bannerInfo = bannerInfos.get(index);
-            final ImageView child = new ImageView(getContext());
-            child.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onBannerItemClickListener != null)
-                        onBannerItemClickListener.onBannerClick(index, bannerInfos);
-                }
-            });
-            if (onLoadImageViewListener != null) {
-                onLoadImageViewListener.onLoadImageView(child, bannerInfo.url);
-            }
-            child.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            container.addView(child);
-            return child;
         }
     }
 

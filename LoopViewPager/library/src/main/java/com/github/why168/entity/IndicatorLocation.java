@@ -1,28 +1,27 @@
 package com.github.why168.entity;
 
 /**
- * Loop style
- * 默认empty
- * 深度depth
- * 缩小zoo
+ * 指示器位置
+ * Left左
+ * center中
+ * Right右
  *
  * @author Edwin.Wu
- * @version 2016/11/2 00:41
+ * @version 2016/12/1 18:59
  * @since JDK1.8
  */
-public enum LoopStyle {
-    Empty(-1),
-    Depth(1),
-    Zoom(2);
+public enum IndicatorLocation {
+    Left(1),
+    center(0),
+    Right(2);
 
     private int value;
 
-    LoopStyle(int idx) {
+    IndicatorLocation(int idx) {
         this.value = idx;
     }
 
     public int getValue() {
         return value;
     }
-
 }
