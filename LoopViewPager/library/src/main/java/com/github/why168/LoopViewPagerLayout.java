@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.github.why168.animate.DepthPageTransformer;
 import com.github.why168.animate.ZoomOutPageTransformer;
 import com.github.why168.entity.LoopStyle;
@@ -38,7 +39,7 @@ import java.util.ArrayList;
  * @since JDK1.8
  */
 public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchListener {
-    private FrameLayout frameLayout;
+    private FrameLayout indicatorFrameLayout;
     private ViewPager loopViewPager;
     private LinearLayout indicatorLayout;
     private LinearLayout animIndicatorLayout;
@@ -81,6 +82,94 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         L.e("Initialize LoopViewPagerLayout ---> context, attrs, defStyleAttr");
     }
 
+    public interface OnBannerItemClickListener {
+        void onBannerClick(int index, ArrayList<BannerInfo> banner);
+    }
+
+    /**
+     * Be sure to initialize the View
+     */
+    public void initializeView() {
+        L.e("LoopViewPager ---> initializeView");
+        float density = getResources().getDisplayMetrics().density;
+
+        loopViewPager = new ViewPager(getContext());
+        LayoutParams loop_params = new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        addView(loopViewPager, loop_params);
+
+        //TODO FrameLayout
+        indicatorFrameLayout = new FrameLayout(getContext());
+        LayoutParams f_params = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ((int) (20 * density)));
+        f_params.addRule(RelativeLayout.CENTER_HORIZONTAL);//android:layout_centerHorizontal="true"
+        f_params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);//android:layout_alignParentBottom="true"
+        addView(indicatorFrameLayout, f_params);
+
+
+        //TODO indicatorLayout
+        indicatorLayout = new LinearLayout(getContext());
+        FrameLayout.LayoutParams ind_params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        indicatorLayout.setGravity(Gravity.CENTER);
+        indicatorLayout.setOrientation(LinearLayout.HORIZONTAL);
+        indicatorFrameLayout.addView(indicatorLayout, ind_params);
+
+        //TODO indicatorLayout2
+        animIndicatorLayout = new LinearLayout(getContext());
+        FrameLayout.LayoutParams ind_params2 = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        animIndicatorLayout.setGravity(Gravity.CENTER | Gravity.START);
+        animIndicatorLayout.setOrientation(LinearLayout.HORIZONTAL);
+        indicatorFrameLayout.addView(animIndicatorLayout, ind_params2);
+    }
+
+    /**
+     * Be sure to initialize the Data
+     *
+     * @param context context
+     */
+    public void initializeData(Context context) {
+        L.e("LoopViewPager ---> initViewPager");
+        //TODO To prevent the flower screen
+        if (loop_duration > loop_ms)
+            loop_duration = loop_ms;
+
+        //TODO loop_duration
+        try {
+            Field mField = ViewPager.class.getDeclaredField("mScroller");
+            mField.setAccessible(true);
+            LoopScroller mScroller = new LoopScroller(context, new AccelerateInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new AnticipateInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new PathInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new BounceInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new OvershootInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new AnticipateOvershootInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new LinearInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new AccelerateInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new DecelerateInterpolator());
+//            LoopScroller mScroller = new LoopScroller(context, new CycleInterpolator(20));
+            //可以用setDuration的方式调整速率
+            mScroller.setmDuration(loop_duration);
+            mField.set(loopViewPager, mScroller);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //TODO loop_style
+        if (loop_style == 1) {
+            loopViewPager.setPageTransformer(true, new DepthPageTransformer());
+        } else if (loop_style == 2) {
+            loopViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+        }
+
+        //TODO Listener
+        loopViewPager.setOnTouchListener(this);
+        L.e("LoopViewPager init");
+    }
+
+    /**
+     * initialize the Data
+     *
+     * @param bannerInfos               BannerInfo
+     * @param onBannerItemClickListener ItemClick
+     */
     public void setLoopData(ArrayList<BannerInfo> bannerInfos, OnBannerItemClickListener onBannerItemClickListener) {
         L.e("LoopViewPager 1---> setLoopData");
         if (bannerInfos != null && bannerInfos.size() > 0) {
@@ -135,65 +224,6 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         animIndicatorLayout.addView(animIndicator, params);
     }
 
-
-    class LoopPagerAdapterWrapper extends PagerAdapter {
-
-        @Override
-        public int getCount() {
-            return Short.MAX_VALUE;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            final int index = position % bannerInfos.size();
-            final BannerInfo bannerInfo = bannerInfos.get(index);
-            final ImageView child = new ImageView(getContext());
-            child.setImageResource(bannerInfo.resId);
-            child.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            child.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onBannerItemClickListener != null)
-                        onBannerItemClickListener.onBannerClick(index, bannerInfos);
-                }
-            });
-            container.addView(child);
-            return child;
-        }
-    }
-
-    public static class BannerInfo {
-        public int resId;
-        public String title;
-        public String url;
-
-        public BannerInfo(int resId, String title) {
-            this.resId = resId;
-            this.title = title;
-        }
-
-        public BannerInfo(int resId, String title, String url) {
-            this.resId = resId;
-            this.title = title;
-            this.url = url;
-        }
-    }
-
-
-    public interface OnBannerItemClickListener {
-        void onBannerClick(int index, ArrayList<BannerInfo> banner);
-    }
-
     public int getLoop_ms() {
         if (loop_ms < 1500)
             loop_ms = 1500;
@@ -243,85 +273,6 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
     public void stopLoop() {
         handler.removeMessages(MESSAGE_LOOP);
         L.e("LoopViewPager ---> stopLoop");
-    }
-
-
-    /**
-     * Be sure to initialize the View
-     */
-    public void initializeView() {
-        L.e("LoopViewPager ---> initializeView");
-        float density = getResources().getDisplayMetrics().density;
-
-        loopViewPager = new ViewPager(getContext());
-        LayoutParams loop_params = new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        addView(loopViewPager, loop_params);
-
-        //TODO FrameLayout
-        frameLayout = new FrameLayout(getContext());
-        LayoutParams f_params = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ((int) (20 * density)));
-        f_params.addRule(RelativeLayout.CENTER_HORIZONTAL);//android:layout_centerHorizontal="true"
-        f_params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);//android:layout_alignParentBottom="true"
-        addView(frameLayout, f_params);
-
-
-        //TODO indicatorLayout
-        indicatorLayout = new LinearLayout(getContext());
-        FrameLayout.LayoutParams ind_params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
-        indicatorLayout.setGravity(Gravity.CENTER);
-        indicatorLayout.setOrientation(LinearLayout.HORIZONTAL);
-        frameLayout.addView(indicatorLayout, ind_params);
-
-        //TODO indicatorLayout2
-        animIndicatorLayout = new LinearLayout(getContext());
-        FrameLayout.LayoutParams ind_params2 = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-        animIndicatorLayout.setGravity(Gravity.CENTER | Gravity.LEFT);
-        animIndicatorLayout.setOrientation(LinearLayout.HORIZONTAL);
-        frameLayout.addView(animIndicatorLayout, ind_params2);
-    }
-
-    /**
-     * Be sure to initialize the Data
-     *
-     * @param context context
-     */
-    public void initializeData(Context context) {
-        L.e("LoopViewPager ---> initViewPager");
-        //TODO To prevent the flower screen
-        if (loop_duration > loop_ms)
-            loop_duration = loop_ms;
-
-        //TODO loop_duration
-        try {
-            Field mField = ViewPager.class.getDeclaredField("mScroller");
-            mField.setAccessible(true);
-            LoopScroller mScroller = new LoopScroller(context, new AccelerateInterpolator());
-//            LoopScroller mScroller = new LoopScroller(context, new AnticipateInterpolator());
-//            LoopScroller mScroller = new LoopScroller(context, new PathInterpolator());
-//            LoopScroller mScroller = new LoopScroller(context, new BounceInterpolator());
-//            LoopScroller mScroller = new LoopScroller(context, new OvershootInterpolator());
-//            LoopScroller mScroller = new LoopScroller(context, new AnticipateOvershootInterpolator());
-//            LoopScroller mScroller = new LoopScroller(context, new LinearInterpolator());
-//            LoopScroller mScroller = new LoopScroller(context, new AccelerateInterpolator());
-//            LoopScroller mScroller = new LoopScroller(context, new DecelerateInterpolator());
-//            LoopScroller mScroller = new LoopScroller(context, new CycleInterpolator(20));
-            //可以用setDuration的方式调整速率
-            mScroller.setmDuration(loop_duration);
-            mField.set(loopViewPager, mScroller);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //TODO loop_style
-        if (loop_style == 1) {
-            loopViewPager.setPageTransformer(true, new DepthPageTransformer());
-        } else if (loop_style == 2) {
-            loopViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
-        }
-
-        //TODO Listener
-        loopViewPager.setOnTouchListener(this);
-        L.e("LoopViewPager init");
     }
 
 
@@ -398,4 +349,62 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
             return false;
         }
     }
+
+    private class LoopPagerAdapterWrapper extends PagerAdapter {
+
+        @Override
+        public int getCount() {
+            return Short.MAX_VALUE;
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((View) object);
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            final int index = position % bannerInfos.size();
+            final BannerInfo bannerInfo = bannerInfos.get(index);
+            final ImageView child = new ImageView(getContext());
+            child.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onBannerItemClickListener != null)
+                        onBannerItemClickListener.onBannerClick(index, bannerInfos);
+                }
+            });
+
+            Glide
+                    .with(child.getContext())
+                    .load(bannerInfo.url)
+                    .centerCrop()
+//                    .placeholder()
+                    .crossFade()
+                    .into(child);
+
+            child.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            container.addView(child);
+            return child;
+        }
+    }
+
+    /**
+     * BannerInfo
+     */
+    public static class BannerInfo<T> {
+        public T url;
+        public String title;
+
+        public BannerInfo(T url, String title) {
+            this.url = url;
+            this.title = title;
+        }
+    }
+
 }

@@ -50,10 +50,10 @@ public class ListHeadViewFragment extends BaseFragment {
         mLoopViewPagerLayout.initializeData(mActivity);
         //TODO 准备数据
         ArrayList<LoopViewPagerLayout.BannerInfo> bannerInfos = new ArrayList<>(4);
-        bannerInfos.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.a, "第一张图片"));
-        bannerInfos.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.c, "第二张图片"));
-        bannerInfos.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.d, "第三张图片"));
-        bannerInfos.add(new LoopViewPagerLayout.BannerInfo(R.mipmap.b, "第四张图片"));
+        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.a, "第一张图片"));
+        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.c, "第二张图片"));
+        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<String>("https://avatars2.githubusercontent.com/u/13330076?v=3&u=33de3c989c70716d321d79a99b8d176c7b88349e&s=400", "第三张图片"));
+        bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.b, "第四张图片"));
         mLoopViewPagerLayout.setLoopData(bannerInfos, null);
 
         mListView.addHeaderView(mLoopViewPagerLayout);
