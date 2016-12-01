@@ -83,10 +83,22 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
     }
 
     public interface OnBannerItemClickListener {
+        /**
+         * banner click
+         *
+         * @param index  subscript
+         * @param banner bean
+         */
         void onBannerClick(int index, ArrayList<BannerInfo> banner);
     }
 
     public interface OnLoadImageViewListener {
+        /**
+         * image load
+         *
+         * @param view   ImageView
+         * @param object parameter
+         */
         void onLoadImageView(ImageView view, Object object);
     }
 
@@ -175,14 +187,18 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
      * @param onBannerItemClickListener ItemClick
      */
     public void setLoopData(ArrayList<BannerInfo> bannerInfos, OnBannerItemClickListener onBannerItemClickListener, OnLoadImageViewListener onLoadImageViewListener) {
-        L.e("LoopViewPager 1---> setLoopData");
+        L.e("LoopViewPager ---> setLoopData");
         if (bannerInfos != null && bannerInfos.size() > 0) {
             this.bannerInfos = bannerInfos;
         } else {
             throw new NullPointerException("LoopViewPagerLayout bannerInfos is null or bannerInfos.size() isEmpty");
         }
         this.onBannerItemClickListener = onBannerItemClickListener;
-        this.onLoadImageViewListener = onLoadImageViewListener;
+        if (onLoadImageViewListener != null) {
+            this.onLoadImageViewListener = onLoadImageViewListener;
+        } else {
+            throw new NullPointerException("LoopViewPagerLayout onLoadImageViewListener isEmpty,Be sure to initialize the onLoadImageView");
+        }
         //TODO Initialize multiple times, clear images and little red dot
         if (indicatorLayout.getChildCount() > 0) {
             indicatorLayout.removeAllViews();
@@ -384,19 +400,9 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
                         onBannerItemClickListener.onBannerClick(index, bannerInfos);
                 }
             });
-
             if (onLoadImageViewListener != null) {
                 onLoadImageViewListener.onLoadImageView(child, bannerInfo.url);
             }
-
-//            Glide
-//                    .with(child.getContext())
-//                    .load(bannerInfo.url)
-//                    .centerCrop()
-////                    .placeholder()
-//                    .crossFade()
-//                    .into(child);
-
             child.setScaleType(ImageView.ScaleType.CENTER_CROP);
             container.addView(child);
             return child;

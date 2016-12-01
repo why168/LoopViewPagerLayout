@@ -82,11 +82,17 @@ public class LoopViewPagerFragment extends BaseFragment implements LoopViewPager
 
     @Override
     public void onLoadImageView(ImageView view, Object object) {
+        /**
+         * Picasso: Square出品，必属精品。和OkHttp搭配起来更配呦！
+         * Fresco：Facebook出的，天生骄傲！不是一般的强大。
+         * Glide：Google推荐的图片加载库，专注于流畅的滚动。
+         */
         Glide
                 .with(view.getContext())
                 .load(object)
                 .centerCrop()
-//                    .placeholder()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
                 .crossFade()
                 .into(view);
     }

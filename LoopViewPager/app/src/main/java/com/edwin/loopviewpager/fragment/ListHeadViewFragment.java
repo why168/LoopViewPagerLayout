@@ -57,9 +57,7 @@ public class ListHeadViewFragment extends BaseFragment implements LoopViewPagerL
         bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.c, "第二张图片"));
         bannerInfos.add(new LoopViewPagerLayout.BannerInfo<String>("https://avatars2.githubusercontent.com/u/13330076?v=3&u=33de3c989c70716d321d79a99b8d176c7b88349e&s=400", "第三张图片"));
         bannerInfos.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.b, "第四张图片"));
-        mLoopViewPagerLayout.setLoopData(bannerInfos, this,this);
-
-
+        mLoopViewPagerLayout.setLoopData(bannerInfos, this, this);
         mListView.addHeaderView(mLoopViewPagerLayout);
     }
 
@@ -84,11 +82,17 @@ public class ListHeadViewFragment extends BaseFragment implements LoopViewPagerL
 
     @Override
     public void onLoadImageView(ImageView view, Object object) {
+        /**
+         * Picasso: Square出品，必属精品。和OkHttp搭配起来更配呦！
+         * Fresco：Facebook出的，天生骄傲！不是一般的强大。
+         * Glide：Google推荐的图片加载库，专注于流畅的滚动。
+         */
         Glide
                 .with(view.getContext())
                 .load(object)
                 .centerCrop()
-//                    .placeholder()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
                 .crossFade()
                 .into(view);
     }
