@@ -131,25 +131,25 @@ public interface OnLoadImageViewListener {
 * 2016/06/15 
 	1. 2.0版本再次进行封装,大更新！
 	2. 增加LoopViewPager布局，把LoopViewPager和LinearLayout一起结合起来了，方便直接地通过view_loop_viewpager修改一些参数，低耦合高类聚的原则；
-	3. 修复bug 滑倒第二图再次按住滑动，松开手之后会连续滑动2张图。
+	3. 修复bug 滑到第二图再次按住滑动，松开手之后会连续滑动2张图。
 
 * 2016/07/01 
 	1. 2.1版本更新！
 	2. 因初始化多次,清空图片和小红点。感谢<a harget="_blank" href="https://github.com/solochen">solochen</a>提出的问题。
 
 * 2016/11/08 00:25
-	1. 重构项目，1.0正式被发布，支持Gradle！；=
+	1. 重构项目，1.0正式版发布，支持Gradle加载图片；
 	2. 使用更方便。
 	
 * 2016/11/08 11:12 
 	1. 更改名字 LoopViewPagerLayout,1.0.5正式被发布。
 
 * 2016/11/28 19:20 
-	1. 修复LoopViewPagerLayout的(layout_height)高度自适应，小红点显示错误bug,1.0.6正式被发布。
+	1. 修复LoopViewPagerLayout的属性android:layout_height高度自适应，小红点显示错误bug,1.0.6正式被发布。
 
 * 2016/12/01 00:08
 	1. 父布局，子布局里面设置padding或者margin，宽高设置match_parent或者wrap_content小红点错位；
-	2. 解决默认数4个修改成动态值；
+	2. 解决默认轮播图片数量只能为4个的问题；
 	3. 优化代码。
 
 * 2016/12/01 13:18
@@ -158,7 +158,7 @@ public interface OnLoadImageViewListener {
 	3. 2.0.0正式被发布。
 
 * 2016/12/01 18:18
-	1. 支持小红点三种位置摆放（左，中，右）。
+	1. 支持小红点指示器三种位置摆放（左，中，右）。
 
 * 2016/12/05 18:20
 	1. 轮播图触摸不灵敏，onTouch事件有时候执行不了。感谢<a target="_blank" href="https://github.com/VincentZhangZhengliang">VincentZhangZhengliang</a>提出的问题
