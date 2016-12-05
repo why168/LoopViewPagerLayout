@@ -42,7 +42,6 @@ public class ListHeadViewFragment extends BaseFragment implements LoopViewPagerL
         mListView.setAdapter(new ListHeadViewAdapter(getContext()));
         View inflateView = LayoutInflater.from(mActivity).inflate(R.layout.item_banner, null);
         mLoopViewPagerLayout = (LoopViewPagerLayout) inflateView.findViewById(R.id.mLoopViewPagerLayout_banner);
-
         //TODO 初始化View
         mLoopViewPagerLayout.initializeView();
 

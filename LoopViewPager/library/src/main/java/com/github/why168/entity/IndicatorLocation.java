@@ -12,7 +12,7 @@ package com.github.why168.entity;
  */
 public enum IndicatorLocation {
     Left(1),
-    center(0),
+    Center(0),
     Right(2);
 
     private int value;

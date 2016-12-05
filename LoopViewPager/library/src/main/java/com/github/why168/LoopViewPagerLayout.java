@@ -53,7 +53,7 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
     private static final int MESSAGE_LOOP = 5;
     private int loop_ms = 4000;//loop speed(ms)
     private int loop_style = -1; //loop style(enum values[-1:empty,1:depth 2:zoom])
-    private int indicatorLocation = 0; //Indicator Location(enum values[1:left,0:depth 2:right])
+    private IndicatorLocation indicatorLocation = IndicatorLocation.Center; //Indicator Location(enum values[1:left,0:depth 2:right])
     private int loop_duration = 2000;//loop rate(ms)
     private Handler handler = new Handler() {
         @Override
@@ -103,6 +103,14 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         void onLoadImageView(ImageView view, Object object);
     }
 
+//    public void setOnBannerItemClickListener(OnBannerItemClickListener onBannerItemClickListener) {
+//        this.onBannerItemClickListener = onBannerItemClickListener;
+//    }
+//
+//    public void setOnLoadImageViewListener(OnLoadImageViewListener onLoadImageViewListener) {
+//        this.onLoadImageViewListener = onLoadImageViewListener;
+//    }
+
     /**
      * Be sure to initialize the View
      */
@@ -121,10 +129,10 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         f_params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);//android:layout_alignParentBottom="true"
 
         switch (indicatorLocation) {
-            case 1:
+            case Left:
                 f_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);// android:layout_alignParentLeft="true"
                 break;
-            case 2:
+            case Right:
                 f_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);//android:layout_alignParentRight="true"
                 break;
             default:
@@ -133,7 +141,6 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
 
         f_params.setMargins(((int) (10 * density)), 0, ((int) (10 * density)), 0);
         addView(indicatorFrameLayout, f_params);
-
 
         //TODO indicatorLayout
         indicatorLayout = new LinearLayout(getContext());
@@ -158,7 +165,7 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
      * @param context context
      */
     public void initializeData(Context context) {
-        L.e("LoopViewPager ---> initViewPager");
+        L.e("LoopViewPager ---> initializeData");
         //TODO To prevent the flower screen
         if (loop_duration > loop_ms)
             loop_duration = loop_ms;
@@ -300,7 +307,7 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
      * @param indicatorLocation (enum values[1:left,0:depth,2:right])
      */
     public void setIndicatorLocation(IndicatorLocation indicatorLocation) {
-        this.indicatorLocation = indicatorLocation.getValue();
+        this.indicatorLocation = indicatorLocation;
     }
 
     /**
