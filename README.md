@@ -62,7 +62,7 @@ dependencies {
 
 #### javadoc  
 
-<https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.0/javadoc/>
+<a target="_blank" href="https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.0/javadoc/">https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.0/javadoc/</a>
 
 ## 布局 LoopViewPagerLayout
 
