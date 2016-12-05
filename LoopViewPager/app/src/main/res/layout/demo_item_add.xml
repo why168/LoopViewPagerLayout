@@ -32,5 +32,6 @@
             android:layout_alignParentRight="true"
             android:text="2016-5-5"
             android:textColor="#fff" />
+
     </RelativeLayout>
 </LinearLayout>

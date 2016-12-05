@@ -135,7 +135,7 @@ public interface OnLoadImageViewListener {
 
 * 2016/07/01 
 	1. 2.1版本更新！
-	2. 因初始化多次,清空图片和小红点。感谢solochen提出的问题。(已经修复)。
+	2. 因初始化多次,清空图片和小红点。感谢<a harget="_blank" href="https://github.com/solochen">solochen</a>提出的问题。
 
 * 2016/11/08 00:25
 	1. 重构项目，1.0正式被发布，支持Gradle！；=
@@ -157,8 +157,12 @@ public interface OnLoadImageViewListener {
 	2. 图片加载框架推荐：Glide，Picasso，Fresco；
 	3. 2.0.0正式被发布。
 
-* 2016/12/01 13:18
+* 2016/12/01 18:18
 	1. 支持小红点三种位置摆放（左，中，右）。
+
+* 2016/12/05 18:20
+	1. 轮播图触摸不灵敏，onTouch事件有时候执行不了。感谢<a target="_blank" href="https://github.com/VincentZhangZhengliang">VincentZhangZhengliang</a>提出的问题
+
 
 			
 <br>

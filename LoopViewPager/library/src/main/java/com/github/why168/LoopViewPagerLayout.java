@@ -142,7 +142,7 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         indicatorLayout.setOrientation(LinearLayout.HORIZONTAL);
         indicatorFrameLayout.addView(indicatorLayout, ind_params);
 
-        //TODO indicatorLayout2
+        //TODO animIndicatorLayout
         animIndicatorLayout = new LinearLayout(getContext());
         FrameLayout.LayoutParams ind_params2 = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         animIndicatorLayout.setGravity(Gravity.CENTER | Gravity.START);

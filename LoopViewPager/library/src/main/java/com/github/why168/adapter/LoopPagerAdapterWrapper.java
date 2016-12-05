@@ -50,18 +50,18 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
         final int index = position % bannerInfos.size();
         final LoopViewPagerLayout.BannerInfo bannerInfo = bannerInfos.get(index);
         final ImageView child = new ImageView(context);
-        child.setOnClickListener(new View.OnClickListener() {
+        if (onLoadImageViewListener != null) {
+            onLoadImageViewListener.onLoadImageView(child, bannerInfo.url);
+        }
+        child.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        container.addView(child);
+        container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onBannerItemClickListener != null)
                     onBannerItemClickListener.onBannerClick(index, bannerInfos);
             }
         });
-        if (onLoadImageViewListener != null) {
-            onLoadImageViewListener.onLoadImageView(child, bannerInfo.url);
-        }
-        child.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        container.addView(child);
         return child;
     }
 }
