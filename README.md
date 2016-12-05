@@ -8,6 +8,7 @@
 * 支持点击事件回调监听；
 * 支持自定义图片加载；
 * 支持addHeaderView方式；
+* 支持小红点位置左中右；
 * 指示器小红点动态移动；
 * 防闪屏花屏。
 
@@ -48,6 +49,7 @@ dependencies {
 
 ## API调用顺序
 
+* setIndicatorLocation(IndicatorLocation.Right)：小红点位置（枚举值: 1:left，0:depth， 2:right）
 * initializeView()：初始化View
 * setLoop_ms：轮播的速度(毫秒)
 * setLoop_duration：滑动的速率(毫秒)
@@ -58,6 +60,9 @@ dependencies {
 * stopLoop()：停止轮播,务必在onDestory中调用
 
 
+#### javadoc  
+
+<https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.0/javadoc/>
 
 ## 布局 LoopViewPagerLayout
 
@@ -121,7 +126,7 @@ public interface OnLoadImageViewListener {
 ## 更新说明
 
 * 2016/06/12 
-	1. 省略
+	1. 省略。
 
 * 2016/06/15 
 	1. 2.0版本再次进行封装,大更新！
@@ -130,27 +135,31 @@ public interface OnLoadImageViewListener {
 
 * 2016/07/01 
 	1. 2.1版本更新！
-	2. 因初始化多次,清空图片和小红点。感谢solochen提出的问题。(已经修复)
+	2. 因初始化多次,清空图片和小红点。感谢solochen提出的问题。(已经修复)。
 
 * 2016/11/08 00:25
-	1. 重构项目，1.0正式被发布，支持Gradle！
-	2. 使用更方便
+	1. 重构项目，1.0正式被发布，支持Gradle！；=
+	2. 使用更方便。
 	
 * 2016/11/08 11:12 
-	1. 更改名字 LoopViewPagerLayout,1.0.5正式被发布
+	1. 更改名字 LoopViewPagerLayout,1.0.5正式被发布。
 
 * 2016/11/28 19:20 
-	1. 修复LoopViewPagerLayout的(layout_height)高度自适应，小红点显示错误bug,1.0.6正式被发布
+	1. 修复LoopViewPagerLayout的(layout_height)高度自适应，小红点显示错误bug,1.0.6正式被发布。
 
 * 2016/12/01 00:08
-	1. 父布局，子布局里面设置padding或者margin，宽高设置match_parent或者wrap_content小红点错位
-	2. 解决默认数4个修改成动态值。 
-	3. 优化代码；
+	1. 父布局，子布局里面设置padding或者margin，宽高设置match_parent或者wrap_content小红点错位；
+	2. 解决默认数4个修改成动态值；
+	3. 优化代码。
 
 * 2016/12/01 13:18
-	1. 设计了一个回调方法，让用户自己定义图片加载OnLoadImageViewListener。url参数支持泛型，回调回来的是Object根据实际情况强转
-	2. 图片加载框架推荐：Glide，Picasso，Fresco
-	3. 2.0.0正式被发布
+	1. 设计了一个回调方法，让用户自己定义图片加载OnLoadImageViewListener。url参数支持泛型，回调回来的是Object根据实际情况强转；
+	2. 图片加载框架推荐：Glide，Picasso，Fresco；
+	3. 2.0.0正式被发布。
+
+* 2016/12/01 13:18
+	1. 支持小红点三种位置摆放（左，中，右）。
+
 			
 <br>
 
