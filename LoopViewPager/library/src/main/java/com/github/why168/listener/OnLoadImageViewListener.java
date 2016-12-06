@@ -12,6 +12,14 @@ import android.widget.ImageView;
  */
 public interface OnLoadImageViewListener {
     /**
+     * create image
+     *
+     * @param context context
+     * @return image
+     */
+    ImageView createImageView(Context context);
+
+    /**
      * image load
      *
      * @param imageView ImageView
@@ -23,12 +31,4 @@ public interface OnLoadImageViewListener {
      *                  T 自定义类型
      */
     void onLoadImageView(ImageView imageView, Object parameter);
-
-    /**
-     * create image
-     *
-     * @param context context
-     * @return image
-     */
-    ImageView createImageView(Context context);
 }

@@ -19,14 +19,14 @@ import com.github.why168.listener.OnLoadImageViewListener;
 public class OnFrescoImageViewLoader implements OnLoadImageViewListener {
 
     @Override
-    public void onLoadImageView(ImageView imageView, Object parameter) {
-        Uri uri = Uri.parse((String) parameter);
-        imageView.setImageURI(uri);
-    }
-
-    @Override
     public SimpleDraweeView createImageView(Context context) {
         SimpleDraweeView simpleDraweeView = new SimpleDraweeView(context);
         return simpleDraweeView;
+    }
+
+    @Override
+    public void onLoadImageView(ImageView imageView, Object parameter) {
+        Uri uri = Uri.parse((String) parameter);
+        imageView.setImageURI(uri);
     }
 }

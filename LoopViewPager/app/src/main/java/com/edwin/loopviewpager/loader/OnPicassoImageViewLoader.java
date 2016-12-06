@@ -21,6 +21,13 @@ import com.squareup.picasso.Picasso;
 public class OnPicassoImageViewLoader implements OnLoadImageViewListener {
 
     @Override
+    public ImageView createImageView(Context context) {
+        ImageView imageView = new ImageView(context);
+        imageView.setScaleType(ImageView.ScaleType.MATRIX);
+        return imageView;
+    }
+
+    @Override
     public void onLoadImageView(ImageView imageView, Object object) {
         Picasso
                 .with(imageView.getContext())
@@ -37,12 +44,5 @@ public class OnPicassoImageViewLoader implements OnLoadImageViewListener {
                         L.e("Picasso ---> onError");
                     }
                 });
-    }
-
-    @Override
-    public ImageView createImageView(Context context) {
-        ImageView imageView = new ImageView(context);
-        imageView.setScaleType(ImageView.ScaleType.MATRIX);
-        return imageView;
     }
 }

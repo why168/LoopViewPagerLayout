@@ -19,6 +19,13 @@ import com.github.why168.listener.OnLoadImageViewListener;
 public class OnGlideImageViewLoader implements OnLoadImageViewListener {
 
     @Override
+    public ImageView createImageView(Context context) {
+        ImageView imageView = new ImageView(context);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        return imageView;
+    }
+
+    @Override
     public void onLoadImageView(ImageView view, Object parameter) {
         Glide
                 .with(view.getContext())
@@ -28,12 +35,5 @@ public class OnGlideImageViewLoader implements OnLoadImageViewListener {
                 .error(R.mipmap.ic_launcher)
                 .crossFade()
                 .into(view);
-    }
-
-    @Override
-    public ImageView createImageView(Context context) {
-        ImageView imageView = new ImageView(context);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        return imageView;
     }
 }
