@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.github.why168.LoopViewPagerLayout;
+import com.github.why168.listener.OnBannerItemClickListener;
+import com.github.why168.listener.OnLoadImageViewListener;
+import com.github.why168.modle.BannerInfo;
 
 import java.util.ArrayList;
 
@@ -18,17 +20,18 @@ import java.util.ArrayList;
  * @since JDK1.8
  */
 public class LoopPagerAdapterWrapper extends PagerAdapter {
-    private Context context;
-    private ArrayList<LoopViewPagerLayout.BannerInfo> bannerInfos;//banner data
-    private LoopViewPagerLayout.OnBannerItemClickListener onBannerItemClickListener = null;
-    private LoopViewPagerLayout.OnLoadImageViewListener onLoadImageViewListener = null;
+    private final Context context;
+    private final ArrayList<BannerInfo> bannerInfos;//banner data
+    private final OnBannerItemClickListener onBannerItemClickListener;
+    private final OnLoadImageViewListener onLoadImageViewListener;
 
-    public LoopPagerAdapterWrapper(Context context, ArrayList<LoopViewPagerLayout.BannerInfo> bannerInfos, LoopViewPagerLayout.OnBannerItemClickListener onBannerItemClickListener, LoopViewPagerLayout.OnLoadImageViewListener onLoadImageViewListener) {
+    public LoopPagerAdapterWrapper(Context context, ArrayList<BannerInfo> bannerInfos, OnBannerItemClickListener onBannerItemClickListener, OnLoadImageViewListener onLoadImageViewListener) {
         this.context = context;
         this.bannerInfos = bannerInfos;
         this.onBannerItemClickListener = onBannerItemClickListener;
         this.onLoadImageViewListener = onLoadImageViewListener;
     }
+
 
     @Override
     public int getCount() {
@@ -48,13 +51,16 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         final int index = position % bannerInfos.size();
-        final LoopViewPagerLayout.BannerInfo bannerInfo = bannerInfos.get(index);
-        final ImageView child = new ImageView(context);
+        final BannerInfo bannerInfo = bannerInfos.get(index);
+        ImageView child = null;
         if (onLoadImageViewListener != null) {
+            child = onLoadImageViewListener.createImageView(context);
             onLoadImageViewListener.onLoadImageView(child, bannerInfo.url);
+            container.addView(child);
+        } else {
+            throw new NullPointerException("LoopViewPagerLayout onLoadImageViewListener isEmpty,Be sure to initialize the onLoadImageView");
         }
-        child.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        container.addView(child);
+
         container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -15,8 +15,16 @@ import android.widget.Scroller;
 public class LoopScroller extends Scroller {
     private int mDuration = 1000;//速率必须小于延迟时间loop_ms
 
+    public LoopScroller(Context context) {
+        super(context);
+    }
+
     public LoopScroller(Context context, Interpolator interpolator) {
         super(context, interpolator);
+    }
+
+    public LoopScroller(Context context, Interpolator interpolator, boolean flywheel) {
+        super(context, interpolator, flywheel);
     }
 
 

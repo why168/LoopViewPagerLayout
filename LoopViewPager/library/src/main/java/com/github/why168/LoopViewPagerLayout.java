@@ -11,9 +11,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,8 +19,11 @@ import android.widget.TextView;
 import com.github.why168.adapter.LoopPagerAdapterWrapper;
 import com.github.why168.animate.DepthPageTransformer;
 import com.github.why168.animate.ZoomOutPageTransformer;
-import com.github.why168.entity.IndicatorLocation;
-import com.github.why168.entity.LoopStyle;
+import com.github.why168.listener.OnBannerItemClickListener;
+import com.github.why168.listener.OnLoadImageViewListener;
+import com.github.why168.modle.BannerInfo;
+import com.github.why168.modle.IndicatorLocation;
+import com.github.why168.modle.LoopStyle;
 import com.github.why168.scroller.LoopScroller;
 import com.github.why168.utils.L;
 import com.github.why168.utils.Tools;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
  *
  * @author Edwin.Wu
  * @version 2016/11/14 23:58
+ * @see <a href="https://github.com/why168/LoopViewPagerLayout">LoopViewPagerLayout/a>
  * @since JDK1.8
  */
 public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchListener {
@@ -83,33 +85,22 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         L.e("Initialize LoopViewPagerLayout ---> context, attrs, defStyleAttr");
     }
 
-    public interface OnBannerItemClickListener {
-        /**
-         * banner click
-         *
-         * @param index  subscript
-         * @param banner bean
-         */
-        void onBannerClick(int index, ArrayList<BannerInfo> banner);
+
+    /**
+     * onLoadImageViewListener
+     *
+     * @param onBannerItemClickListener onBannerItemClickListener
+     */
+    public void setOnBannerItemClickListener(OnBannerItemClickListener onBannerItemClickListener) {
+        this.onBannerItemClickListener = onBannerItemClickListener;
     }
 
-    public interface OnLoadImageViewListener {
-        /**
-         * image load
-         *
-         * @param view   ImageView
-         * @param object parameter
-         */
-        void onLoadImageView(ImageView view, Object object);
+    /**
+     * @param onLoadImageViewListener
+     */
+    public void setOnLoadImageViewListener(OnLoadImageViewListener onLoadImageViewListener) {
+        this.onLoadImageViewListener = onLoadImageViewListener;
     }
-
-//    public void setOnBannerItemClickListener(OnBannerItemClickListener onBannerItemClickListener) {
-//        this.onBannerItemClickListener = onBannerItemClickListener;
-//    }
-//
-//    public void setOnLoadImageViewListener(OnLoadImageViewListener onLoadImageViewListener) {
-//        this.onLoadImageViewListener = onLoadImageViewListener;
-//    }
 
     /**
      * Be sure to initialize the View
@@ -174,7 +165,8 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         try {
             Field mField = ViewPager.class.getDeclaredField("mScroller");
             mField.setAccessible(true);
-            LoopScroller mScroller = new LoopScroller(context, new AccelerateInterpolator());
+            LoopScroller mScroller = new LoopScroller(context);
+//            LoopScroller mScroller = new LoopScroller(context, new AccelerateInterpolator());
 //            LoopScroller mScroller = new LoopScroller(context, new AnticipateInterpolator());
 //            LoopScroller mScroller = new LoopScroller(context, new PathInterpolator());
 //            LoopScroller mScroller = new LoopScroller(context, new BounceInterpolator());
@@ -200,28 +192,21 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
 
         //TODO Listener
         loopViewPager.setOnTouchListener(this);
-        L.e("LoopViewPager init");
     }
 
     /**
      * initialize the Data
      *
-     * @param bannerInfos               BannerInfo
-     * @param onBannerItemClickListener ItemClick
+     * @param bannerInfos BannerInfo
      */
-    public void setLoopData(ArrayList<BannerInfo> bannerInfos, OnBannerItemClickListener onBannerItemClickListener, OnLoadImageViewListener onLoadImageViewListener) {
+    public void setLoopData(ArrayList<BannerInfo> bannerInfos) {
         L.e("LoopViewPager ---> setLoopData");
         if (bannerInfos != null && bannerInfos.size() > 0) {
             this.bannerInfos = bannerInfos;
         } else {
             throw new NullPointerException("LoopViewPagerLayout bannerInfos is null or bannerInfos.size() isEmpty");
         }
-        this.onBannerItemClickListener = onBannerItemClickListener;
-        if (onLoadImageViewListener != null) {
-            this.onLoadImageViewListener = onLoadImageViewListener;
-        } else {
-            throw new NullPointerException("LoopViewPagerLayout onLoadImageViewListener isEmpty,Be sure to initialize the onLoadImageView");
-        }
+
         //TODO Initialize multiple times, clear images and little red dot
         if (indicatorLayout.getChildCount() > 0) {
             indicatorLayout.removeAllViews();
@@ -234,7 +219,7 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
 
         indicatorLayout.getViewTreeObserver().addOnPreDrawListener(new IndicatorPreDrawListener());
 
-        loopPagerAdapterWrapper = new LoopPagerAdapterWrapper(getContext(), this.bannerInfos, this.onBannerItemClickListener, this.onLoadImageViewListener);
+        loopPagerAdapterWrapper = new LoopPagerAdapterWrapper(getContext(), bannerInfos, onBannerItemClickListener, onLoadImageViewListener);
         loopViewPager.setAdapter(loopPagerAdapterWrapper);
         loopViewPager.addOnPageChangeListener(new ViewPageChangeListener());
 
@@ -329,6 +314,15 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
     }
 
     /**
+     * LoopViewPager
+     *
+     * @return ViewPager
+     */
+    public ViewPager getLoopViewPager() {
+        return loopViewPager;
+    }
+
+    /**
      * ViewPager-onTouch
      *
      * @param v
@@ -356,14 +350,15 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         return false;
     }
 
+
     private class ViewPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             if (loopPagerAdapterWrapper.getCount() > 0) {
                 float length = ((position % bannerInfos.size()) + positionOffset) / (bannerInfos.size() - 1);
-//                //TODO To prevent the last picture the little red dot slip out.
-//                if (length >= 1)
-//                    length = 1;
+                //TODO To prevent the last picture the little red dot slip out.
+                if (length >= 1)
+                    length = 1;
                 float path = length * totalDistance;
 //                L.e("path " + path + " = length * " + length + " totalDistance " + totalDistance);
                 ViewCompat.setTranslationX(animIndicator, path);
@@ -401,23 +396,4 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
             return false;
         }
     }
-
-    /**
-     * @param <T> String    可以为一个文件路径、uri或者url
-     *            Uri   uri类型
-     *            File  文件
-     *            Integer   资源Id,R.drawable.xxx或者R.mipmap.xxx
-     *            byte[]    类型
-     *            T 自定义类型
-     */
-    public static class BannerInfo<T> {
-        public T url;
-        public String title;
-
-        public BannerInfo(T url, String title) {
-            this.url = url;
-            this.title = title;
-        }
-    }
-
 }

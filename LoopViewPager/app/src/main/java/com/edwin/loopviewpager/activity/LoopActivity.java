@@ -1,6 +1,7 @@
 package com.edwin.loopviewpager.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -9,9 +10,10 @@ import android.widget.Toast;
 
 import com.edwin.loopviewpager.R;
 import com.edwin.loopviewpager.base.BaseActivity;
+import com.edwin.loopviewpager.fragment.DepthLoopViewPagerFragment;
+import com.edwin.loopviewpager.fragment.EmptyLoopViewPagerFragment;
 import com.edwin.loopviewpager.fragment.ListHeadViewFragment;
-import com.edwin.loopviewpager.fragment.LoopViewPagerFragment;
-import com.github.why168.entity.LoopStyle;
+import com.edwin.loopviewpager.fragment.ZoomLoopViewPagerFragment;
 
 /**
  * LoopActivity
@@ -43,44 +45,41 @@ public class LoopActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void LoopViewPagerToEmpty() {
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        LoopViewPagerFragment loopViewPagerFragment = LoopViewPagerFragment.getInstance(LoopStyle.Empty.getValue());
-        fragmentTransaction.replace(R.id.fragment_content, loopViewPagerFragment);
-        fragmentTransaction.commit();
+        EmptyLoopViewPagerFragment instance = EmptyLoopViewPagerFragment.getInstance();
+
+        replace(instance);
+
         Toast.makeText(mContext, "replace  Empty successful", Toast.LENGTH_SHORT).show();
-        text_loop_info.setText("This is Empty style");
+        text_loop_info.setText("This is Empty style \n  Default Loader");
     }
 
     private void LoopViewPagerToDepth() {
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        LoopViewPagerFragment loopViewPagerFragment = LoopViewPagerFragment.getInstance(LoopStyle.Depth.getValue());
-        fragmentTransaction.replace(R.id.fragment_content, loopViewPagerFragment);
-        fragmentTransaction.commit();
+        DepthLoopViewPagerFragment instance = DepthLoopViewPagerFragment.getInstance();
+
+        replace(instance);
+
         Toast.makeText(mContext, "replace  Depth successful", Toast.LENGTH_SHORT).show();
-        text_loop_info.setText("This is Depth style");
+        text_loop_info.setText("This is Depth style \n  Picasso Loader");
     }
 
     private void LoopViewPagerToZoom() {
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        LoopViewPagerFragment loopViewPagerFragment = LoopViewPagerFragment.getInstance(LoopStyle.Zoom.getValue());
-        fragmentTransaction.replace(R.id.fragment_content, loopViewPagerFragment);
-        fragmentTransaction.commit();
+        ZoomLoopViewPagerFragment instance = ZoomLoopViewPagerFragment.getInstance();
+
+        replace(instance);
+
         Toast.makeText(mContext, "replace  Zoom successful", Toast.LENGTH_SHORT).show();
-        text_loop_info.setText("This is Zoom style");
+        text_loop_info.setText("This is Zoom style \n  Fresco Loader");
     }
 
     private void LoopViewPagerToListView() {
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        ListHeadViewFragment listHeadViewFragment = new ListHeadViewFragment();
-        fragmentTransaction.replace(R.id.fragment_content, listHeadViewFragment);
-        fragmentTransaction.commit();
+        ListHeadViewFragment instance = ListHeadViewFragment.getInstance();
+
+        replace(instance);
+
         Toast.makeText(mContext, "replace ListView add HeadView", Toast.LENGTH_SHORT).show();
-        text_loop_info.setText("replace ListView add HeadView");
+        text_loop_info.setText("replace ListView add HeadView \n  Glide Fresco");
     }
+
 
     @Override
     public void onClick(View v) {
@@ -98,5 +97,12 @@ public class LoopActivity extends BaseActivity implements View.OnClickListener {
                 LoopViewPagerToListView();
                 break;
         }
+    }
+
+    private void replace(Fragment fragment) {
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_content, fragment);
+        fragmentTransaction.commit();
     }
 }

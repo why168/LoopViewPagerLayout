@@ -4,10 +4,12 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
+ * Adapter
+ * ListHeadView
+ *
  * @author Edwin.Wu
  * @version 2016/11/28 18:59
  * @since JDK1.8

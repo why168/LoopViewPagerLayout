@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 
 /**
+ * Base
+ * Fragment
+ *
  * @author Edwin.Wu
  * @version 2016/11/7 17:16
  * @since JDK1.8

@@ -1,4 +1,4 @@
-package com.github.why168.entity;
+package com.github.why168.modle;
 
 /**
  * 指示器位置

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 /**
+ * Base
+ * Activity
+ *
  * @author Edwin.Wu
  * @version 2016/11/7 17:16
  * @since JDK1.8
