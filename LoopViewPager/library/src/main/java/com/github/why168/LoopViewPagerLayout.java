@@ -39,7 +39,7 @@ import java.util.ArrayList;
  * @see <a href="https://github.com/why168/LoopViewPagerLayout">LoopViewPagerLayout/a>
  * @since JDK1.8
  */
-public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchListener {
+public class LoopViewPagerLayout extends RelativeLayout {
     private FrameLayout indicatorFrameLayout;
     private ViewPager loopViewPager;
     private LinearLayout indicatorLayout;
@@ -148,8 +148,6 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         animIndicatorLayout.setGravity(Gravity.CENTER | Gravity.START);
         animIndicatorLayout.setOrientation(LinearLayout.HORIZONTAL);
         indicatorFrameLayout.addView(animIndicatorLayout, ind_params2);
-
-
     }
 
     /**
@@ -193,7 +191,28 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         }
 
         //TODO Listener
-        loopViewPager.setOnTouchListener(this);
+        loopViewPager.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        L.e("ACTION_DOWN");
+                        stopLoop();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        L.e("ACTION_MOVE");
+                        stopLoop();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        L.e("ACTION_UP");
+                        startLoop();
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     /**
@@ -325,34 +344,8 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
     }
 
     /**
-     * ViewPager-onTouch
-     *
-     * @param v
-     * @param event
-     * @return
+     * OnPageChangeListener
      */
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                L.e("ACTION_DOWN");
-                stopLoop();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                L.e("ACTION_MOVE");
-                stopLoop();
-                break;
-            case MotionEvent.ACTION_UP:
-                L.e("ACTION_UP");
-                startLoop();
-                break;
-            default:
-                break;
-        }
-        return false;
-    }
-
-
     private class ViewPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -378,6 +371,9 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
         }
     }
 
+    /**
+     * OnPreDrawListener
+     */
     private class IndicatorPreDrawListener implements ViewTreeObserver.OnPreDrawListener {
         @Override
         public boolean onPreDraw() {

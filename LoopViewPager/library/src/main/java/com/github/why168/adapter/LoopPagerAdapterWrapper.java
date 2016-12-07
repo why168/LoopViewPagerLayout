@@ -57,17 +57,19 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
             child = onLoadImageViewListener.createImageView(context);
             onLoadImageViewListener.onLoadImageView(child, bannerInfo.url);
             container.addView(child);
+
+            child.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onBannerItemClickListener != null)
+                        onBannerItemClickListener.onBannerClick(index, bannerInfos);
+                }
+            });
         } else {
-            throw new NullPointerException("LoopViewPagerLayout onLoadImageViewListener isEmpty,Be sure to initialize the onLoadImageView");
+            throw new NullPointerException("LoopViewPagerLayout onLoadImageViewListener is not initialize,Be sure to initialize the onLoadImageView");
         }
 
-        container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onBannerItemClickListener != null)
-                    onBannerItemClickListener.onBannerClick(index, bannerInfos);
-            }
-        });
+
         return child;
     }
 }
