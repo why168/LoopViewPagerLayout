@@ -36,7 +36,7 @@ Step 2. Add the dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.why168:LoopViewPagerLayout:2.0.'
+    compile 'com.github.why168:LoopViewPagerLayout:2.0.5'
 }
 ```
 
@@ -56,7 +56,7 @@ dependencies {
 * setIndicatorLocation(IndicatorLocation.Right)：小红点位置（枚举值: 1:left，0:depth， 2:right）
 * initializeData(Content)：初始化
 * setOnLoadImageViewListener(OnLoadImageViewListener)：自定义图片加载&自定义ImageView图片
-* setOnBannerItemClickListener(OnBannerItemClickListener)
+* setOnBannerItemClickListener(OnBannerItemClickListener)：图片点击事件
 * setLoopData(ArrayList<BannerInfo>)：banner数据
 * startLoop()：开始轮播
 * stopLoop()：停止轮播,务必在onDestory中调用
@@ -64,7 +64,7 @@ dependencies {
 
 #### javadoc  
 
-<a target="_blank" href="https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.0/javadoc/">https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.0/javadoc/</a>
+<a target="_blank" href="https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.5/javadoc/">https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.5/javadoc/</a>
 
 ## 布局 LoopViewPagerLayout
 
@@ -193,6 +193,10 @@ public interface OnBannerItemClickListener {
 
 * 2016/12/05 18:20
 	1. 轮播图触摸不灵敏，onTouch事件有时候执行不了。感谢<a target="_blank" href="https://github.com/VincentZhangZhengliang">VincentZhangZhengliang</a>提出的问题
+	
+* 2016/12/07 17:38
+	1. 2.0.5正式被发布。
+
 
 
 			
