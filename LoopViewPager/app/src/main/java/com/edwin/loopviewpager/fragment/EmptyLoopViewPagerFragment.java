@@ -51,9 +51,9 @@ public class EmptyLoopViewPagerFragment extends BaseFragment implements OnBanner
         //TODO 设置LoopViewPager参数
         mLoopViewPagerLayout.setLoop_ms(2000);//轮播的速度(毫秒)
         mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
-
         mLoopViewPagerLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty
-        L.e("LoopViewPager 参数设置完毕");
+        L.e("LoopViewPager Empty 参数设置完毕");
+
         mLoopViewPagerLayout.initializeData(mActivity);
         //TODO 准备数据
         ArrayList<BannerInfo> bannerInfos = new ArrayList<>();
@@ -69,7 +69,6 @@ public class EmptyLoopViewPagerFragment extends BaseFragment implements OnBanner
                         .with(view.getContext())
                         .load(object)
                         .centerCrop()
-                        .placeholder(R.mipmap.ic_launcher)
                         .error(R.mipmap.ic_launcher)
                         .crossFade()
                         .into(view);

@@ -31,7 +31,6 @@ public class OnGlideImageViewLoader implements OnLoadImageViewListener {
                 .with(view.getContext())
                 .load(parameter)
                 .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .crossFade()
                 .into(view);

@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import com.github.why168.listener.OnLoadImageViewListener;
 
 /**
+ * Default ImageViewLoader
+ *
  * @author Edwin.Wu
  * @version 2016/12/6 14:42
  * @since JDK1.8

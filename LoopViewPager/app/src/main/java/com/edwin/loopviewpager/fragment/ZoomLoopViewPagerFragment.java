@@ -16,7 +16,7 @@ import com.github.why168.utils.L;
 import java.util.ArrayList;
 
 /**
- * Depth
+ * Zoom
  * LoopViewPagerFragment
  *
  * @author Edwin.Wu
@@ -48,9 +48,9 @@ public class ZoomLoopViewPagerFragment extends BaseFragment implements OnBannerI
         //TODO 设置LoopViewPager参数
         mLoopViewPagerLayout.setLoop_ms(2000);//轮播的速度(毫秒)
         mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
-
         mLoopViewPagerLayout.setLoop_style(LoopStyle.Zoom);//轮播的样式-深度depth
-        L.e("LoopViewPager 参数设置完毕");
+        L.e("LoopViewPager Zoom 参数设置完毕");
+
         mLoopViewPagerLayout.initializeData(mActivity);
         //TODO 准备数据
         ArrayList<BannerInfo> bannerInfos = new ArrayList<>();
@@ -59,7 +59,6 @@ public class ZoomLoopViewPagerFragment extends BaseFragment implements OnBannerI
         bannerInfos.add(new BannerInfo<String>("http://mm.howkuai.com/wp-content/uploads/2016a/02/11/01.jpg", "第三张图片"));
         bannerInfos.add(new BannerInfo<String>("http://mm.howkuai.com/wp-content/uploads/2016a/02/11/04.jpg", "第四张图片"));
         bannerInfos.add(new BannerInfo<String>("http://mm.howkuai.com/wp-content/uploads/2016a/07/18/01.jpg", "第五张图片"));
-
         mLoopViewPagerLayout.setOnLoadImageViewListener(new OnFrescoImageViewLoader());
         mLoopViewPagerLayout.setOnBannerItemClickListener(this);
         mLoopViewPagerLayout.setLoopData(bannerInfos);

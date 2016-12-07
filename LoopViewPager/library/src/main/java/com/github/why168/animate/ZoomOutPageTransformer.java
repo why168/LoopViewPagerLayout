@@ -1,6 +1,5 @@
 package com.github.why168.animate;
 
-import android.annotation.SuppressLint;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -16,7 +15,7 @@ public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
     private static final float MIN_SCALE = 0.85f;
     private static final float MIN_ALPHA = 0.5f;
 
-    @SuppressLint("NewApi")
+    @Override
     public void transformPage(View view, float position) {
         int pageWidth = view.getWidth();
         int pageHeight = view.getHeight();

@@ -48,10 +48,9 @@ public class DepthLoopViewPagerFragment extends BaseFragment implements OnBanner
         //TODO 设置LoopViewPager参数
         mLoopViewPagerLayout.setLoop_ms(2000);//轮播的速度(毫秒)
         mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
-
-        Bundle arguments = getArguments();
         mLoopViewPagerLayout.setLoop_style(LoopStyle.Depth);//轮播的样式-深度depth
-        L.e("LoopViewPager 参数设置完毕");
+        L.e("LoopViewPager Depth 参数设置完毕");
+
         mLoopViewPagerLayout.initializeData(mActivity);
         //TODO 准备数据
         ArrayList<BannerInfo> bannerInfos = new ArrayList<>();

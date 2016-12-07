@@ -5,6 +5,8 @@ import com.github.why168.modle.BannerInfo;
 import java.util.ArrayList;
 
 /**
+ * Banner Click
+ *
  * @author Edwin.Wu
  * @version 2016/12/6 15:38
  * @since JDK1.8

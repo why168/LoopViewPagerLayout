@@ -87,7 +87,7 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
 
 
     /**
-     * onLoadImageViewListener
+     * onBannerItemClickListener
      *
      * @param onBannerItemClickListener onBannerItemClickListener
      */
@@ -96,7 +96,9 @@ public class LoopViewPagerLayout extends RelativeLayout implements View.OnTouchL
     }
 
     /**
-     * @param onLoadImageViewListener
+     * OnLoadImageViewListener
+     *
+     * @param onLoadImageViewListener onLoadImageViewListener
      */
     public void setOnLoadImageViewListener(OnLoadImageViewListener onLoadImageViewListener) {
         this.onLoadImageViewListener = onLoadImageViewListener;

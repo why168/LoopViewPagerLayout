@@ -14,6 +14,7 @@ import com.github.why168.LoopViewPagerLayout;
 import com.github.why168.listener.OnBannerItemClickListener;
 import com.github.why168.modle.BannerInfo;
 import com.github.why168.modle.LoopStyle;
+import com.github.why168.utils.L;
 
 import java.util.ArrayList;
 
@@ -50,11 +51,11 @@ public class ListHeadViewFragment extends BaseFragment implements OnBannerItemCl
         mLoopViewPagerLayout = (LoopViewPagerLayout) inflateView.findViewById(R.id.mLoopViewPagerLayout_banner);
         //TODO 初始化View
         mLoopViewPagerLayout.initializeView();
-
         //TODO 设置LoopViewPager参数
         mLoopViewPagerLayout.setLoop_ms(2000);//轮播的速度(毫秒)
         mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
         mLoopViewPagerLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty
+        L.e("LoopViewPager List 参数设置完毕");
 
         mLoopViewPagerLayout.initializeData(mActivity);
         //TODO 准备数据
