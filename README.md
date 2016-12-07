@@ -15,7 +15,7 @@
 
 
 ### 效果图 
-![Image of 示例](https://raw.githubusercontent.com/why168/LoopViewPager/master/LoopViewPager/art/sample2.gif)
+![Image of 示例](https://raw.githubusercontent.com/why168/LoopViewPager/master/LoopViewPager/art/sample3.gif)
 
 
 
