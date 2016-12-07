@@ -107,7 +107,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
     /**
      * Be sure to initialize the View
      */
-    public void initializeView() {
+    private void initializeView() {
         L.e("LoopViewPager ---> initializeView");
         float density = getResources().getDisplayMetrics().density;
 
@@ -156,6 +156,8 @@ public class LoopViewPagerLayout extends RelativeLayout {
      * @param context context
      */
     public void initializeData(Context context) {
+        initializeView();
+
         L.e("LoopViewPager ---> initializeData");
         //TODO To prevent the flower screen
         if (loop_duration > loop_ms)

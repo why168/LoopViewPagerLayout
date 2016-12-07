@@ -6,9 +6,10 @@
 * 支持修改轮播的速度；
 * 支持修改滑动速率；
 * 支持点击事件回调监听；
-* 支持自定义图片加载；
+* 支持自定义图片加载方式；
+* 支持自定义ImageView图片；
 * 支持addHeaderView方式；
-* 支持小红点位置左中右；
+* 支持小红点指示器三种位置摆放；
 * 指示器小红点动态移动；
 * 防闪屏花屏。
 
@@ -35,7 +36,7 @@ Step 2. Add the dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.why168:LoopViewPagerLayout:2.0.0'
+    compile 'com.github.why168:LoopViewPagerLayout:2.0.'
 }
 ```
 
@@ -49,13 +50,14 @@ dependencies {
 
 ## API调用顺序
 
-* setIndicatorLocation(IndicatorLocation.Right)：小红点位置（枚举值: 1:left，0:depth， 2:right）
-* initializeView()：初始化View
 * setLoop_ms：轮播的速度(毫秒)
 * setLoop_duration：滑动的速率(毫秒)
 * setLoop_style：轮播的样式(枚举值: -1默认empty，1深度1depth，2缩小zoom)
-* initializeData(Content)：初始化数据
-* setLoopData(ArrayList<BannerInfo>, OnBannerItemClickListener, OnLoadImageViewListener)：数据，数据回调监听，自定义图片加载监听
+* setIndicatorLocation(IndicatorLocation.Right)：小红点位置（枚举值: 1:left，0:depth， 2:right）
+* initializeData(Content)：初始化
+* setOnLoadImageViewListener(OnLoadImageViewListener)：自定义图片加载&自定义ImageView图片
+* setOnBannerItemClickListener(OnBannerItemClickListener)
+* setLoopData(ArrayList<BannerInfo>)：banner数据
 * startLoop()：开始轮播
 * stopLoop()：停止轮播,务必在onDestory中调用
 
@@ -81,10 +83,10 @@ dependencies {
 ## 更优雅地使用API-调用顺序不能乱
 ```java 
  mLoopViewPagerLayout = (LoopViewPagerLayout)findViewById(R.id.mLoopViewPagerLayout);
- mLoopViewPagerLayout.initializeView();//初始化View
  mLoopViewPagerLayout.setLoop_ms(2000);//轮播的速度(毫秒)
  mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
  mLoopViewPagerLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty
+ mLoopViewPagerLayout.setIndicatorLocation(IndicatorLocation.Center);//指示器位置-中Center
  mLoopViewPagerLayout.initializeData(mActivity);//初始化数据
  ArrayList<LoopViewPagerLayout.BannerInfo> data = new ArrayList<>();
  data.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.a, "第一张图片"));
@@ -92,12 +94,51 @@ dependencies {
  data.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.b, "第三张图片"));
  data.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.c, "第四张图片"));
  data.add(new LoopViewPagerLayout.BannerInfo<Integer>(R.mipmap.d, "第五张图片"));
- mLoopViewPagerLayout.setLoopData(data,this,this);
+ mLoopViewPagerLayout.setOnLoadImageViewListener(new OnDefaultImageViewLoader());//设置图片加载&自定义图片监听
+ mLoopViewPagerLayout.setOnBannerItemClickListener(this);//设置监听
+ mLoopViewPagerLayout.setLoopData(bannerInfos);//设置数据
 ```
 
 ###回调函数
  
 ```java
+/**
+ * Load ImageView Listener
+ *
+ * @author Edwin.Wu
+ * @version 2016/12/6 14:40
+ * @since JDK1.8
+ */
+public interface OnLoadImageViewListener {
+    /**
+     * create image
+     *
+     * @param context context
+     * @return image
+     */
+    ImageView createImageView(Context context);
+
+    /**
+     * image load
+     *
+     * @param imageView ImageView
+     * @param parameter String    可以为一个文件路径、uri或者url
+     *                  Uri   uri类型
+     *                  File  文件
+     *                  Integer   资源Id,R.drawable.xxx或者R.mipmap.xxx
+     *                  byte[]    类型
+     *                  T 自定义类型
+     */
+    void onLoadImageView(ImageView imageView, Object parameter);
+}
+
+/**
+ * Banner Click
+ *
+ * @author Edwin.Wu
+ * @version 2016/12/6 15:38
+ * @since JDK1.8
+ */
 public interface OnBannerItemClickListener {
     /**
      * banner click
@@ -106,16 +147,6 @@ public interface OnBannerItemClickListener {
      * @param banner bean
      */
     void onBannerClick(int index, ArrayList<BannerInfo> banner);
-}
-
-public interface OnLoadImageViewListener {
-    /**
-     * image load
-     *
-     * @param view   ImageView
-     * @param object parameter
-     */
-    void onLoadImageView(ImageView view, Object object);
 }
 ```
 

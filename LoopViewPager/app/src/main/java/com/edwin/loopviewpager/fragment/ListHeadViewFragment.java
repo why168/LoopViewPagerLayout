@@ -13,6 +13,7 @@ import com.edwin.loopviewpager.loader.OnGlideImageViewLoader;
 import com.github.why168.LoopViewPagerLayout;
 import com.github.why168.listener.OnBannerItemClickListener;
 import com.github.why168.modle.BannerInfo;
+import com.github.why168.modle.IndicatorLocation;
 import com.github.why168.modle.LoopStyle;
 import com.github.why168.utils.L;
 
@@ -49,15 +50,16 @@ public class ListHeadViewFragment extends BaseFragment implements OnBannerItemCl
         mListView.setAdapter(new ListHeadViewAdapter(getContext()));
         View inflateView = LayoutInflater.from(mActivity).inflate(R.layout.item_banner, null);
         mLoopViewPagerLayout = (LoopViewPagerLayout) inflateView.findViewById(R.id.mLoopViewPagerLayout_banner);
-        //TODO 初始化View
-        mLoopViewPagerLayout.initializeView();
         //TODO 设置LoopViewPager参数
         mLoopViewPagerLayout.setLoop_ms(2000);//轮播的速度(毫秒)
         mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
         mLoopViewPagerLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty
+        mLoopViewPagerLayout.setIndicatorLocation(IndicatorLocation.Center);//指示器位置-中Center
         L.e("LoopViewPager List 参数设置完毕");
 
+        //TODO 初始化
         mLoopViewPagerLayout.initializeData(mActivity);
+
         //TODO 准备数据
         ArrayList<BannerInfo> bannerInfos = new ArrayList<>();
         bannerInfos.add(new BannerInfo<Integer>(R.mipmap.a, "第一张图片"));
@@ -65,9 +67,14 @@ public class ListHeadViewFragment extends BaseFragment implements OnBannerItemCl
         bannerInfos.add(new BannerInfo<Integer>(R.mipmap.b, "第三张图片"));
         bannerInfos.add(new BannerInfo<Integer>(R.mipmap.c, "第四张图片"));
         bannerInfos.add(new BannerInfo<Integer>(R.mipmap.d, "第五张图片"));
+
+        //TODO 设置监听
         mLoopViewPagerLayout.setOnLoadImageViewListener(new OnGlideImageViewLoader());
         mLoopViewPagerLayout.setOnBannerItemClickListener(this);
+
+        //TODO 设置数据
         mLoopViewPagerLayout.setLoopData(bannerInfos);
+
         mListView.addHeaderView(mLoopViewPagerLayout);
     }
 

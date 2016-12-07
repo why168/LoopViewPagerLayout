@@ -10,6 +10,7 @@ import com.edwin.loopviewpager.loader.OnFrescoImageViewLoader;
 import com.github.why168.LoopViewPagerLayout;
 import com.github.why168.listener.OnBannerItemClickListener;
 import com.github.why168.modle.BannerInfo;
+import com.github.why168.modle.IndicatorLocation;
 import com.github.why168.modle.LoopStyle;
 import com.github.why168.utils.L;
 
@@ -43,15 +44,16 @@ public class ZoomLoopViewPagerFragment extends BaseFragment implements OnBannerI
 
     @Override
     protected void initData() {
-        //TODO 初始化View
-        mLoopViewPagerLayout.initializeView();
         //TODO 设置LoopViewPager参数
         mLoopViewPagerLayout.setLoop_ms(2000);//轮播的速度(毫秒)
         mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
         mLoopViewPagerLayout.setLoop_style(LoopStyle.Zoom);//轮播的样式-深度depth
+        mLoopViewPagerLayout.setIndicatorLocation(IndicatorLocation.Right);//指示器位置-右Right
         L.e("LoopViewPager Zoom 参数设置完毕");
 
+        //TODO 初始化
         mLoopViewPagerLayout.initializeData(mActivity);
+
         //TODO 准备数据
         ArrayList<BannerInfo> bannerInfos = new ArrayList<>();
         bannerInfos.add(new BannerInfo<String>("http://mm.howkuai.com/wp-content/uploads/2016a/08/17/06.jpg", "第一张图片"));
@@ -59,8 +61,13 @@ public class ZoomLoopViewPagerFragment extends BaseFragment implements OnBannerI
         bannerInfos.add(new BannerInfo<String>("http://mm.howkuai.com/wp-content/uploads/2016a/02/11/01.jpg", "第三张图片"));
         bannerInfos.add(new BannerInfo<String>("http://mm.howkuai.com/wp-content/uploads/2016a/02/11/04.jpg", "第四张图片"));
         bannerInfos.add(new BannerInfo<String>("http://mm.howkuai.com/wp-content/uploads/2016a/07/18/01.jpg", "第五张图片"));
+
+        //TODO 设置监听
         mLoopViewPagerLayout.setOnLoadImageViewListener(new OnFrescoImageViewLoader());
         mLoopViewPagerLayout.setOnBannerItemClickListener(this);
+
+
+        //TODO 设置数据
         mLoopViewPagerLayout.setLoopData(bannerInfos);
     }
 
