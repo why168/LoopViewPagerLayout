@@ -195,7 +195,10 @@ public interface OnBannerItemClickListener {
 	1. 轮播图触摸不灵敏，onTouch事件有时候执行不了。感谢<a target="_blank" href="https://github.com/VincentZhangZhengliang">VincentZhangZhengliang</a>提出的问题
 	
 * 2016/12/07 17:38
-	1. 2.0.5正式被发布。
+	1. 2.0.5正式被发布；
+	2. API有点小改动。
+		1. initializeView删除
+		2. setOnLoadImageViewListener增加一个回调自定义图片的方法
 
 
 
