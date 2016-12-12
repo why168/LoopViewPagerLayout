@@ -36,7 +36,7 @@ Step 2. Add the dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.why168:LoopViewPagerLayout:2.0.5'
+    compile 'com.github.why168:LoopViewPagerLayout:2.0.6'
 }
 ```
 
@@ -64,7 +64,7 @@ dependencies {
 
 #### javadoc  
 
-<a target="_blank" href="https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.5/javadoc/">https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.5/javadoc/</a>
+<a target="_blank" href="https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.6/javadoc/">https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.6/javadoc/</a>
 
 ## 布局 LoopViewPagerLayout
 
@@ -202,6 +202,7 @@ public interface OnBannerItemClickListener {
 
 * 2016/12/12 12:03
 	1. fix bug,setLoopData多次出现多个小红点。
+	2. 2.0.6正式被发布；
 
 			
 <br>
