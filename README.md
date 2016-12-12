@@ -201,7 +201,7 @@ public interface OnBannerItemClickListener {
 		2. setOnLoadImageViewListener增加一个回调自定义图片的方法
 
 * 2016/12/12 12:03
-	1. 多次
+	1. fix bug,setLoopData多次出现多个小红点。
 
 			
 <br>
