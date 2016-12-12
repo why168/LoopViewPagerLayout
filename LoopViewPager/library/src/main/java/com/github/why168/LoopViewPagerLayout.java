@@ -251,6 +251,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
     }
 
     private void InitIndicator() {
+        indicatorLayout.removeAllViews();
         indicators = new TextView[bannerInfos.size()];
         for (int i = 0; i < indicators.length; i++) {
             indicators[i] = new TextView(getContext());
@@ -269,6 +270,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
     }
 
     private void InitLittleRed() {
+        animIndicatorLayout.removeAllViews();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
         animIndicator = new TextView(getContext());
         animIndicator.setGravity(Gravity.CENTER);

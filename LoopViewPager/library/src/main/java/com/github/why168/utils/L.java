@@ -10,7 +10,7 @@ import android.util.Log;
  * @since JDK1.8
  */
 public class L {
-    public static boolean deBug = true;
+    public static boolean deBug = false;
     public static String TAG = "Edwin";
 
     public static void e(String msg) {

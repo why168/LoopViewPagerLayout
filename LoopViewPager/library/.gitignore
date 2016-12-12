@@ -1,11 +1,4 @@
-*.iml
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
-/build
-/captures
+# Created by .ignore support plugin (hsz.mobi)
 ### Android template
 # Built application files
 *.apk
@@ -44,7 +37,12 @@ captures/
 # Intellij
 *.iml
 .idea/workspace.xml
+.idea/tasks.xml
+.idea/libraries
 
 # Keystore files
 *.jks
+
+# External native build folder generated in Android Studio 2.2 and later
+.externalNativeBuild
 

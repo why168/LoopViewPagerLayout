@@ -200,7 +200,8 @@ public interface OnBannerItemClickListener {
 		1. initializeView删除
 		2. setOnLoadImageViewListener增加一个回调自定义图片的方法
 
-
+* 2016/12/12 12:03
+	1. 多次
 
 			
 <br>
