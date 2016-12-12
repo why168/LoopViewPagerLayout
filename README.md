@@ -88,7 +88,7 @@ dependencies {
  mLoopViewPagerLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty
  mLoopViewPagerLayout.setIndicatorLocation(IndicatorLocation.Center);//指示器位置-中Center
  mLoopViewPagerLayout.initializeData(mActivity);//初始化数据
- ArrayList<LoopViewPagerLayout.BannerInfo> bannerInfos = new ArrayList<>();
+ ArrayList<BannerInfo> bannerInfos = new ArrayList<>();
  bannerInfos.add(new BannerInfo<Integer>(R.mipmap.a, "第一张图片"));
  bannerInfos.add(new BannerInfo<String>("url", "第二张图片"));
  bannerInfos.add(new BannerInfo<Integer>(R.mipmap.b, "第三张图片"));
