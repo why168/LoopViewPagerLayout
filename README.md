@@ -88,12 +88,12 @@ dependencies {
  mLoopViewPagerLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty
  mLoopViewPagerLayout.setIndicatorLocation(IndicatorLocation.Center);//指示器位置-中Center
  mLoopViewPagerLayout.initializeData(mActivity);//初始化数据
- ArrayList<LoopViewPagerLayout.BannerInfo> data = new ArrayList<>();
- data.add(new BannerInfo<Integer>(R.mipmap.a, "第一张图片"));
- data.add(new BannerInfo<String>("url", "第二张图片"));
- data.add(new BannerInfo<Integer>(R.mipmap.b, "第三张图片"));
- data.add(new BannerInfo<Integer>(R.mipmap.c, "第四张图片"));
- data.add(new BannerInfo<Integer>(R.mipmap.d, "第五张图片"));
+ ArrayList<LoopViewPagerLayout.BannerInfo> bannerInfos = new ArrayList<>();
+ bannerInfos.add(new BannerInfo<Integer>(R.mipmap.a, "第一张图片"));
+ bannerInfos.add(new BannerInfo<String>("url", "第二张图片"));
+ bannerInfos.add(new BannerInfo<Integer>(R.mipmap.b, "第三张图片"));
+ bannerInfos.add(new BannerInfo<Integer>(R.mipmap.c, "第四张图片"));
+ bannerInfos.add(new BannerInfo<Integer>(R.mipmap.d, "第五张图片"));
  mLoopViewPagerLayout.setOnLoadImageViewListener(new OnDefaultImageViewLoader());//设置图片加载&自定义图片监听
  mLoopViewPagerLayout.setOnBannerItemClickListener(this);//设置监听
  mLoopViewPagerLayout.setLoopData(bannerInfos);//设置数据
