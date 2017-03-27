@@ -98,7 +98,7 @@ dependencies {
  mLoopViewPagerLayout.setLoopData(bannerInfos);//设置数据
 ```
 
-###回调函数
+### 回调函数
  
 ```java
 /**
