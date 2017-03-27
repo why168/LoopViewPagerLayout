@@ -214,7 +214,7 @@ public interface OnBannerItemClickListener {
 
 <br>
 
-##MIT License
+## MIT License
 
 ```
 Copyright (c) 2016 Edwin
