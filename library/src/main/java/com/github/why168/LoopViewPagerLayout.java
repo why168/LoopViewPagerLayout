@@ -357,7 +357,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
                 float length = ((position % bannerInfos.size()) + positionOffset) / (bannerInfos.size() - 1);
                 //TODO To prevent the last picture the little red dot slip out.
                 if (length >= 1)
-                    length = 1;
+                    return;
                 float path = length * totalDistance;
 //                L.e("path " + path + " = length * " + length + " totalDistance " + totalDistance);
                 ViewCompat.setTranslationX(animIndicator, path);
@@ -366,7 +366,13 @@ public class LoopViewPagerLayout extends RelativeLayout {
 
         @Override
         public void onPageSelected(int position) {
-
+            int i = position % bannerInfos.size();
+            if (i == 0) {
+                ViewCompat.setTranslationX(animIndicator, totalDistance * 0.0f);
+            }
+            if (i == bannerInfos.size() - 1) {
+                ViewCompat.setTranslationX(animIndicator, totalDistance * 1.0f);
+            }
         }
 
         @Override
