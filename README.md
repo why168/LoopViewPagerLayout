@@ -202,6 +202,9 @@ public interface OnBannerItemClickListener {
 * 2016/12/12 12:03
 	1. fix bug,setLoopData多次出现多个小红点。
 	2. 2.0.6正式被发布；
+	
+* 2017/4/11 17:10
+	1. fix bug  <a target="_blank" href="https://github.com/why168/LoopViewPagerLayout/issues/3">点击查看</a>
 
 			
 <br>
