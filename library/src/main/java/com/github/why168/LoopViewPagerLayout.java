@@ -112,6 +112,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
         float density = getResources().getDisplayMetrics().density;
 
         loopViewPager = new ViewPager(getContext());
+        loopViewPager.setId(R.id.loop_viewpager);
         LayoutParams loop_params = new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         addView(loopViewPager, loop_params);
 
