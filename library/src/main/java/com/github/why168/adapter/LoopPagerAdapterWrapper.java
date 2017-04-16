@@ -55,7 +55,7 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
         ImageView child = null;
         if (onLoadImageViewListener != null) {
             child = onLoadImageViewListener.createImageView(context);
-            onLoadImageViewListener.onLoadImageView(child, bannerInfo.url);
+            onLoadImageViewListener.onLoadImageView(child, bannerInfo.data);
             container.addView(child);
 
             child.setOnClickListener(new View.OnClickListener() {

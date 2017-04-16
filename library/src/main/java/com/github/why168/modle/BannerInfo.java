@@ -1,16 +1,18 @@
 package com.github.why168.modle;
 
 /**
+ * BannerInfo
+ *
  * @author Edwin.Wu
  * @version 2016/12/6 17:32
  * @since JDK1.8
  */
 public class BannerInfo<T> {
-    public T url;
+    public T data;
     public String title;
 
-    public BannerInfo(T url, String title) {
-        this.url = url;
+    public BannerInfo(T data, String title) {
+        this.data = data;
         this.title = title;
     }
 }
