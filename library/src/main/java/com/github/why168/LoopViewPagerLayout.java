@@ -3,7 +3,9 @@ package com.github.why168;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.DrawableRes;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -40,7 +42,6 @@ import java.util.ArrayList;
  * @since JDK1.8
  */
 public class LoopViewPagerLayout extends RelativeLayout {
-    private FrameLayout indicatorFrameLayout;
     private ViewPager loopViewPager;
     private LinearLayout indicatorLayout;
     private LinearLayout animIndicatorLayout;
@@ -52,12 +53,16 @@ public class LoopViewPagerLayout extends RelativeLayout {
     private ArrayList<BannerInfo> bannerInfos;//banner data
     private TextView animIndicator;//Little red dot on the move
     private TextView[] indicators;//Initializes the white dots
+    @DrawableRes
+    private int normalBackground = R.drawable.indicator_normal_background;
+    @DrawableRes
+    private int selectedBackground = R.drawable.indicator_selected_background;
     private static final int MESSAGE_LOOP = 5;
     private int loop_ms = 4000;//loop speed(ms)
     private int loop_style = -1; //loop style(enum values[-1:empty,1:depth 2:zoom])
     private IndicatorLocation indicatorLocation = IndicatorLocation.Center; //Indicator Location(enum values[1:left,0:depth 2:right])
     private int loop_duration = 2000;//loop rate(ms)
-    private Handler handler = new Handler() {
+    private Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void dispatchMessage(Message msg) {
             super.dispatchMessage(msg);
@@ -117,7 +122,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
         addView(loopViewPager, loop_params);
 
         //TODO FrameLayout
-        indicatorFrameLayout = new FrameLayout(getContext());
+        FrameLayout indicatorFrameLayout = new FrameLayout(getContext());
         LayoutParams f_params = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ((int) (20 * density)));
         f_params.addRule(RelativeLayout.CENTER_HORIZONTAL);//android:layout_centerHorizontal="true"
         f_params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);//android:layout_alignParentBottom="true"
@@ -264,7 +269,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
                 params.setMargins(0, 0, 0, 0);
             }
             indicators[i].setLayoutParams(params);
-            indicators[i].setBackgroundResource(R.drawable.indicator_normal_background);//设置默认的背景颜色
+            indicators[i].setBackgroundResource(getNormalBackground());//设置默认的背景颜色
             indicatorLayout.addView(indicators[i]);
         }
 
@@ -275,7 +280,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
         animIndicator = new TextView(getContext());
         animIndicator.setGravity(Gravity.CENTER);
-        animIndicator.setBackgroundResource(R.drawable.indicator_selected_background);//设置选中的背景颜色
+        animIndicator.setBackgroundResource(getSelectedBackground());//设置选中的背景颜色
         animIndicatorLayout.addView(animIndicator, params);
     }
 
@@ -346,6 +351,22 @@ public class LoopViewPagerLayout extends RelativeLayout {
      */
     public ViewPager getLoopViewPager() {
         return loopViewPager;
+    }
+
+    public int getNormalBackground() {
+        return normalBackground;
+    }
+
+    public void setNormalBackground(@DrawableRes int normalBackground) {
+        this.normalBackground = normalBackground;
+    }
+
+    public int getSelectedBackground() {
+        return selectedBackground;
+    }
+
+    public void setSelectedBackground(@DrawableRes int selectedBackground) {
+        this.selectedBackground = selectedBackground;
     }
 
     /**

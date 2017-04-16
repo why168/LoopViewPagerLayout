@@ -51,6 +51,8 @@ public class EmptyLoopViewPagerFragment extends BaseFragment implements OnBanner
         mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
         mLoopViewPagerLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty
         mLoopViewPagerLayout.setIndicatorLocation(IndicatorLocation.Center);//指示器位置-中Center
+        mLoopViewPagerLayout.setNormalBackground(R.drawable.normal_background);//默认指示器颜色
+        mLoopViewPagerLayout.setSelectedBackground(R.drawable.selected_background);//选中指示器颜色
         L.e("LoopViewPager Empty 参数设置完毕");
 
         //TODO 初始化
