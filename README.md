@@ -35,7 +35,7 @@ Step 2. Add the dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.why168:LoopViewPagerLayout:2.0.6'
+    compile 'com.github.why168:LoopViewPagerLayout:2.1.0'
 }
 ```
 
@@ -63,7 +63,7 @@ dependencies {
 
 #### javadoc  
 
-<a target="_blank" href="https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.6/javadoc/">https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.6/javadoc/</a>
+<a target="_blank" href="https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.0.6/javadoc/">https://jitpack.io/com/github/why168/LoopViewPagerLayout/v2.1.0/javadoc/</a>
 
 ## 布局 LoopViewPagerLayout
 
@@ -86,6 +86,9 @@ dependencies {
  mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
  mLoopViewPagerLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty
  mLoopViewPagerLayout.setIndicatorLocation(IndicatorLocation.Center);//指示器位置-中Center
+ mLoopViewPagerLayout.setNormalBackground(R.drawable.normal_background);//默认指示器颜色
+ mLoopViewPagerLayout.setSelectedBackground(R.drawable.selected_background);//选中指示器颜色
+ 
  mLoopViewPagerLayout.initializeData(mActivity);//初始化数据
  ArrayList<BannerInfo> bannerInfos = new ArrayList<>();
  bannerInfos.add(new BannerInfo<Integer>(R.mipmap.a, "第一张图片"));
@@ -205,6 +208,10 @@ public interface OnBannerItemClickListener {
 	
 * 2017/4/11 17:10
 	1. fix bug  <a target="_blank" href="https://github.com/why168/LoopViewPagerLayout/issues/3">点击查看</a>
+
+* 2017/4/16 17:05
+	1. 最近太忙了,更新有点慢sorry。
+	2. 请使用2.1.0稳定版发布
 
 			
 <br>
