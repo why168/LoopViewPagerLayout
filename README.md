@@ -53,6 +53,8 @@ dependencies {
 * setLoop_duration：滑动的速率(毫秒)
 * setLoop_style：轮播的样式(枚举值: -1默认empty，1深度1depth，2缩小zoom)
 * setIndicatorLocation(IndicatorLocation.Right)：小红点位置（枚举值: 1:left，0:depth， 2:right）
+* setNormalBackground(R.drawable.normal_background)：默认指示器颜色
+* setSelectedBackground(R.drawable.selected_background)：选中指示器颜色
 * initializeData(Content)：初始化
 * setOnLoadImageViewListener(OnLoadImageViewListener)：自定义图片加载&自定义ImageView图片
 * setOnBannerItemClickListener(OnBannerItemClickListener)：图片点击事件
@@ -247,8 +249,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
-
-
 
 
 
