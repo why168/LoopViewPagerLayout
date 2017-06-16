@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.edwin.loopviewpager"
-        minSdkVersion 11
-        targetSdkVersion 25
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 7
         versionName "2.1.0"
     }
@@ -29,10 +29,11 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:25.+'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.facebook.fresco:fresco:0.14.1'
-    compile 'com.squareup.picasso:picasso:2.5.2'
     compile project(':library')
+
+    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    compile "com.facebook.fresco:fresco:$rootProject.frescoVersion"
+    compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
 }
 
