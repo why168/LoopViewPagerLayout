@@ -35,7 +35,7 @@ Step 2. Add the dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.why168:LoopViewPagerLayout:2.1.0'
+    compile 'com.github.why168:LoopViewPagerLayout:2.1.5'
 }
 ```
 
