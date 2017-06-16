@@ -1,7 +1,6 @@
 package com.github.why168;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -12,7 +11,6 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -246,7 +244,8 @@ public class LoopViewPagerLayout extends RelativeLayout {
 
         InitLittleRed();
 
-        indicatorLayout.getViewTreeObserver().addOnPreDrawListener(new IndicatorPreDrawListener());
+//        indicatorLayout.getViewTreeObserver().addOnPreDrawListener(new IndicatorPreDrawListener());
+        totalDistance = 2 * size * (indicators.length - 1);
 
         loopPagerAdapterWrapper = new LoopPagerAdapterWrapper(getContext(), bannerInfos, onBannerItemClickListener, onLoadImageViewListener);
         loopViewPager.setAdapter(loopPagerAdapterWrapper);
@@ -403,27 +402,26 @@ public class LoopViewPagerLayout extends RelativeLayout {
         }
     }
 
-    /**
-     * OnPreDrawListener
-     */
-    private class IndicatorPreDrawListener implements ViewTreeObserver.OnPreDrawListener {
-        @Override
-        public boolean onPreDraw() {
-            Rect firstRect = new Rect();
-            indicatorLayout.getChildAt(0).getGlobalVisibleRect(firstRect);
 
-            L.e("firstRect = " + firstRect.toShortString());
-            Rect lastRect = new Rect();
-            indicatorLayout.getChildAt(indicators.length - 1).getGlobalVisibleRect(lastRect);
-
-            L.e("lastRect = " + lastRect.toShortString());
-
-            totalDistance = lastRect.left - firstRect.left;
-            L.e("totalDistance = " + totalDistance);
-
-            indicatorLayout.getViewTreeObserver().removeOnPreDrawListener(this);
-
-            return false;
-        }
-    }
+//    private class IndicatorPreDrawListener implements ViewTreeObserver.OnPreDrawListener {
+//        @Override
+//        public boolean onPreDraw() {
+//            Rect firstRect = new Rect();
+//            indicatorLayout.getChildAt(0).getGlobalVisibleRect(firstRect);
+//
+//            L.e("firstRect = " + firstRect.toShortString());
+//            Rect lastRect = new Rect();
+//            indicatorLayout.getChildAt(indicators.length - 1).getGlobalVisibleRect(lastRect);
+//
+//            L.e("lastRect = " + lastRect.toShortString());
+//
+//            totalDistance = lastRect.left - firstRect.left;
+//            L.e("totalDistance = " + totalDistance);
+//
+//            totalDistance = 2 * size * (indicators.length - 1);
+//            L.e("---------- totalDistance = " + totalDistance);
+//            indicatorLayout.getViewTreeObserver().removeOnPreDrawListener(this);
+//            return false;
+//        }
+//    }
 }
