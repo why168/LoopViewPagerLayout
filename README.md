@@ -215,6 +215,10 @@ public interface OnBannerItemClickListener {
 	1. 最近太忙了,更新有点慢sorry。
 	2. 请使用2.1.0稳定版发布
 
+* 2017/6/16 
+	1. 优化总距离的计算方法。<a target="_blank" href="https://github.com/why168/LoopViewPagerLayout/issues/5"> issues 5</a>
+	2. 请使用2.1.5稳定版发布
+
 			
 <br>
 
