@@ -30,8 +30,7 @@ public class EmptyLoopViewPagerFragment extends BaseFragment implements OnBanner
     private LoopViewPagerLayout mLoopViewPagerLayout;
 
     public static EmptyLoopViewPagerFragment getInstance() {
-        EmptyLoopViewPagerFragment instance = new EmptyLoopViewPagerFragment();
-        return instance;
+        return new EmptyLoopViewPagerFragment();
     }
 
     @Override

@@ -28,8 +28,7 @@ public class DepthLoopViewPagerFragment extends BaseFragment implements OnBanner
     private LoopViewPagerLayout mLoopViewPagerLayout;
 
     public static DepthLoopViewPagerFragment getInstance() {
-        DepthLoopViewPagerFragment instance = new DepthLoopViewPagerFragment();
-        return instance;
+        return new DepthLoopViewPagerFragment();
     }
 
     @Override

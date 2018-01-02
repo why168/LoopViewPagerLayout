@@ -20,8 +20,7 @@ public class OnFrescoImageViewLoader implements OnLoadImageViewListener {
 
     @Override
     public SimpleDraweeView createImageView(Context context) {
-        SimpleDraweeView simpleDraweeView = new SimpleDraweeView(context);
-        return simpleDraweeView;
+        return new SimpleDraweeView(context);
     }
 
     @Override

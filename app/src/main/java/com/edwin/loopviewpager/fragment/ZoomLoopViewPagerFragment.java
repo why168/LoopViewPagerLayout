@@ -28,8 +28,7 @@ public class ZoomLoopViewPagerFragment extends BaseFragment implements OnBannerI
     private LoopViewPagerLayout mLoopViewPagerLayout;
 
     public static ZoomLoopViewPagerFragment getInstance() {
-        ZoomLoopViewPagerFragment instance = new ZoomLoopViewPagerFragment();
-        return instance;
+        return new ZoomLoopViewPagerFragment();
     }
 
     @Override

@@ -31,8 +31,7 @@ public class ListHeadViewFragment extends BaseFragment implements OnBannerItemCl
     private LoopViewPagerLayout mLoopViewPagerLayout;
 
     public static ListHeadViewFragment getInstance() {
-        ListHeadViewFragment instance = new ListHeadViewFragment();
-        return instance;
+        return new ListHeadViewFragment();
     }
 
     @Override
