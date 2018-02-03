@@ -62,7 +62,7 @@ public class ListHeadViewFragment extends BaseFragment implements OnBannerItemCl
         //TODO 准备数据
         ArrayList<BannerInfo> bannerInfos = new ArrayList<>();
         bannerInfos.add(new BannerInfo<Integer>(R.mipmap.a, "第一张图片"));
-        bannerInfos.add(new BannerInfo<String>("https://avatars2.githubusercontent.com/u/13330076?v=3&u=33de3c989c70716d321d79a99b8d176c7b88349e&s=400", "第二张图片"));
+        bannerInfos.add(new BannerInfo<String>("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2275951577,3020532777&fm=27&gp=0.jpg", "第二张图片"));
         bannerInfos.add(new BannerInfo<Integer>(R.mipmap.b, "第三张图片"));
         bannerInfos.add(new BannerInfo<Integer>(R.mipmap.c, "第四张图片"));
         bannerInfos.add(new BannerInfo<Integer>(R.mipmap.d, "第五张图片"));

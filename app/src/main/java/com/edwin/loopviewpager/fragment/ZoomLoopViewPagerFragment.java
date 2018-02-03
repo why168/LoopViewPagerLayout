@@ -55,11 +55,11 @@ public class ZoomLoopViewPagerFragment extends BaseFragment implements OnBannerI
 
         //TODO 准备数据
         ArrayList<BannerInfo> bannerInfos = new ArrayList<>();
-        bannerInfos.add(new BannerInfo<String>("http://mm.howkuai.com/wp-content/uploads/2016a/08/17/06.jpg", "第一张图片"));
-        bannerInfos.add(new BannerInfo<String>("http://mm.howkuai.com/wp-content/uploads/2016a/06/09/04.jpg", "第二张图片"));
-        bannerInfos.add(new BannerInfo<String>("http://mm.howkuai.com/wp-content/uploads/2016a/02/11/01.jpg", "第三张图片"));
-        bannerInfos.add(new BannerInfo<String>("http://mm.howkuai.com/wp-content/uploads/2016a/02/11/04.jpg", "第四张图片"));
-        bannerInfos.add(new BannerInfo<String>("http://mm.howkuai.com/wp-content/uploads/2016a/07/18/01.jpg", "第五张图片"));
+        bannerInfos.add(new BannerInfo<String>("http://t1.mmonly.cc/uploads/tu/201710/9999/84ca7d2fb4.jpg", "第一张图片"));
+        bannerInfos.add(new BannerInfo<String>("http://t1.mmonly.cc/uploads/tu/201710/9999/70d59c5cac.jpg", "第二张图片"));
+        bannerInfos.add(new BannerInfo<String>("http://t1.mmonly.cc/uploads/tu/zyf/tt/20160324/hbanh31xprw.jpg", "第三张图片"));
+        bannerInfos.add(new BannerInfo<String>("http://t1.mmonly.cc/uploads/allimg/tuku2/16321JO7-0.jpg", "第四张图片"));
+        bannerInfos.add(new BannerInfo<String>("http://t1.mmonly.cc/uploads/tu/bj/20160304/afy1mp4cji2.jpg", "第五张图片"));
 
         //TODO 设置监听
         mLoopViewPagerLayout.setOnLoadImageViewListener(new OnFrescoImageViewLoader());

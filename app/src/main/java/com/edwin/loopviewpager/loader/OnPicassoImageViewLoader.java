@@ -32,7 +32,7 @@ public class OnPicassoImageViewLoader implements OnLoadImageViewListener {
         Picasso
                 .with(imageView.getContext())
                 .load((String) object)
-                .error(R.drawable.indicator_normal_background)
+                .error(R.mipmap.a)
                 .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
