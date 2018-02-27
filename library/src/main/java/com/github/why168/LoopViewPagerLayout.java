@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.DrawableRes;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -119,7 +118,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
         LayoutParams loop_params = new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         addView(loopViewPager, loop_params);
 
-        //TODO FrameLayout
+        // FrameLayout
         FrameLayout indicatorFrameLayout = new FrameLayout(getContext());
         LayoutParams f_params = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ((int) (20 * density)));
         f_params.addRule(RelativeLayout.CENTER_HORIZONTAL);//android:layout_centerHorizontal="true"
@@ -139,14 +138,14 @@ public class LoopViewPagerLayout extends RelativeLayout {
         f_params.setMargins(((int) (10 * density)), 0, ((int) (10 * density)), 0);
         addView(indicatorFrameLayout, f_params);
 
-        //TODO indicatorLayout
+        // 指标的布局
         indicatorLayout = new LinearLayout(getContext());
         FrameLayout.LayoutParams ind_params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
         indicatorLayout.setGravity(Gravity.CENTER);
         indicatorLayout.setOrientation(LinearLayout.HORIZONTAL);
         indicatorFrameLayout.addView(indicatorLayout, ind_params);
 
-        //TODO animIndicatorLayout
+        // 动画指标布局
         animIndicatorLayout = new LinearLayout(getContext());
         FrameLayout.LayoutParams ind_params2 = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         animIndicatorLayout.setGravity(Gravity.CENTER | Gravity.START);
@@ -155,7 +154,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
     }
 
     /**
-     * Be sure to initialize the Data
+     * 确保初始化数据
      *
      * @param context context
      */
@@ -163,11 +162,9 @@ public class LoopViewPagerLayout extends RelativeLayout {
         initializeView();
 
         L.e("LoopViewPager ---> initializeData");
-        //TODO To prevent the flower screen
-        if (loop_duration > loop_ms)
+        if (loop_duration > loop_ms) // 防止花屏
             loop_duration = loop_ms;
 
-        //TODO loop_duration
         try {
             Field mField = ViewPager.class.getDeclaredField("mScroller");
             mField.setAccessible(true);
@@ -189,28 +186,21 @@ public class LoopViewPagerLayout extends RelativeLayout {
             e.printStackTrace();
         }
 
-        //TODO loop_style
         if (loop_style == 1) {
             loopViewPager.setPageTransformer(true, new DepthPageTransformer());
         } else if (loop_style == 2) {
             loopViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         }
 
-        //TODO Listener
         loopViewPager.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        L.e("ACTION_DOWN");
-                        stopLoop();
-                        break;
                     case MotionEvent.ACTION_MOVE:
-                        L.e("ACTION_MOVE");
                         stopLoop();
                         break;
                     case MotionEvent.ACTION_UP:
-                        L.e("ACTION_UP");
                         startLoop();
                         break;
                     default:
@@ -234,7 +224,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
             throw new NullPointerException("LoopViewPagerLayout bannerInfos is null or bannerInfos.size() isEmpty");
         }
 
-        //TODO Initialize multiple times, clear images and little red dot
+        // 防止初始化多次，清除图片和小红点。
         if (indicatorLayout.getChildCount() > 0) {
             indicatorLayout.removeAllViews();
             removeView(animIndicator);
@@ -317,7 +307,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
     }
 
     /**
-     * indicator_location
+     * 指示器的位置
      *
      * @param indicatorLocation (enum values[1:left,0:depth,2:right])
      */
@@ -336,7 +326,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
 
     /**
      * stopLoop
-     * Be sure to in onDestory,To prevent a memory leak
+     * 一定要在onDestroy中防止内存泄漏。
      */
     public void stopLoop() {
         handler.removeMessages(MESSAGE_LOOP);
@@ -376,12 +366,13 @@ public class LoopViewPagerLayout extends RelativeLayout {
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             if (loopPagerAdapterWrapper.getCount() > 0) {
                 float length = ((position % bannerInfos.size()) + positionOffset) / (bannerInfos.size() - 1);
-                //TODO To prevent the last picture the little red dot slip out.
+                // 为了防止最后一小红点滑出去
                 if (length >= 1)
                     return;
                 float path = length * totalDistance;
 //                L.e("path " + path + " = length * " + length + " totalDistance " + totalDistance);
-                ViewCompat.setTranslationX(animIndicator, path);
+//                ViewCompat.setTranslationX(animIndicator, path);
+                animIndicator.setTranslationX(path);
             }
         }
 
@@ -389,10 +380,9 @@ public class LoopViewPagerLayout extends RelativeLayout {
         public void onPageSelected(int position) {
             int i = position % bannerInfos.size();
             if (i == 0) {
-                ViewCompat.setTranslationX(animIndicator, totalDistance * 0.0f);
-            }
-            if (i == bannerInfos.size() - 1) {
-                ViewCompat.setTranslationX(animIndicator, totalDistance * 1.0f);
+                animIndicator.setTranslationX(totalDistance * 0.0f);
+            } else if (i == bannerInfos.size() - 1) {
+                animIndicator.setTranslationX(totalDistance * 1.0f);
             }
         }
 
@@ -401,7 +391,6 @@ public class LoopViewPagerLayout extends RelativeLayout {
 
         }
     }
-
 
 //    private class IndicatorPreDrawListener implements ViewTreeObserver.OnPreDrawListener {
 //        @Override

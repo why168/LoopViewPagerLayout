@@ -8,8 +8,8 @@ android {
         applicationId "com.edwin.loopviewpager"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 8
-        versionName "2.1.5"
+        versionCode 9
+        versionName "2.1.8"
     }
 
     buildTypes {
@@ -19,12 +19,6 @@ android {
         }
     }
 
-    allprojects {
-        repositories {
-            jcenter()
-            maven { url "https://jitpack.io" }
-        }
-    }
 }
 
 dependencies {

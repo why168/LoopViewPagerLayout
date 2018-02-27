@@ -35,7 +35,7 @@ Step 2. Add the dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.why168:LoopViewPagerLayout:2.1.5'
+    compile 'com.github.why168:LoopViewPagerLayout:2.1.8'
 }
 ```
 
@@ -218,6 +218,10 @@ public interface OnBannerItemClickListener {
 * 2017/6/16 
 	1. 优化总距离的计算方法。<a target="_blank" href="https://github.com/why168/LoopViewPagerLayout/issues/5"> issues 5</a>
 	2. 请使用2.1.5稳定版发布
+
+* 2018/2/27
+	1. 代码修复优化更新
+	2. 请使用2.1.8稳定版发布
 
 			
 <br>
