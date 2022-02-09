@@ -35,7 +35,7 @@ import java.util.ArrayList;
  *
  * @author Edwin.Wu
  * @version 2016/11/14 23:58
- * @see <a href="https://github.com/why168/LoopViewPagerLayout">LoopViewPagerLayout/a>
+ * @see <a href="https://github.com/why168/LoopViewPagerLayout">LoopViewPagerLayout</a>
  * @since JDK1.8
  */
 public class LoopViewPagerLayout extends RelativeLayout {
