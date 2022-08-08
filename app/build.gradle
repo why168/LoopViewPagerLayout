@@ -22,12 +22,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':library')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':library')
 
-    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
-    compile "com.facebook.fresco:fresco:$rootProject.frescoVersion"
-    compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    implementation "com.facebook.fresco:fresco:$rootProject.frescoVersion"
+    implementation "com.squareup.picasso:picasso:$rootProject.picassoVersion"
 }
 
