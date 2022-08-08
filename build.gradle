@@ -35,11 +35,12 @@ task clean(type: Delete) {
 
 ext {
     // Sdk and tools
-    minSdkVersion = 16
-    targetSdkVersion = 22
-    compileSdkVersion = 27
-    buildToolsVersion = '27.0.2'
-    supportLibraryVersion = '27.0.2'
+    minSdkVersion = 21
+    targetSdkVersion = 30
+
+    compileSdkVersion = 30
+    buildToolsVersion = '30.0.3'
+    supportLibraryVersion = '28.0.0'
 
     glideVersion = '3.7.0'
     frescoVersion = '0.14.1'

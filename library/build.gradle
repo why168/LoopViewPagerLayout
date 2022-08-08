@@ -1,6 +1,11 @@
-apply plugin: 'com.android.library'
-//apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.why168'
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+    id 'signing'
+//    id 'com.github.dcendents.android-maven'
+}
+
+group = 'com.github.why168'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -33,25 +38,25 @@ tasks.withType(JavaCompile) {
 }
 
 // 打包源码
-//task sourcesJar(type: Jar) {
-//    from android.sourceSets.main.java.srcDirs
-//    classifier = 'sources'
-//}
-//
-//task javadoc(type: Javadoc) {
-//    failOnError  false
-//    source = android.sourceSets.main.java.sourceFiles
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//    classpath += configurations.compile
-//}
-//
-//// 制作文档(Javadoc)
-//task javadocJar(type: Jar, dependsOn: javadoc) {
-//    classifier = 'javadoc'
-//    from javadoc.destinationDir
-//}
-//
-//artifacts {
-//    archives sourcesJar
-//    archives javadocJar
-//}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    archiveClassifier.set("sources")
+}
+
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.api
+}
+
+// 制作文档(Javadoc)
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set("javadoc")
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
