@@ -8,8 +8,8 @@ android {
         applicationId "com.edwin.loopviewpager"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 9
-        versionName "2.1.8"
+        versionCode 10
+        versionName "2.1.9"
     }
 
     buildTypes {
