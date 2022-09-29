@@ -15,7 +15,7 @@ public enum LoopStyle {
     Depth(1),
     Zoom(2);
 
-    private int value;
+    private final int value;
 
     LoopStyle(int idx) {
         this.value = idx;

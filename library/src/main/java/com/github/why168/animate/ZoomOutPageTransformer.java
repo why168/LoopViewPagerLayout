@@ -1,8 +1,9 @@
 package com.github.why168.animate;
 
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * ZoomOutPageTransformer

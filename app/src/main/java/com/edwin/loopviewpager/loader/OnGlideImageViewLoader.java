@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.edwin.loopviewpager.R;
 import com.github.why168.listener.OnLoadImageViewListener;
 
@@ -32,7 +33,7 @@ public class OnGlideImageViewLoader implements OnLoadImageViewListener {
                 .load(parameter)
                 .centerCrop()
                 .error(R.mipmap.ic_launcher)
-                .crossFade()
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(view);
     }
 }

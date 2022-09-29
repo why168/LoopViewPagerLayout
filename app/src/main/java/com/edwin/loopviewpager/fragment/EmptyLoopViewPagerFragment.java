@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.edwin.loopviewpager.R;
 import com.edwin.loopviewpager.base.BaseFragment;
 import com.github.why168.LoopViewPagerLayout;
@@ -74,7 +75,7 @@ public class EmptyLoopViewPagerFragment extends BaseFragment implements OnBanner
                         .load(object)
                         .centerCrop()
                         .error(R.mipmap.ic_launcher)
-                        .crossFade()
+                        .transition(DrawableTransitionOptions.withCrossFade())
                         .into(view);
             }
         });

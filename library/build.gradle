@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
     id 'signing'
 //    id 'com.github.dcendents.android-maven'
@@ -8,14 +9,32 @@ plugins {
 group = 'com.github.why168'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion versions.compileSdk
 
     defaultConfig {
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        consumerProguardFiles 'consumer-proguard-rules.txt'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        minSdk versions.minSdk
+        targetSdk versions.targetSdk
         versionCode 10
         versionName "2.1.9"
+    }
+
+    compileOptions {
+        sourceCompatibility versions.sourceCompatibility
+        targetCompatibility versions.targetCompatibility
+    }
+
+    lintOptions {
+        textOutput 'stdout'
+        textReport true
+        lintConfig rootProject.file('lint.xml')
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 
     buildTypes {
@@ -28,7 +47,16 @@ android {
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    api "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    api deps.androidxLifecycle
+    implementation deps.androidxAnnotations
+    implementation deps.androidxCore
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+
+
+    testImplementation deps.junit
+
+    androidTestImplementation deps.androidxJunit
+    androidTestImplementation deps.androidxTestRunner
 }
 //---------------------------------------------
 

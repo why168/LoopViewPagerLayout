@@ -15,7 +15,7 @@ public enum IndicatorLocation {
     Center(0),
     Right(2);
 
-    private int value;
+    private final int value;
 
     IndicatorLocation(int idx) {
         this.value = idx;

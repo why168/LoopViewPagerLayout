@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.DrawableRes;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -14,6 +12,9 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.DrawableRes;
+import androidx.viewpager.widget.ViewPager;
 
 import com.github.why168.adapter.LoopPagerAdapterWrapper;
 import com.github.why168.animate.DepthPageTransformer;
