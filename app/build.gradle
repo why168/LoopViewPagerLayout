@@ -13,8 +13,8 @@ android {
 
         minSdk versions.minSdk
         targetSdk versions.targetSdk
-        versionCode 10
-        versionName "2.1.9"
+        versionCode versions.versionCode
+        versionName versions.versionName
     }
 
     compileOptions {

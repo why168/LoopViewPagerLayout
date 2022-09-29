@@ -3,7 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
     id 'signing'
-//    id 'com.github.dcendents.android-maven'
 }
 
 group = 'com.github.why168'
@@ -12,12 +11,12 @@ android {
     compileSdkVersion versions.compileSdk
 
     defaultConfig {
-        consumerProguardFiles 'consumer-proguard-rules.txt'
+        consumerProguardFiles 'proguard-rules.txt'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         minSdk versions.minSdk
         targetSdk versions.targetSdk
-        versionCode 10
-        versionName "2.1.9"
+        versionCode versions.versionCode
+        versionName versions.versionName
     }
 
     compileOptions {
@@ -40,7 +39,7 @@ android {
     buildTypes {
         release {
             debuggable false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
 }

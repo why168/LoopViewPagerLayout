@@ -4,6 +4,8 @@ buildscript {
             'compileSdk'         : 32,
             'minSdk'             : 21,
             'targetSdk'          : 32,
+            'versionCode'        : 11,
+            'versionName'        : "2.2.0",
             'sourceCompatibility': JavaVersion.VERSION_11,
             'targetCompatibility': JavaVersion.VERSION_11,
             'kotlin'             : '1.7.10',
@@ -64,17 +66,13 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
         mavenCentral()
+        google()
+        gradlePluginPortal()
         maven { url "https://jitpack.io" }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-ext {
-    // Sdk and tools
-
 }
