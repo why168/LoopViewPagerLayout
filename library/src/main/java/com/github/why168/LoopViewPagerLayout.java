@@ -37,7 +37,7 @@ import java.util.ArrayList;
  * @author Edwin.Wu
  * @version 2016/11/14 23:58
  * @see <a href="https://github.com/why168/LoopViewPagerLayout">LoopViewPagerLayout</a>
- * @since JDK1.8
+ * @since JDK11
  */
 public class LoopViewPagerLayout extends RelativeLayout {
     private ViewPager loopViewPager;
@@ -47,7 +47,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
     private OnLoadImageViewListener onLoadImageViewListener = null;
     private LoopPagerAdapterWrapper loopPagerAdapterWrapper;
     private int totalDistance;//Little red dot all the distance to move
-    private int size = Tools.dip2px(getContext(), 8);//The size of the set point;
+    private final int size = Tools.dip2px(getContext(), 8);//The size of the set point;
     private ArrayList<BannerInfo> bannerInfos;//banner data
     private TextView animIndicator;//Little red dot on the move
     private TextView[] indicators;//Initializes the white dots
@@ -111,7 +111,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
      * Be sure to initialize the View
      */
     private void initializeView() {
-        L.e("LoopViewPager ---> initializeView");
+        L.e("initializeView");
         float density = getResources().getDisplayMetrics().density;
 
         loopViewPager = new ViewPager(getContext());
@@ -162,7 +162,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
     public void initializeData(Context context) {
         initializeView();
 
-        L.e("LoopViewPager ---> initializeData");
+        L.e("initializeData");
         if (loop_duration > loop_ms) // 防止花屏
             loop_duration = loop_ms;
 
@@ -218,7 +218,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
      * @param bannerInfos BannerInfo
      */
     public void setLoopData(ArrayList<BannerInfo> bannerInfos) {
-        L.e("LoopViewPager ---> setLoopData");
+        L.e("setLoopData");
         if (bannerInfos != null && bannerInfos.size() > 0) {
             this.bannerInfos = bannerInfos;
         } else {
@@ -275,9 +275,13 @@ public class LoopViewPagerLayout extends RelativeLayout {
     }
 
     public int getLoop_ms() {
-        if (loop_ms < 1500)
-            loop_ms = 1500;
+        if (loop_ms < 1500) loop_ms = 1500;
         return loop_ms;
+    }
+
+    public boolean setDebug(boolean isDebug) {
+        L.deBug = isDebug;
+        return L.deBug;
     }
 
     /**
@@ -322,7 +326,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
     public void startLoop() {
         handler.removeCallbacksAndMessages(MESSAGE_LOOP);
         handler.sendEmptyMessageDelayed(MESSAGE_LOOP, getLoop_ms());
-        L.e("LoopViewPager ---> startLoop");
+        L.e("startLoop");
     }
 
     /**
@@ -331,7 +335,7 @@ public class LoopViewPagerLayout extends RelativeLayout {
      */
     public void stopLoop() {
         handler.removeMessages(MESSAGE_LOOP);
-        L.e("LoopViewPager ---> stopLoop");
+        L.e("stopLoop");
     }
 
     /**
@@ -368,11 +372,9 @@ public class LoopViewPagerLayout extends RelativeLayout {
             if (loopPagerAdapterWrapper.getCount() > 0) {
                 float length = ((position % bannerInfos.size()) + positionOffset) / (bannerInfos.size() - 1);
                 // 为了防止最后一小红点滑出去
-                if (length >= 1)
-                    return;
+                if (length >= 1) return;
                 float path = length * totalDistance;
-//                L.e("path " + path + " = length * " + length + " totalDistance " + totalDistance);
-//                ViewCompat.setTranslationX(animIndicator, path);
+                L.e("path " + path + " = length * " + length + " totalDistance " + totalDistance);
                 animIndicator.setTranslationX(path);
             }
         }

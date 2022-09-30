@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
  * @author Edwin.Wu
  * @version 2016/12/6 18:10
  * @see <a href="https://github.com/square/picasso">Picasso/a>
- * @since JDK1.8
+ * @since JDK11
  */
 public class OnPicassoImageViewLoader implements OnLoadImageViewListener {
 

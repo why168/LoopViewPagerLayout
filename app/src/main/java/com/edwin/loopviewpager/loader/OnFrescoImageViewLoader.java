@@ -14,7 +14,7 @@ import com.github.why168.listener.OnLoadImageViewListener;
  * @author Edwin.Wu
  * @version 2016/12/6 18:11
  * @see <a href="https://github.com/facebook/fresco">Fresco/a>
- * @since JDK1.8
+ * @since JDK11
  */
 public class OnFrescoImageViewLoader implements OnLoadImageViewListener {
 

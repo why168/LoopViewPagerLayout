@@ -7,11 +7,11 @@ import android.util.Log;
  *
  * @author Edwin.Wu
  * @version 2016/6/12 上午1:02
- * @since JDK1.8
+ * @since JDK11
  */
 public class L {
     public static boolean deBug = false;
-    public static String TAG = "Edwin";
+    public static String TAG = "Library LoopViewPagerLayout";
 
     public static void e(String msg) {
         if (deBug)

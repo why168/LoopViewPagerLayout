@@ -12,7 +12,7 @@ import android.widget.TextView;
  *
  * @author Edwin.Wu
  * @version 2016/11/28 18:59
- * @since JDK1.8
+ * @since JDK11
  */
 public class ListHeadViewAdapter extends BaseAdapter {
     private Context mActivity;

@@ -15,7 +15,7 @@ import com.github.why168.listener.OnLoadImageViewListener;
  * @author Edwin.Wu
  * @version 2016/12/6 18:04
  * @see <a href="https://github.com/bumptech/glide">Glide/a>
- * @since JDK1.8
+ * @since JDK11
  */
 public class OnGlideImageViewLoader implements OnLoadImageViewListener {
 

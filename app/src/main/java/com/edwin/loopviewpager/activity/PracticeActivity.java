@@ -21,7 +21,7 @@ import java.util.ArrayList;
  *
  * @author Edwin.Wu
  * @version 2016/11/14 17:55
- * @since JDK1.8
+ * @since JDK11
  */
 public class PracticeActivity extends BaseActivity {
     private Button mButton;
@@ -43,7 +43,7 @@ public class PracticeActivity extends BaseActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO 更新新数据
+                // 更新新数据
                 ArrayList<BannerInfo> data = new ArrayList<>();
                 data.add(new BannerInfo<Integer>(R.mipmap.d, "第一张图片"));
                 data.add(new BannerInfo<Integer>(R.mipmap.d, "第三张图片"));

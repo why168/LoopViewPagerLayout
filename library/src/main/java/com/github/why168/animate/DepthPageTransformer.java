@@ -11,7 +11,7 @@ import androidx.viewpager.widget.ViewPager;
  *
  * @author Edwin.Wu
  * @version 16/6/13 下午9:43
- * @since JDK1.8
+ * @since JDK11
  */
 public class DepthPageTransformer implements ViewPager.PageTransformer {
     private static final float MIN_SCALE = 0.75f;

@@ -25,7 +25,7 @@ import java.util.ArrayList;
  *
  * @author Edwin.Wu
  * @version 2016/11/7 17:27
- * @since JDK1.8
+ * @since JDK11
  */
 public class EmptyLoopViewPagerFragment extends BaseFragment implements OnBannerItemClickListener {
     private LoopViewPagerLayout mLoopViewPagerLayout;
@@ -46,7 +46,7 @@ public class EmptyLoopViewPagerFragment extends BaseFragment implements OnBanner
 
     @Override
     protected void initData() {
-        //TODO 设置LoopViewPager参数
+        // 设置LoopViewPager参数
         mLoopViewPagerLayout.setLoop_ms(2000);//轮播的速度(毫秒)
         mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
         mLoopViewPagerLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty
@@ -55,10 +55,10 @@ public class EmptyLoopViewPagerFragment extends BaseFragment implements OnBanner
         mLoopViewPagerLayout.setSelectedBackground(R.drawable.selected_background);//选中指示器颜色
         L.e("LoopViewPager Empty 参数设置完毕");
 
-        //TODO 初始化
+        // 初始化
         mLoopViewPagerLayout.initializeData(mActivity);
 
-        //TODO 准备数据
+        // 准备数据
         ArrayList<BannerInfo> bannerInfos = new ArrayList<>();
         bannerInfos.add(new BannerInfo<Integer>(R.mipmap.a, "第一张图片"));
         bannerInfos.add(new BannerInfo<String>("https://avatars2.githubusercontent.com/u/13330076?v=3&u=33de3c989c70716d321d79a99b8d176c7b88349e&s=400", "第二张图片"));
@@ -66,7 +66,7 @@ public class EmptyLoopViewPagerFragment extends BaseFragment implements OnBanner
         bannerInfos.add(new BannerInfo<Integer>(R.mipmap.c, "第四张图片"));
         bannerInfos.add(new BannerInfo<Integer>(R.mipmap.d, "第五张图片"));
 
-        //TODO 设置监听
+        // 设置监听
         mLoopViewPagerLayout.setOnLoadImageViewListener(new OnDefaultImageViewLoader() {
             @Override
             public void onLoadImageView(ImageView view, Object object) {
@@ -81,7 +81,7 @@ public class EmptyLoopViewPagerFragment extends BaseFragment implements OnBanner
         });
         mLoopViewPagerLayout.setOnBannerItemClickListener(this);
 
-        //TODO 设置数据
+        // 设置数据
         mLoopViewPagerLayout.setLoopData(bannerInfos);
     }
 
@@ -92,14 +92,14 @@ public class EmptyLoopViewPagerFragment extends BaseFragment implements OnBanner
 
     @Override
     public void onStart() {
-        //TODO 开始循环
+        // 开始循环
         mLoopViewPagerLayout.startLoop();
         super.onStart();
     }
 
     @Override
     public void onStop() {
-        //TODO 停止循环
+        // 停止循环
         mLoopViewPagerLayout.stopLoop();
         super.onStop();
     }

@@ -111,7 +111,7 @@ dependencies {
  *
  * @author Edwin.Wu
  * @version 2016/12/6 14:40
- * @since JDK1.8
+ * @since JDK11
  */
 public interface OnLoadImageViewListener {
     /**
@@ -141,7 +141,7 @@ public interface OnLoadImageViewListener {
  *
  * @author Edwin.Wu
  * @version 2016/12/6 15:38
- * @since JDK1.8
+ * @since JDK11
  */
 public interface OnBannerItemClickListener {
     /**

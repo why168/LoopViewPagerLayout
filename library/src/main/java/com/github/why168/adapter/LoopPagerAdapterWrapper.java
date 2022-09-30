@@ -19,7 +19,7 @@ import java.util.ArrayList;
  *
  * @author Edwin.Wu
  * @version 2016/12/1 17:48
- * @since JDK1.8
+ * @since JDK11
  */
 public class LoopPagerAdapterWrapper extends PagerAdapter {
     private final Context context;

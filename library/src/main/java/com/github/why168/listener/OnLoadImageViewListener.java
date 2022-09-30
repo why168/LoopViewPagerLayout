@@ -8,7 +8,7 @@ import android.widget.ImageView;
  *
  * @author Edwin.Wu
  * @version 2016/12/6 14:40
- * @since JDK1.8
+ * @since JDK11
  */
 public interface OnLoadImageViewListener {
     /**

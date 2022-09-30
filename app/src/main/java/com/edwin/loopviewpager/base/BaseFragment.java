@@ -18,7 +18,7 @@ import android.view.ViewGroup;
  *
  * @author Edwin.Wu
  * @version 2016/11/7 17:16
- * @since JDK1.8
+ * @since JDK11
  */
 public abstract class BaseFragment extends Fragment {
     protected BaseActivity mActivity;

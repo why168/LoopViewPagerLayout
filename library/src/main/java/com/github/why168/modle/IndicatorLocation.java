@@ -8,7 +8,7 @@ package com.github.why168.modle;
  *
  * @author Edwin.Wu
  * @version 2016/12/1 18:59
- * @since JDK1.8
+ * @since JDK11
  */
 public enum IndicatorLocation {
     Left(1),

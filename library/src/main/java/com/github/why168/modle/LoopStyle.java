@@ -8,7 +8,7 @@ package com.github.why168.modle;
  *
  * @author Edwin.Wu
  * @version 2016/11/2 00:41
- * @since JDK1.8
+ * @since JDK11
  */
 public enum LoopStyle {
     Empty(-1),

@@ -10,7 +10,7 @@ import com.github.why168.listener.OnLoadImageViewListener;
  *
  * @author Edwin.Wu
  * @version 2016/12/6 14:42
- * @since JDK1.8
+ * @since JDK11
  */
 public abstract class OnDefaultImageViewLoader implements OnLoadImageViewListener {
 

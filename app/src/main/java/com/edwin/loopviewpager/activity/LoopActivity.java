@@ -21,7 +21,7 @@ import com.edwin.loopviewpager.fragment.ZoomLoopViewPagerFragment;
  *
  * @author Edwin.Wu
  * @version 2016/11/8 00:15
- * @since JDK1.8
+ * @since JDK11
  */
 public class LoopActivity extends BaseActivity implements View.OnClickListener {
     private TextView text_loop_info;

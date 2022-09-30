@@ -10,7 +10,7 @@ import android.graphics.BitmapFactory;
  *
  * @author Edwin.Wu
  * @version 2016/06/13 下午10:14
- * @since JDK1.8
+ * @since JDK11
  */
 public class Tools {
     /**
