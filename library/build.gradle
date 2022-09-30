@@ -2,10 +2,10 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
-    id 'signing'
 }
 
 group = 'com.github.why168'
+version = versions.versionName
 
 android {
     compileSdkVersion versions.compileSdk
@@ -46,7 +46,7 @@ android {
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    api deps.androidxLifecycle
+    implementation deps.androidxLifecycle
     implementation deps.androidxAnnotations
     implementation deps.androidxCore
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -57,33 +57,17 @@ dependencies {
     androidTestImplementation deps.androidxJunit
     androidTestImplementation deps.androidxTestRunner
 }
-//---------------------------------------------
 
-// 指定编码
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-
-// 打包源码
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    archiveClassifier.set("sources")
-}
-
-task javadoc(type: Javadoc) {
-    failOnError false
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.api
-}
-
-// 制作文档(Javadoc)
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    archiveClassifier.set("javadoc")
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.why168'
+                artifactId = 'LoopViewPagerLayout'
+                version = versions.versionName
+            }
+        }
+    }
 }
