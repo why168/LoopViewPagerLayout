@@ -32,8 +32,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':library')
-//    implementation 'com.github.why168:LoopViewPagerLayout:2.2.0'
+//    implementation project(':library')
+    implementation 'com.github.why168:LoopViewPagerLayout:2.2.1'
 
 
     implementation deps.androidxLifecycle
