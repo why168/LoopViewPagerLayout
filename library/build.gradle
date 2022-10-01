@@ -90,6 +90,8 @@ artifacts {
 //}
 
 // add publish script
+// 发布检验 gpg --keyserver hkp://keyserver.ubuntu.com:11371 --send-keys signing.keyId
+
 //publishing {
 //    publications {
 //        release(MavenPublication) {
@@ -122,7 +124,7 @@ artifacts {
 //
 //            groupId "io.github.why168"
 //            artifactId "LoopViewPagerLayout"
-//            version "2.2.1"
+//            version versions.versionName
 //
 //            afterEvaluate {
 //                from components.release
