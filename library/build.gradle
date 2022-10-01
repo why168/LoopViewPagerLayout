@@ -24,6 +24,9 @@ android {
         sourceCompatibility versions.sourceCompatibility
         targetCompatibility versions.targetCompatibility
     }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
 
     lintOptions {
         textOutput 'stdout'
