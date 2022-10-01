@@ -44,6 +44,7 @@ public class ZoomLoopViewPagerFragment extends BaseFragment implements OnBannerI
     @Override
     protected void initData() {
         // 设置LoopViewPager参数
+        mLoopViewPagerLayout.setDebug(true);
         mLoopViewPagerLayout.setLoop_ms(2000);//轮播的速度(毫秒)
         mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
         mLoopViewPagerLayout.setLoop_style(LoopStyle.Zoom);//轮播的样式-深度depth

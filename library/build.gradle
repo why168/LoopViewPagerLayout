@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
+    id 'signing'
 }
 
 group = 'com.github.why168'
@@ -71,16 +72,70 @@ artifacts {
     archives sourcesJar
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            // Creates a Maven publication called "release".
-            release(MavenPublication) {
-                from components.release
-                groupId = 'com.github.why168'
-                artifactId = 'LoopViewPagerLayout'
-                version = versions.versionName
-            }
-        }
-    }
-}
+//afterEvaluate {
+//    publishing {
+//        publications {
+//            // Creates a Maven publication called "release".
+//            release(MavenPublication) {
+//                from components.release
+//                groupId = 'com.github.why168'
+//                artifactId = 'LoopViewPagerLayout'
+//                version = versions.versionName
+//            }
+//        }
+//    }
+//}
+
+// add publish script
+//publishing {
+//    publications {
+//        release(MavenPublication) {
+//            pom {
+//                name = 'LoopViewPagerLayout Library'
+//                description = 'The LoopViewPagerLayout Library is a static library supports Android. Compatible on devices running API 21 or later.'
+//                url = 'https://github.com/why168/LoopViewPagerLayout'
+//
+//                licenses {
+//                    license {
+//                        name = 'The Apache License, Version 2.0'
+//                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//                    }
+//                }
+//
+//                developers {
+//                    developer {
+//                        id = 'why168'
+//                        name = 'edwin'
+//                        email = 'edwin.wu05@gmail.com'
+//                    }
+//                }
+//
+//                scm {
+//                    connection = 'https://github.com/why168/LoopViewPagerLayout.git'
+//                    developerConnection = 'https://github.com/why168/LoopViewPagerLayout.git'
+//                    url = 'https://github.com/why168/LoopViewPagerLayout'
+//                }
+//            }
+//
+//            groupId "io.github.why168"
+//            artifactId "LoopViewPagerLayout"
+//            version "2.2.1"
+//
+//            afterEvaluate {
+//                from components.release
+//            }
+//        }
+//    }
+//    repositories {
+//        maven {
+//            url "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+//            credentials {
+//                username ossrhUsername // ossrhUsername is your sonatype username
+//                password ossrhPassword // ossrhUsername is your sonatype password
+//            }
+//        }
+//    }
+//}
+//signing {
+//    sign publishing.publications.release
+//}

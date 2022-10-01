@@ -23,7 +23,7 @@ public class OnPicassoImageViewLoader implements OnLoadImageViewListener {
     @Override
     public ImageView createImageView(Context context) {
         ImageView imageView = new ImageView(context);
-        imageView.setScaleType(ImageView.ScaleType.MATRIX);
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         return imageView;
     }
 

@@ -47,6 +47,7 @@ public class EmptyLoopViewPagerFragment extends BaseFragment implements OnBanner
     @Override
     protected void initData() {
         // 设置LoopViewPager参数
+        mLoopViewPagerLayout.setDebug(true);
         mLoopViewPagerLayout.setLoop_ms(2000);//轮播的速度(毫秒)
         mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
         mLoopViewPagerLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty

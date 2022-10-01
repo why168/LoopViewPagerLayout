@@ -49,7 +49,9 @@ public class ListHeadViewFragment extends BaseFragment implements OnBannerItemCl
         mListView.setAdapter(new ListHeadViewAdapter(getContext()));
         View inflateView = LayoutInflater.from(mActivity).inflate(R.layout.item_banner, null);
         mLoopViewPagerLayout = (LoopViewPagerLayout) inflateView.findViewById(R.id.mLoopViewPagerLayout_banner);
+
         // 设置LoopViewPager参数
+        mLoopViewPagerLayout.setDebug(true);
         mLoopViewPagerLayout.setLoop_ms(2000);//轮播的速度(毫秒)
         mLoopViewPagerLayout.setLoop_duration(1000);//滑动的速率(毫秒)
         mLoopViewPagerLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty
