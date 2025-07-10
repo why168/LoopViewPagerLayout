@@ -28,6 +28,7 @@ import com.github.why168.scroller.LoopScroller;
 import com.github.why168.utils.L;
 import com.github.why168.utils.Tools;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
@@ -60,31 +61,46 @@ public class LoopViewPagerLayout extends RelativeLayout {
     private int loop_style = -1; //loop style(enum values[-1:empty,1:depth 2:zoom])
     private IndicatorLocation indicatorLocation = IndicatorLocation.Center; //Indicator Location(enum values[1:left,0:depth 2:right])
     private int loop_duration = 2000;//loop rate(ms)
-    private Handler handler = new Handler(Looper.getMainLooper()) {
+    private static class LoopHandler extends Handler {
+        private final WeakReference<LoopViewPagerLayout> weakReference;
+
+        public LoopHandler(LoopViewPagerLayout layout) {
+            super(Looper.getMainLooper());
+            this.weakReference = new WeakReference<>(layout);
+        }
+
         @Override
-        public void dispatchMessage(Message msg) {
-            super.dispatchMessage(msg);
-            if (msg.what == MESSAGE_LOOP) {
-                if (loopViewPager.getCurrentItem() < Short.MAX_VALUE - 1) {
-                    loopViewPager.setCurrentItem(loopViewPager.getCurrentItem() + 1, true);
-                    sendEmptyMessageDelayed(MESSAGE_LOOP, getLoop_ms());
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            LoopViewPagerLayout layout = weakReference.get();
+            if (layout != null && msg.what == MESSAGE_LOOP) {
+                int currentItem = layout.loopViewPager.getCurrentItem();
+                int totalCount = layout.loopPagerAdapterWrapper != null ? layout.loopPagerAdapterWrapper.getCount() : 0;
+                if (currentItem < totalCount - 1) {
+                    layout.loopViewPager.setCurrentItem(currentItem + 1, true);
+                    sendEmptyMessageDelayed(MESSAGE_LOOP, layout.getLoop_ms());
                 }
             }
         }
-    };
+    }
+
+    private LoopHandler handler;
 
     public LoopViewPagerLayout(Context context) {
         super(context);
+        this.handler = new LoopHandler(this);
         L.e("Initialize LoopViewPagerLayout ---> context");
     }
 
     public LoopViewPagerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.handler = new LoopHandler(this);
         L.e("Initialize LoopViewPagerLayout ---> context, attrs");
     }
 
     public LoopViewPagerLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.handler = new LoopHandler(this);
         L.e("Initialize LoopViewPagerLayout ---> context, attrs, defStyleAttr");
     }
 
@@ -242,7 +258,9 @@ public class LoopViewPagerLayout extends RelativeLayout {
         loopViewPager.setAdapter(loopPagerAdapterWrapper);
         loopViewPager.addOnPageChangeListener(new ViewPageChangeListener());
 
-        int index = Short.MAX_VALUE / 2 - (Short.MAX_VALUE / 2) % bannerInfos.size();
+        // 设置初始位置到中间位置，确保可以向前向后无限滚动
+        int totalCount = loopPagerAdapterWrapper.getCount();
+        int index = totalCount / 2 - (totalCount / 2) % bannerInfos.size();
         loopViewPager.setCurrentItem(index);
     }
 
@@ -324,8 +342,10 @@ public class LoopViewPagerLayout extends RelativeLayout {
      * startLoop
      */
     public void startLoop() {
-        handler.removeCallbacksAndMessages(MESSAGE_LOOP);
-        handler.sendEmptyMessageDelayed(MESSAGE_LOOP, getLoop_ms());
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+            handler.sendEmptyMessageDelayed(MESSAGE_LOOP, getLoop_ms());
+        }
         L.e("startLoop");
     }
 
@@ -334,7 +354,9 @@ public class LoopViewPagerLayout extends RelativeLayout {
      * 一定要在onDestroy中防止内存泄漏。
      */
     public void stopLoop() {
-        handler.removeMessages(MESSAGE_LOOP);
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
         L.e("stopLoop");
     }
 
@@ -369,10 +391,23 @@ public class LoopViewPagerLayout extends RelativeLayout {
     private class ViewPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            if (loopPagerAdapterWrapper.getCount() > 0) {
-                float length = ((position % bannerInfos.size()) + positionOffset) / (bannerInfos.size() - 1);
-                // 为了防止最后一小红点滑出去
-                if (length >= 1) return;
+            if (loopPagerAdapterWrapper.getCount() > 0 && bannerInfos != null && bannerInfos.size() > 0) {
+                // 防止除零错误：当只有一张图片时，直接返回
+                if (bannerInfos.size() == 1) {
+                    animIndicator.setTranslationX(0);
+                    return;
+                }
+                
+                int currentIndex = position % bannerInfos.size();
+                float length = (currentIndex + positionOffset) / (bannerInfos.size() - 1);
+                
+                // 边界检查：防止指示器滑出范围
+                if (length > 1.0f) {
+                    length = 1.0f;
+                } else if (length < 0.0f) {
+                    length = 0.0f;
+                }
+                
                 float path = length * totalDistance;
                 L.e("path " + path + " = length * " + length + " totalDistance " + totalDistance);
                 animIndicator.setTranslationX(path);
@@ -381,17 +416,22 @@ public class LoopViewPagerLayout extends RelativeLayout {
 
         @Override
         public void onPageSelected(int position) {
-            int i = position % bannerInfos.size();
-            if (i == 0) {
-                animIndicator.setTranslationX(totalDistance * 0.0f);
-            } else if (i == bannerInfos.size() - 1) {
-                animIndicator.setTranslationX(totalDistance * 1.0f);
+            if (bannerInfos != null && bannerInfos.size() > 0) {
+                int i = position % bannerInfos.size();
+                if (bannerInfos.size() == 1) {
+                    // 只有一张图片时，指示器保持在起始位置
+                    animIndicator.setTranslationX(0);
+                } else if (i == 0) {
+                    animIndicator.setTranslationX(0);
+                } else if (i == bannerInfos.size() - 1) {
+                    animIndicator.setTranslationX(totalDistance);
+                }
             }
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
-
+            // 可以在这里添加状态改变时的处理逻辑
         }
     }
 

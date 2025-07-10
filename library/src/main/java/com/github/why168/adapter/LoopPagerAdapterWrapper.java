@@ -37,7 +37,9 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return Short.MAX_VALUE;
+        // 使用更合理的数值实现无限循环，避免性能问题
+        // 1000 * bannerInfos.size() 足以提供良好的循环体验
+        return bannerInfos == null || bannerInfos.size() == 0 ? 0 : 1000 * bannerInfos.size();
     }
 
     @Override
